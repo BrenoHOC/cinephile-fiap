@@ -1,0 +1,22 @@
+[
+    {
+        "id": "aa0e170c91379e2f",
+        "type": "tab",
+        "label": "Fluxo 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "ddef06d8d0048305",
+        "type": "global-config",
+        "name": "global-config",
+        "env": [
+            {
+                "name": "NODE_RED_ENABLE_PROJECTS",
+                "value": "true",
+                "type": "str"
+            }
+        ]
+    }
+]
