@@ -1,7 +1,5 @@
-cinephile-fiap
-==============
+# cinephile-fiap
 
 ### About
 
-This is your project's README.md file. It helps users understand what your
-project does, how to use it and anything else they may need to know.
+Projeto do tech challenge da pós tech da FIAP, fase 1, do grupo P.
