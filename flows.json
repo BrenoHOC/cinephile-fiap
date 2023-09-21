@@ -44,7 +44,8 @@
         "y": 140,
         "wires": [
             [
-                "fc20faa0a1923565"
+                "fc20faa0a1923565",
+                "b68baba32a366125"
             ]
         ]
     },
@@ -62,6 +63,22 @@
         "statusType": "auto",
         "x": 290,
         "y": 120,
+        "wires": []
+    },
+    {
+        "id": "b68baba32a366125",
+        "type": "debug",
+        "z": "aa0e170c91379e2f",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 300,
+        "y": 200,
         "wires": []
     }
 ]
