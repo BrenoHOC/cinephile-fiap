@@ -20,6 +20,134 @@
         ]
     },
     {
+        "id": "efbcd60e6a02a05e",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-light",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#0094CE",
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#fafafa",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#1bbfff",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#0094ce",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey",
+                "palette": "light"
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "8a77e8fa5a34a8c0",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "be1439f3a0ba43d1",
+        "type": "ui_group",
+        "name": "Entrada de informação",
+        "tab": "8a77e8fa5a34a8c0",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "9b81770e912bf6fa",
+        "type": "ui_group",
+        "name": "Saída de informação",
+        "tab": "8a77e8fa5a34a8c0",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
         "id": "52a7fda463a56171",
         "type": "inject",
         "z": "aa0e170c91379e2f",
@@ -40,8 +168,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 100,
-        "y": 140,
+        "x": 400,
+        "y": 120,
         "wires": [
             [
                 "fc20faa0a1923565",
@@ -62,8 +190,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 340,
-        "y": 80,
+        "x": 640,
+        "y": 60,
         "wires": []
     },
     {
@@ -78,8 +206,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 340,
-        "y": 140,
+        "x": 640,
+        "y": 120,
         "wires": []
     },
     {
@@ -94,8 +222,391 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 340,
-        "y": 200,
+        "x": 640,
+        "y": 180,
         "wires": []
+    },
+    {
+        "id": "67c72f5a3755b7ed",
+        "type": "e-mail",
+        "z": "aa0e170c91379e2f",
+        "server": "",
+        "port": "",
+        "authtype": "BASIC",
+        "saslformat": true,
+        "token": "oauth2Response.access_token",
+        "secure": false,
+        "tls": false,
+        "name": "",
+        "dname": "envio de email - mailtrap",
+        "x": 710,
+        "y": 260,
+        "wires": [],
+        "info": "testando email"
+    },
+    {
+        "id": "5c085ccb6c284bf7",
+        "type": "inject",
+        "z": "aa0e170c91379e2f",
+        "name": "",
+        "props": [
+            {
+                "p": "to",
+                "v": "breno.hoc3@gmail.com",
+                "vt": "str"
+            },
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "teste nodered",
+        "payload": "testando envio de email",
+        "payloadType": "str",
+        "x": 280,
+        "y": 260,
+        "wires": [
+            [
+                "67c72f5a3755b7ed"
+            ]
+        ]
+    },
+    {
+        "id": "427d0ff0ac923564",
+        "type": "inject",
+        "z": "aa0e170c91379e2f",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 240,
+        "y": 360,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "db7c662af5481bb9",
+        "type": "e-mail",
+        "z": "aa0e170c91379e2f",
+        "server": "",
+        "port": "",
+        "authtype": "BASIC",
+        "saslformat": true,
+        "token": "oauth2Response.access_token",
+        "secure": false,
+        "tls": false,
+        "name": "",
+        "dname": "envio de email - Gmail",
+        "x": 700,
+        "y": 360,
+        "wires": [],
+        "info": "testando email"
+    },
+    {
+        "id": "c78d38fb152a610f",
+        "type": "template",
+        "z": "aa0e170c91379e2f",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "This is the payload: {{payload}} !",
+        "output": "str",
+        "x": 460,
+        "y": 420,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "248d39cb875931a3",
+        "type": "ui_button",
+        "z": "aa0e170c91379e2f",
+        "name": "",
+        "group": "be1439f3a0ba43d1",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "disparo de info",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "A pós tech é demais",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 220,
+        "y": 580,
+        "wires": [
+            [
+                "db59336cc46afc8d"
+            ]
+        ]
+    },
+    {
+        "id": "db59336cc46afc8d",
+        "type": "ui_text",
+        "z": "aa0e170c91379e2f",
+        "group": "9b81770e912bf6fa",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Informação:",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 510,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "970fb47421d56991",
+        "type": "ui_gauge",
+        "z": "aa0e170c91379e2f",
+        "name": "",
+        "group": "9b81770e912bf6fa",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Nível",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "50",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 330,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "3a819f398ae87aaf",
+        "type": "ui_slider",
+        "z": "aa0e170c91379e2f",
+        "name": "",
+        "label": "nível",
+        "tooltip": "",
+        "group": "be1439f3a0ba43d1",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "outs": "all",
+        "topic": "topic",
+        "topicType": "msg",
+        "min": 0,
+        "max": "50",
+        "step": 1,
+        "className": "",
+        "x": 90,
+        "y": 740,
+        "wires": [
+            [
+                "970fb47421d56991",
+                "f8fff8a462b6df40",
+                "f92491bb199ac54f"
+            ]
+        ]
+    },
+    {
+        "id": "f8fff8a462b6df40",
+        "type": "ui_chart",
+        "z": "aa0e170c91379e2f",
+        "name": "",
+        "group": "9b81770e912bf6fa",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "label": "Temperatura",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "50",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 350,
+        "y": 740,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f92491bb199ac54f",
+        "type": "change",
+        "z": "aa0e170c91379e2f",
+        "name": "",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "43",
+                "fromt": "num",
+                "to": "Temperatura Elevada",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "50",
+                "fromt": "num",
+                "to": "Temperatura Máxima",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "12",
+                "fromt": "num",
+                "to": "Risco de temperatura baixa",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 360,
+        "y": 840,
+        "wires": [
+            [
+                "5ba06c7877799380"
+            ]
+        ]
+    },
+    {
+        "id": "a65aac2dcbfdc7d2",
+        "type": "ui_toast",
+        "z": "aa0e170c91379e2f",
+        "position": "top right",
+        "displayTime": "3",
+        "highlight": "",
+        "sendall": true,
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "raw": false,
+        "className": "",
+        "topic": "",
+        "name": "",
+        "x": 750,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "5ba06c7877799380",
+        "type": "switch",
+        "z": "aa0e170c91379e2f",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "btwn",
+                "v": "0",
+                "vt": "num",
+                "v2": "50",
+                "v2t": "num"
+            },
+            {
+                "t": "neq",
+                "v": "!",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "x": 550,
+        "y": 840,
+        "wires": [
+            [],
+            [
+                "a65aac2dcbfdc7d2"
+            ]
+        ]
+    },
+    {
+        "id": "a0a69bb371136667",
+        "type": "http request",
+        "z": "aa0e170c91379e2f",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": false,
+        "url": "",
+        "persist": false,
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 420,
+        "y": 1140,
+        "wires": [
+            []
+        ]
     }
 ]
