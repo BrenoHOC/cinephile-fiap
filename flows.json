@@ -8,16 +8,18 @@
         "env": []
     },
     {
+        "id": "8c761bcddb6e0b85",
+        "type": "tab",
+        "label": "Fluxo de cadastro de usuário",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "ddef06d8d0048305",
         "type": "global-config",
         "name": "global-config",
-        "env": [
-            {
-                "name": "NODE_RED_ENABLE_PROJECTS",
-                "value": "true",
-                "type": "str"
-            }
-        ]
+        "env": []
     },
     {
         "id": "efbcd60e6a02a05e",
@@ -250,19 +252,19 @@
         "id": "67c72f5a3755b7ed",
         "type": "e-mail",
         "z": "aa0e170c91379e2f",
-        "server": "",
-        "port": "",
+        "server": "${EMAIL_SERVER}",
+        "port": "${EMAIL_PORT}",
         "authtype": "BASIC",
         "saslformat": true,
         "token": "oauth2Response.access_token",
         "secure": false,
         "tls": false,
         "name": "",
-        "dname": "envio de email - mailtrap",
-        "x": 710,
+        "dname": "envio de email",
+        "x": 680,
         "y": 260,
         "wires": [],
-        "info": "testando email"
+        "info": "As configurações precisam estar nas variáveis de amviente"
     },
     {
         "id": "5c085ccb6c284bf7",
@@ -288,9 +290,9 @@
         "once": false,
         "onceDelay": 0.1,
         "topic": "teste nodered",
-        "payload": "testando envio de email",
+        "payload": "vamos ver",
         "payloadType": "str",
-        "x": 280,
+        "x": 290,
         "y": 260,
         "wires": [
             [
@@ -324,24 +326,6 @@
         "wires": [
             []
         ]
-    },
-    {
-        "id": "db7c662af5481bb9",
-        "type": "e-mail",
-        "z": "aa0e170c91379e2f",
-        "server": "",
-        "port": "",
-        "authtype": "BASIC",
-        "saslformat": true,
-        "token": "oauth2Response.access_token",
-        "secure": false,
-        "tls": false,
-        "name": "",
-        "dname": "envio de email - Gmail",
-        "x": 700,
-        "y": 360,
-        "wires": [],
-        "info": "testando email"
     },
     {
         "id": "248d39cb875931a3",
@@ -593,10 +577,50 @@
         ]
     },
     {
-        "id": "469cb6dff62adb05",
+        "id": "a78e3231d97bf413",
+        "type": "inject",
+        "z": "aa0e170c91379e2f",
+        "name": "",
+        "props": [
+            {
+                "p": "payload.server",
+                "v": "EMAIL_SERVER",
+                "vt": "env"
+            },
+            {
+                "p": "payload.port",
+                "v": "EMAIL_PORT",
+                "vt": "env"
+            },
+            {
+                "p": "payload.user",
+                "v": "EMAIL_USER",
+                "vt": "env"
+            },
+            {
+                "p": "payload.password",
+                "v": "EMAIL_PASSWORD",
+                "vt": "env"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 190,
+        "y": 1140,
+        "wires": [
+            [
+                "a6ecabf6a256398a"
+            ]
+        ]
+    },
+    {
+        "id": "a6ecabf6a256398a",
         "type": "debug",
         "z": "aa0e170c91379e2f",
-        "name": "debug 6",
+        "name": "debug 8",
         "active": true,
         "tosidebar": true,
         "console": false,
@@ -604,14 +628,30 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 660,
-        "y": 1220,
+        "x": 680,
+        "y": 1140,
         "wires": []
     },
     {
-        "id": "3003dca1e42511c7",
+        "id": "b60458e56dbabd36",
+        "type": "debug",
+        "z": "8c761bcddb6e0b85",
+        "name": "debug 7",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 840,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "1aa635ca051d2e8f",
         "type": "ui_form",
-        "z": "aa0e170c91379e2f",
+        "z": "8c761bcddb6e0b85",
         "name": "",
         "label": "",
         "group": "b77ad3d3025c33ce",
@@ -653,20 +693,20 @@
         "topicType": "msg",
         "splitLayout": "",
         "className": "",
-        "x": 150,
-        "y": 1100,
+        "x": 210,
+        "y": 60,
         "wires": [
             [
-                "b88e251bc9dc156c"
+                "539e6237d2a1eacd"
             ]
         ]
     },
     {
-        "id": "b88e251bc9dc156c",
+        "id": "539e6237d2a1eacd",
         "type": "function",
-        "z": "aa0e170c91379e2f",
-        "name": "function 1",
-        "func": "const bcrypt = global.get('bcrypt');\nconst uuidv4 = global.get('uuid');\n\nconst formatted = moment(new Date()).format(\"YYYY-MM-DD HH:mm:ss\");\n\nasync function gerarHashSenha(senha) {\n  return await bcrypt.hash(senha, 10)\n    .then(hash => hash)\n    .catch(err => {\n      throw err;\n    });\n}\n\nconst senhaEncriptografada = await gerarHashSenha(msg.payload.password)\n  .then(hash => hash)\n  .catch(err => console.log(err));\n\nmsg.payload = {\n    id: uuidv4.v4(),\n    nome: msg.payload.username,\n    email: msg.payload.email,\n    password: senhaEncriptografada,\n    data_criacao: formatted,\n    data_atualizacao: formatted\n}\n\nreturn msg;",
+        "z": "8c761bcddb6e0b85",
+        "name": "function 2",
+        "func": "const bcrypt = global.get('bcrypt');\nconst uuidv4 = global.get('uuid');\n\nconst formatted = moment(new Date()).format(\"YYYY-MM-DD HH:mm:ss\");\n\nasync function gerarHashSenha(senha) {\n  return await bcrypt.hash(senha, 10)\n    .then(hash => hash)\n    .catch(err => {\n      throw err;\n    });\n}\n\nlet senhaEncriptografada = null;\n\nif(msg.payload.password) {\n  senhaEncriptografada = await gerarHashSenha(msg.payload.password)\n    .then(hash => hash)\n    .catch(err => console.log(err));\n}\n\n\nmsg.payload = {\n    id: uuidv4.v4(),\n    nome: msg.payload.username,\n    email: msg.payload.email,\n    password: senhaEncriptografada,\n    data_criacao: formatted,\n    data_atualizacao: formatted\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -678,18 +718,18 @@
                 "module": "moment"
             }
         ],
-        "x": 380,
-        "y": 1220,
+        "x": 400,
+        "y": 120,
         "wires": [
             [
-                "469cb6dff62adb05"
+                "b9db7e3b541cb6fb"
             ]
         ]
     },
     {
-        "id": "d8900ff4d7d99241",
+        "id": "49ca71d5d633e0db",
         "type": "inject",
-        "z": "aa0e170c91379e2f",
+        "z": "8c761bcddb6e0b85",
         "name": "",
         "props": [
             {
@@ -707,11 +747,35 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 140,
-        "y": 1240,
+        "x": 160,
+        "y": 200,
         "wires": [
             [
-                "b88e251bc9dc156c"
+                "539e6237d2a1eacd"
+            ]
+        ]
+    },
+    {
+        "id": "b9db7e3b541cb6fb",
+        "type": "http request",
+        "z": "8c761bcddb6e0b85",
+        "name": "Salvar Dados Usuário",
+        "method": "POST",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "https://sheet.best/api/sheets/d26d408e-e6c9-4680-9088-f3208045b59f",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 620,
+        "y": 120,
+        "wires": [
+            [
+                "b60458e56dbabd36"
             ]
         ]
     }

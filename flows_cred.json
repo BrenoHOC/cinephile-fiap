@@ -2,6 +2,9 @@
     "ddef06d8d0048305": {
         "map": {}
     },
-    "67c72f5a3755b7ed": {},
-    "db7c662af5481bb9": {}
+    "67c72f5a3755b7ed": {
+        "userid": "${EMAIL_USER}",
+        "password": "${EMAIL_PASSWORD}"
+    },
+    "b9db7e3b541cb6fb": {}
 }
