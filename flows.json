@@ -123,7 +123,7 @@
         "type": "ui_tab",
         "name": "Home",
         "icon": "dashboard",
-        "order": 1,
+        "order": 2,
         "disabled": false,
         "hidden": false
     },
@@ -154,7 +154,7 @@
         "type": "ui_tab",
         "name": "login",
         "icon": "login",
-        "order": 2,
+        "order": 1,
         "disabled": false,
         "hidden": false
     },
@@ -162,7 +162,7 @@
         "id": "b77ad3d3025c33ce",
         "type": "ui_group",
         "name": "Criar login",
-        "tab": "a1189548f1bad27e",
+        "tab": "fad7740d4433ba8a",
         "order": 1,
         "disp": true,
         "width": "6",
@@ -170,83 +170,24 @@
         "className": ""
     },
     {
-        "id": "52a7fda463a56171",
-        "type": "inject",
-        "z": "aa0e170c91379e2f",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 400,
-        "y": 120,
-        "wires": [
-            [
-                "fc20faa0a1923565",
-                "b68baba32a366125",
-                "e0521d85ac0f20eb"
-            ]
-        ]
+        "id": "a6d03c119ba764d7",
+        "type": "ui_group",
+        "name": "login",
+        "tab": "a1189548f1bad27e",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
     },
     {
-        "id": "fc20faa0a1923565",
-        "type": "debug",
-        "z": "aa0e170c91379e2f",
-        "name": "debug 1",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 640,
-        "y": 60,
-        "wires": []
-    },
-    {
-        "id": "b68baba32a366125",
-        "type": "debug",
-        "z": "aa0e170c91379e2f",
-        "name": "debug 2",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 640,
-        "y": 120,
-        "wires": []
-    },
-    {
-        "id": "e0521d85ac0f20eb",
-        "type": "debug",
-        "z": "aa0e170c91379e2f",
-        "name": "debug 3",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 640,
-        "y": 180,
-        "wires": []
+        "id": "fad7740d4433ba8a",
+        "type": "ui_tab",
+        "name": "Criar login",
+        "icon": "dashboard",
+        "order": 3,
+        "disabled": false,
+        "hidden": false
     },
     {
         "id": "67c72f5a3755b7ed",
@@ -261,8 +202,8 @@
         "tls": false,
         "name": "",
         "dname": "envio de email",
-        "x": 680,
-        "y": 260,
+        "x": 620,
+        "y": 80,
         "wires": [],
         "info": "As configurações precisam estar nas variáveis de amviente"
     },
@@ -292,89 +233,13 @@
         "topic": "teste nodered",
         "payload": "vamos ver",
         "payloadType": "str",
-        "x": 290,
-        "y": 260,
+        "x": 230,
+        "y": 80,
         "wires": [
             [
                 "67c72f5a3755b7ed"
             ]
         ]
-    },
-    {
-        "id": "427d0ff0ac923564",
-        "type": "inject",
-        "z": "aa0e170c91379e2f",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 240,
-        "y": 360,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "248d39cb875931a3",
-        "type": "ui_button",
-        "z": "aa0e170c91379e2f",
-        "name": "",
-        "group": "be1439f3a0ba43d1",
-        "order": 1,
-        "width": 0,
-        "height": 0,
-        "passthru": false,
-        "label": "disparo de info",
-        "tooltip": "",
-        "color": "",
-        "bgcolor": "",
-        "className": "",
-        "icon": "",
-        "payload": "A pós tech é demais",
-        "payloadType": "str",
-        "topic": "topic",
-        "topicType": "msg",
-        "x": 220,
-        "y": 580,
-        "wires": [
-            [
-                "db59336cc46afc8d"
-            ]
-        ]
-    },
-    {
-        "id": "db59336cc46afc8d",
-        "type": "ui_text",
-        "z": "aa0e170c91379e2f",
-        "group": "9b81770e912bf6fa",
-        "order": 1,
-        "width": 0,
-        "height": 0,
-        "name": "",
-        "label": "Informação:",
-        "format": "{{msg.payload}}",
-        "layout": "row-spread",
-        "className": "",
-        "style": false,
-        "font": "",
-        "fontSize": 16,
-        "color": "#000000",
-        "x": 510,
-        "y": 580,
-        "wires": []
     },
     {
         "id": "970fb47421d56991",
@@ -400,8 +265,8 @@
         "seg2": "",
         "diff": false,
         "className": "",
-        "x": 330,
-        "y": 660,
+        "x": 350,
+        "y": 360,
         "wires": []
     },
     {
@@ -423,8 +288,8 @@
         "max": "50",
         "step": 1,
         "className": "",
-        "x": 90,
-        "y": 740,
+        "x": 110,
+        "y": 440,
         "wires": [
             [
                 "970fb47421d56991",
@@ -471,8 +336,8 @@
         "outputs": 1,
         "useDifferentColor": false,
         "className": "",
-        "x": 350,
-        "y": 740,
+        "x": 370,
+        "y": 440,
         "wires": [
             []
         ]
@@ -516,8 +381,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 360,
-        "y": 840,
+        "x": 380,
+        "y": 540,
         "wires": [
             [
                 "5ba06c7877799380"
@@ -539,8 +404,8 @@
         "className": "",
         "topic": "",
         "name": "",
-        "x": 750,
-        "y": 900,
+        "x": 770,
+        "y": 600,
         "wires": []
     },
     {
@@ -567,70 +432,14 @@
         "checkall": "false",
         "repair": false,
         "outputs": 2,
-        "x": 550,
-        "y": 840,
+        "x": 570,
+        "y": 540,
         "wires": [
             [],
             [
                 "a65aac2dcbfdc7d2"
             ]
         ]
-    },
-    {
-        "id": "a78e3231d97bf413",
-        "type": "inject",
-        "z": "aa0e170c91379e2f",
-        "name": "",
-        "props": [
-            {
-                "p": "payload.server",
-                "v": "EMAIL_SERVER",
-                "vt": "env"
-            },
-            {
-                "p": "payload.port",
-                "v": "EMAIL_PORT",
-                "vt": "env"
-            },
-            {
-                "p": "payload.user",
-                "v": "EMAIL_USER",
-                "vt": "env"
-            },
-            {
-                "p": "payload.password",
-                "v": "EMAIL_PASSWORD",
-                "vt": "env"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "x": 190,
-        "y": 1140,
-        "wires": [
-            [
-                "a6ecabf6a256398a"
-            ]
-        ]
-    },
-    {
-        "id": "a6ecabf6a256398a",
-        "type": "debug",
-        "z": "aa0e170c91379e2f",
-        "name": "debug 8",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 680,
-        "y": 1140,
-        "wires": []
     },
     {
         "id": "b60458e56dbabd36",
@@ -655,7 +464,7 @@
         "name": "",
         "label": "",
         "group": "b77ad3d3025c33ce",
-        "order": 0,
+        "order": 1,
         "width": 0,
         "height": 0,
         "options": [
@@ -722,7 +531,8 @@
         "y": 120,
         "wires": [
             [
-                "b9db7e3b541cb6fb"
+                "b9db7e3b541cb6fb",
+                "e19072b9c62145fd"
             ]
         ]
     },
@@ -777,6 +587,103 @@
             [
                 "b60458e56dbabd36"
             ]
+        ]
+    },
+    {
+        "id": "b3dd0e3bb6f1175d",
+        "type": "ui_form",
+        "z": "8c761bcddb6e0b85",
+        "name": "card login",
+        "label": "",
+        "group": "a6d03c119ba764d7",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "options": [
+            {
+                "label": "E-mail",
+                "value": "email",
+                "type": "text",
+                "required": true,
+                "rows": null
+            },
+            {
+                "label": "Senha",
+                "value": "password",
+                "type": "password",
+                "required": true,
+                "rows": null
+            }
+        ],
+        "formValue": {
+            "email": "",
+            "password": ""
+        },
+        "payload": "",
+        "submit": "Entrar",
+        "cancel": "",
+        "topic": "topic",
+        "topicType": "msg",
+        "splitLayout": "",
+        "className": "",
+        "x": 220,
+        "y": 340,
+        "wires": [
+            [
+                "539e6237d2a1eacd",
+                "e19072b9c62145fd"
+            ]
+        ]
+    },
+    {
+        "id": "e19072b9c62145fd",
+        "type": "debug",
+        "z": "8c761bcddb6e0b85",
+        "name": "debug 8",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 840,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "db0c71139f912f09",
+        "type": "ui_template",
+        "z": "8c761bcddb6e0b85",
+        "group": "a6d03c119ba764d7",
+        "name": "Já possui cadastro",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "format": "<div>\n    <a ng-click=\"send({payload: {login: true}})\">\n        Já possui cadastro?\n    </a>\n</div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 270,
+        "y": 540,
+        "wires": [
+            [
+                "e19072b9c62145fd"
+            ]
+        ]
+    },
+    {
+        "id": "71ca093db446f5d0",
+        "type": "ui_ui_control",
+        "z": "8c761bcddb6e0b85",
+        "name": "",
+        "events": "all",
+        "x": 260,
+        "y": 620,
+        "wires": [
+            []
         ]
     }
 ]
