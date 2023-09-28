@@ -10,9 +10,9 @@
     {
         "id": "8c761bcddb6e0b85",
         "type": "tab",
-        "label": "Fluxo de cadastro de usuário",
+        "label": "Fluxo de login",
         "disabled": false,
-        "info": "",
+        "info": "Neste consta os fluxos de cadastro e login do usuário",
         "env": []
     },
     {
@@ -188,6 +188,39 @@
         "order": 3,
         "disabled": false,
         "hidden": false
+    },
+    {
+        "id": "9d61c4da23fb66b7",
+        "type": "ui_group",
+        "name": "Transição",
+        "tab": "a1189548f1bad27e",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "1d0da4a58b5848a4",
+        "type": "ui_group",
+        "name": "Transição",
+        "tab": "8a77e8fa5a34a8c0",
+        "order": 3,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "96e76148eab11ebb",
+        "type": "ui_group",
+        "name": "Transição",
+        "tab": "fad7740d4433ba8a",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
     },
     {
         "id": "67c72f5a3755b7ed",
@@ -453,8 +486,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 840,
-        "y": 120,
+        "x": 760,
+        "y": 200,
         "wires": []
     },
     {
@@ -462,7 +495,7 @@
         "type": "ui_form",
         "z": "8c761bcddb6e0b85",
         "name": "",
-        "label": "",
+        "label": "Criar login",
         "group": "b77ad3d3025c33ce",
         "order": 1,
         "width": 0,
@@ -502,8 +535,8 @@
         "topicType": "msg",
         "splitLayout": "",
         "className": "",
-        "x": 210,
-        "y": 60,
+        "x": 330,
+        "y": 120,
         "wires": [
             [
                 "539e6237d2a1eacd"
@@ -514,8 +547,8 @@
         "id": "539e6237d2a1eacd",
         "type": "function",
         "z": "8c761bcddb6e0b85",
-        "name": "function 2",
-        "func": "const bcrypt = global.get('bcrypt');\nconst uuidv4 = global.get('uuid');\n\nconst formatted = moment(new Date()).format(\"YYYY-MM-DD HH:mm:ss\");\n\nasync function gerarHashSenha(senha) {\n  return await bcrypt.hash(senha, 10)\n    .then(hash => hash)\n    .catch(err => {\n      throw err;\n    });\n}\n\nlet senhaEncriptografada = null;\n\nif(msg.payload.password) {\n  senhaEncriptografada = await gerarHashSenha(msg.payload.password)\n    .then(hash => hash)\n    .catch(err => console.log(err));\n}\n\n\nmsg.payload = {\n    id: uuidv4.v4(),\n    nome: msg.payload.username,\n    email: msg.payload.email,\n    password: senhaEncriptografada,\n    data_criacao: formatted,\n    data_atualizacao: formatted\n}\n\nreturn msg;",
+        "name": "gera hash",
+        "func": "const bcrypt = global.get('bcrypt');\nconst uuidv4 = global.get('uuid');\n\nconst formatted = moment(new Date()).format(\"YYYY-MM-DD HH:mm:ss\");\n\nasync function gerarHashSenha(senha) {\n  return await bcrypt.hash(senha, 10)\n    .then(hash => hash)\n    .catch(err => {\n      throw err;\n    });\n}\n\nlet senhaEncriptografada = null;\n\nconsole.log(msg.payload.password);\n\nif(msg.payload.password) {\n  senhaEncriptografada = await gerarHashSenha(msg.payload.password)\n    .then(hash => hash)\n    .catch(err => console.log(err));\n}\n\n\nmsg.payload = {\n    id: uuidv4.v4(),\n    nome: msg.payload.username,\n    email: msg.payload.email,\n    password: senhaEncriptografada,\n    data_criacao: formatted,\n    data_atualizacao: formatted\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -527,14 +560,14 @@
                 "module": "moment"
             }
         ],
-        "x": 400,
-        "y": 120,
+        "x": 520,
+        "y": 180,
         "wires": [
             [
-                "b9db7e3b541cb6fb",
-                "e19072b9c62145fd"
+                "b9db7e3b541cb6fb"
             ]
-        ]
+        ],
+        "info": "## Gera hash antes de persistir os do usuário"
     },
     {
         "id": "49ca71d5d633e0db",
@@ -557,8 +590,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 160,
-        "y": 200,
+        "x": 300,
+        "y": 180,
         "wires": [
             [
                 "539e6237d2a1eacd"
@@ -581,7 +614,7 @@
         "authType": "",
         "senderr": false,
         "headers": [],
-        "x": 620,
+        "x": 700,
         "y": 120,
         "wires": [
             [
@@ -593,8 +626,8 @@
         "id": "b3dd0e3bb6f1175d",
         "type": "ui_form",
         "z": "8c761bcddb6e0b85",
-        "name": "card login",
-        "label": "",
+        "name": "",
+        "label": "Logar",
         "group": "a6d03c119ba764d7",
         "order": 2,
         "width": 0,
@@ -626,37 +659,20 @@
         "topicType": "msg",
         "splitLayout": "",
         "className": "",
-        "x": 220,
-        "y": 340,
+        "x": 90,
+        "y": 680,
         "wires": [
             [
-                "539e6237d2a1eacd",
-                "e19072b9c62145fd"
+                "3b61f912a0d768c3"
             ]
         ]
-    },
-    {
-        "id": "e19072b9c62145fd",
-        "type": "debug",
-        "z": "8c761bcddb6e0b85",
-        "name": "debug 8",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 840,
-        "y": 240,
-        "wires": []
     },
     {
         "id": "db0c71139f912f09",
         "type": "ui_template",
         "z": "8c761bcddb6e0b85",
-        "group": "a6d03c119ba764d7",
-        "name": "Já possui cadastro",
+        "group": "b77ad3d3025c33ce",
+        "name": "Já possui cadastro?",
         "order": 3,
         "width": 0,
         "height": 0,
@@ -666,24 +682,219 @@
         "resendOnRefresh": true,
         "templateScope": "local",
         "className": "",
-        "x": 270,
-        "y": 540,
+        "x": 260,
+        "y": 440,
         "wires": [
             [
-                "e19072b9c62145fd"
+                "2c6cab8a13ce9c94"
             ]
         ]
     },
     {
-        "id": "71ca093db446f5d0",
+        "id": "d6b8783744e1667e",
+        "type": "http request",
+        "z": "8c761bcddb6e0b85",
+        "name": "",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "https://sheet.best/api/sheets/d26d408e-e6c9-4680-9088-f3208045b59f/email/{{{payload.email}}}?_limit=1",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 460,
+        "y": 680,
+        "wires": [
+            [
+                "b397302016ddb6f1"
+            ]
+        ]
+    },
+    {
+        "id": "b397302016ddb6f1",
+        "type": "function",
+        "z": "8c761bcddb6e0b85",
+        "name": "Compare hash",
+        "func": "const bcrypt = global.get('bcrypt');\nconst uuidv4 = global.get('uuid');\n\nconst senha = flow.get('password');\nconst senhaHash = msg.payload[0].password;\n\nasync function comparaSenhaComHash(senha, senhaHash) {\n  return await bcrypt.compare(senha, senhaHash)\n    .then(result => result)\n    .catch(err => {\n      throw err;\n    });\n}\n\nconst senhaComparada = await comparaSenhaComHash(senha, senhaHash)\n  .then(hash => hash)\n  .catch(err => console.log(err));\n\nmsg.payload = senhaComparada;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 640,
+        "y": 760,
+        "wires": [
+            [
+                "3468694d424c696b"
+            ]
+        ],
+        "info": "## Compara senha do usuário com a cadastrada"
+    },
+    {
+        "id": "3b61f912a0d768c3",
+        "type": "change",
+        "z": "8c761bcddb6e0b85",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "password",
+                "pt": "flow",
+                "to": "payload.password",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 260,
+        "y": 760,
+        "wires": [
+            [
+                "d6b8783744e1667e"
+            ]
+        ]
+    },
+    {
+        "id": "3468694d424c696b",
+        "type": "debug",
+        "z": "8c761bcddb6e0b85",
+        "name": "debug 9",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 800,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "51fab00dd20f6a0a",
+        "type": "comment",
+        "z": "8c761bcddb6e0b85",
+        "name": "",
+        "info": "Fluxo para comparar se a senha do usuário ao logar é a mesma da cadastrada",
+        "x": 490,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "550a2a50d314e659",
+        "type": "comment",
+        "z": "8c761bcddb6e0b85",
+        "name": "",
+        "info": "Fluxo para cadastrar usuário",
+        "x": 490,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "b72b13fd29e6c9a3",
         "type": "ui_ui_control",
         "z": "8c761bcddb6e0b85",
         "name": "",
         "events": "all",
-        "x": 260,
-        "y": 620,
+        "x": 740,
+        "y": 480,
         "wires": [
             []
         ]
+    },
+    {
+        "id": "2c6cab8a13ce9c94",
+        "type": "change",
+        "z": "8c761bcddb6e0b85",
+        "name": "Carregar pag Login",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "login",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 530,
+        "y": 440,
+        "wires": [
+            [
+                "b72b13fd29e6c9a3"
+            ]
+        ]
+    },
+    {
+        "id": "ec0d9e79045ac233",
+        "type": "ui_template",
+        "z": "8c761bcddb6e0b85",
+        "group": "a6d03c119ba764d7",
+        "name": "Criar cadastro?",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "format": "<div>\n    <a ng-click=\"send({payload: {criarLogin: true}})\">\n        Criar cadastro\n    </a>\n</div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 240,
+        "y": 520,
+        "wires": [
+            [
+                "a98292bc7dd4bef1"
+            ]
+        ]
+    },
+    {
+        "id": "a98292bc7dd4bef1",
+        "type": "change",
+        "z": "8c761bcddb6e0b85",
+        "name": "Carregar pag Criar Login",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Criar login",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 510,
+        "y": 520,
+        "wires": [
+            [
+                "b72b13fd29e6c9a3"
+            ]
+        ]
+    },
+    {
+        "id": "fc7069d8b435ca6c",
+        "type": "comment",
+        "z": "8c761bcddb6e0b85",
+        "name": "",
+        "info": "Transições entre as telas",
+        "x": 490,
+        "y": 380,
+        "wires": []
     }
 ]
