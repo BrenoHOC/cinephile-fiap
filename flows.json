@@ -1,18 +1,26 @@
 [
     {
-        "id": "aa0e170c91379e2f",
-        "type": "tab",
-        "label": "Fluxo 1",
-        "disabled": false,
-        "info": "",
-        "env": []
-    },
-    {
         "id": "8c761bcddb6e0b85",
         "type": "tab",
         "label": "Fluxo de login",
         "disabled": false,
         "info": "Neste consta os fluxos de cadastro e login do usuário",
+        "env": []
+    },
+    {
+        "id": "aa0e170c91379e2f",
+        "type": "tab",
+        "label": "Fluxo de Seleção de Filmes",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "c4bb2b1dcfa16364",
+        "type": "tab",
+        "label": "css",
+        "disabled": false,
+        "info": "",
         "env": []
     },
     {
@@ -100,7 +108,7 @@
             }
         },
         "site": {
-            "name": "Node-RED Dashboard",
+            "name": "Sua Plataforma de gerenciamento de filmes",
             "hideToolbar": "false",
             "allowSwipe": "false",
             "lockMenu": "false",
@@ -123,14 +131,14 @@
         "type": "ui_tab",
         "name": "Home",
         "icon": "dashboard",
-        "order": 2,
+        "order": 1,
         "disabled": false,
         "hidden": false
     },
     {
         "id": "be1439f3a0ba43d1",
         "type": "ui_group",
-        "name": "Entrada de informação",
+        "name": "Seleção de filmes",
         "tab": "8a77e8fa5a34a8c0",
         "order": 1,
         "disp": true,
@@ -141,7 +149,7 @@
     {
         "id": "9b81770e912bf6fa",
         "type": "ui_group",
-        "name": "Saída de informação",
+        "name": "Dados do filme",
         "tab": "8a77e8fa5a34a8c0",
         "order": 2,
         "disp": true,
@@ -154,7 +162,7 @@
         "type": "ui_tab",
         "name": "login",
         "icon": "login",
-        "order": 1,
+        "order": 2,
         "disabled": false,
         "hidden": false
     },
@@ -207,7 +215,7 @@
         "tab": "8a77e8fa5a34a8c0",
         "order": 3,
         "disp": true,
-        "width": "6",
+        "width": 12,
         "collapse": false,
         "className": ""
     },
@@ -223,256 +231,15 @@
         "className": ""
     },
     {
-        "id": "67c72f5a3755b7ed",
-        "type": "e-mail",
-        "z": "aa0e170c91379e2f",
-        "server": "${EMAIL_SERVER}",
-        "port": "${EMAIL_PORT}",
-        "authtype": "BASIC",
-        "saslformat": true,
-        "token": "oauth2Response.access_token",
-        "secure": false,
-        "tls": false,
-        "name": "",
-        "dname": "envio de email",
-        "x": 620,
-        "y": 80,
-        "wires": [],
-        "info": "As configurações precisam estar nas variáveis de amviente"
-    },
-    {
-        "id": "5c085ccb6c284bf7",
-        "type": "inject",
-        "z": "aa0e170c91379e2f",
-        "name": "",
-        "props": [
-            {
-                "p": "to",
-                "v": "breno.hoc3@gmail.com",
-                "vt": "str"
-            },
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "teste nodered",
-        "payload": "vamos ver",
-        "payloadType": "str",
-        "x": 230,
-        "y": 80,
-        "wires": [
-            [
-                "67c72f5a3755b7ed"
-            ]
-        ]
-    },
-    {
-        "id": "970fb47421d56991",
-        "type": "ui_gauge",
-        "z": "aa0e170c91379e2f",
-        "name": "",
-        "group": "9b81770e912bf6fa",
-        "order": 2,
-        "width": 0,
-        "height": 0,
-        "gtype": "gage",
-        "title": "Nível",
-        "label": "units",
-        "format": "{{value}}",
-        "min": 0,
-        "max": "50",
-        "colors": [
-            "#00b500",
-            "#e6e600",
-            "#ca3838"
-        ],
-        "seg1": "",
-        "seg2": "",
-        "diff": false,
-        "className": "",
-        "x": 350,
-        "y": 360,
-        "wires": []
-    },
-    {
-        "id": "3a819f398ae87aaf",
-        "type": "ui_slider",
-        "z": "aa0e170c91379e2f",
-        "name": "",
-        "label": "nível",
-        "tooltip": "",
-        "group": "be1439f3a0ba43d1",
-        "order": 2,
-        "width": 0,
-        "height": 0,
-        "passthru": true,
-        "outs": "all",
-        "topic": "topic",
-        "topicType": "msg",
-        "min": 0,
-        "max": "50",
-        "step": 1,
-        "className": "",
-        "x": 110,
-        "y": 440,
-        "wires": [
-            [
-                "970fb47421d56991",
-                "f8fff8a462b6df40",
-                "f92491bb199ac54f"
-            ]
-        ]
-    },
-    {
-        "id": "f8fff8a462b6df40",
-        "type": "ui_chart",
-        "z": "aa0e170c91379e2f",
-        "name": "",
-        "group": "9b81770e912bf6fa",
-        "order": 2,
-        "width": 0,
-        "height": 0,
-        "label": "Temperatura",
-        "chartType": "line",
-        "legend": "false",
-        "xformat": "HH:mm",
-        "interpolate": "linear",
-        "nodata": "",
-        "dot": false,
-        "ymin": "0",
-        "ymax": "50",
-        "removeOlder": 1,
-        "removeOlderPoints": "",
-        "removeOlderUnit": "3600",
-        "cutout": 0,
-        "useOneColor": false,
-        "useUTC": false,
-        "colors": [
-            "#1f77b4",
-            "#aec7e8",
-            "#ff7f0e",
-            "#2ca02c",
-            "#98df8a",
-            "#d62728",
-            "#ff9896",
-            "#9467bd",
-            "#c5b0d5"
-        ],
-        "outputs": 1,
-        "useDifferentColor": false,
-        "className": "",
-        "x": 370,
-        "y": 440,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "f92491bb199ac54f",
-        "type": "change",
-        "z": "aa0e170c91379e2f",
-        "name": "",
-        "rules": [
-            {
-                "t": "change",
-                "p": "payload",
-                "pt": "msg",
-                "from": "43",
-                "fromt": "num",
-                "to": "Temperatura Elevada",
-                "tot": "str"
-            },
-            {
-                "t": "change",
-                "p": "payload",
-                "pt": "msg",
-                "from": "50",
-                "fromt": "num",
-                "to": "Temperatura Máxima",
-                "tot": "str"
-            },
-            {
-                "t": "change",
-                "p": "payload",
-                "pt": "msg",
-                "from": "12",
-                "fromt": "num",
-                "to": "Risco de temperatura baixa",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 380,
-        "y": 540,
-        "wires": [
-            [
-                "5ba06c7877799380"
-            ]
-        ]
-    },
-    {
-        "id": "a65aac2dcbfdc7d2",
-        "type": "ui_toast",
-        "z": "aa0e170c91379e2f",
-        "position": "top right",
-        "displayTime": "3",
-        "highlight": "",
-        "sendall": true,
-        "outputs": 0,
-        "ok": "OK",
-        "cancel": "",
-        "raw": false,
-        "className": "",
-        "topic": "",
-        "name": "",
-        "x": 770,
-        "y": 600,
-        "wires": []
-    },
-    {
-        "id": "5ba06c7877799380",
-        "type": "switch",
-        "z": "aa0e170c91379e2f",
-        "name": "",
-        "property": "payload",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "btwn",
-                "v": "0",
-                "vt": "num",
-                "v2": "50",
-                "v2t": "num"
-            },
-            {
-                "t": "neq",
-                "v": "!",
-                "vt": "str"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 2,
-        "x": 570,
-        "y": 540,
-        "wires": [
-            [],
-            [
-                "a65aac2dcbfdc7d2"
-            ]
-        ]
+        "id": "639665f5f0a31743",
+        "type": "ui_group",
+        "name": "Sinopse",
+        "tab": "8a77e8fa5a34a8c0",
+        "order": 4,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
     },
     {
         "id": "b60458e56dbabd36",
@@ -659,8 +426,8 @@
         "topicType": "msg",
         "splitLayout": "",
         "className": "",
-        "x": 90,
-        "y": 680,
+        "x": 70,
+        "y": 640,
         "wires": [
             [
                 "3b61f912a0d768c3"
@@ -706,8 +473,8 @@
         "authType": "",
         "senderr": false,
         "headers": [],
-        "x": 460,
-        "y": 680,
+        "x": 380,
+        "y": 640,
         "wires": [
             [
                 "b397302016ddb6f1"
@@ -719,18 +486,19 @@
         "type": "function",
         "z": "8c761bcddb6e0b85",
         "name": "Compare hash",
-        "func": "const bcrypt = global.get('bcrypt');\nconst uuidv4 = global.get('uuid');\n\nconst senha = flow.get('password');\nconst senhaHash = msg.payload[0].password;\n\nasync function comparaSenhaComHash(senha, senhaHash) {\n  return await bcrypt.compare(senha, senhaHash)\n    .then(result => result)\n    .catch(err => {\n      throw err;\n    });\n}\n\nconst senhaComparada = await comparaSenhaComHash(senha, senhaHash)\n  .then(hash => hash)\n  .catch(err => console.log(err));\n\nmsg.payload = senhaComparada;\n\nreturn msg;",
+        "func": "const bcrypt = global.get('bcrypt');\nconst uuidv4 = global.get('uuid');\n\nconst senha = flow.get('password');\nconst senhaHash = msg.payload[0]?.password;\n\nif(!senhaHash) {\n  msg.payload = false;\n\n  return msg;\n}\n\nasync function comparaSenhaComHash(senha, senhaHash) {\n  return await bcrypt.compare(senha, senhaHash)\n    .then(result => result)\n    .catch(err => {\n      throw err;\n    });\n}\n\nconst senhaComparada = await comparaSenhaComHash(senha, senhaHash)\n  .then(hash => hash)\n  .catch(err => console.log(err));\n\nmsg.payload = senhaComparada;\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 640,
-        "y": 760,
+        "x": 540,
+        "y": 700,
         "wires": [
             [
-                "3468694d424c696b"
+                "1379875dafca6313",
+                "e4b79448d352a41f"
             ]
         ],
         "info": "## Compara senha do usuário com a cadastrada"
@@ -754,39 +522,13 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 260,
-        "y": 760,
+        "x": 200,
+        "y": 700,
         "wires": [
             [
                 "d6b8783744e1667e"
             ]
         ]
-    },
-    {
-        "id": "3468694d424c696b",
-        "type": "debug",
-        "z": "8c761bcddb6e0b85",
-        "name": "debug 9",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 800,
-        "y": 680,
-        "wires": []
-    },
-    {
-        "id": "51fab00dd20f6a0a",
-        "type": "comment",
-        "z": "8c761bcddb6e0b85",
-        "name": "",
-        "info": "Fluxo para comparar se a senha do usuário ao logar é a mesma da cadastrada",
-        "x": 490,
-        "y": 640,
-        "wires": []
     },
     {
         "id": "550a2a50d314e659",
@@ -851,7 +593,7 @@
         "fwdInMessages": true,
         "resendOnRefresh": true,
         "templateScope": "local",
-        "className": "",
+        "className": "teste123",
         "x": 240,
         "y": 520,
         "wires": [
@@ -896,5 +638,516 @@
         "x": 490,
         "y": 380,
         "wires": []
+    },
+    {
+        "id": "1379875dafca6313",
+        "type": "switch",
+        "z": "8c761bcddb6e0b85",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "x": 690,
+        "y": 640,
+        "wires": [
+            [
+                "7f285f1c2d6ead66"
+            ],
+            [
+                "43c388c9d0a49229"
+            ]
+        ]
+    },
+    {
+        "id": "7f285f1c2d6ead66",
+        "type": "change",
+        "z": "8c761bcddb6e0b85",
+        "name": "Carregar pag Criar Login",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Home",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 890,
+        "y": 580,
+        "wires": [
+            [
+                "eab0bb594305e2bc"
+            ]
+        ]
+    },
+    {
+        "id": "e4b79448d352a41f",
+        "type": "debug",
+        "z": "8c761bcddb6e0b85",
+        "name": "debug 8",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 720,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "eab0bb594305e2bc",
+        "type": "ui_ui_control",
+        "z": "8c761bcddb6e0b85",
+        "name": "",
+        "events": "all",
+        "x": 1120,
+        "y": 580,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "561cf3d3044e200b",
+        "type": "ui_toast",
+        "z": "8c761bcddb6e0b85",
+        "position": "dialog",
+        "displayTime": "3",
+        "highlight": "",
+        "sendall": false,
+        "outputs": 1,
+        "ok": "OK",
+        "cancel": "",
+        "raw": false,
+        "className": "",
+        "topic": "",
+        "name": "",
+        "x": 1130,
+        "y": 700,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "43c388c9d0a49229",
+        "type": "change",
+        "z": "8c761bcddb6e0b85",
+        "name": "Msg Login Inválido",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Login inválido",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 910,
+        "y": 700,
+        "wires": [
+            [
+                "561cf3d3044e200b"
+            ]
+        ]
+    },
+    {
+        "id": "67c72f5a3755b7ed",
+        "type": "e-mail",
+        "z": "8c761bcddb6e0b85",
+        "server": "${EMAIL_SERVER}",
+        "port": "${EMAIL_PORT}",
+        "authtype": "BASIC",
+        "saslformat": true,
+        "token": "oauth2Response.access_token",
+        "secure": false,
+        "tls": false,
+        "name": "",
+        "dname": "envio de email",
+        "x": 500,
+        "y": 300,
+        "wires": [],
+        "info": "As configurações precisam estar nas variáveis de amviente"
+    },
+    {
+        "id": "5c085ccb6c284bf7",
+        "type": "inject",
+        "z": "8c761bcddb6e0b85",
+        "name": "",
+        "props": [
+            {
+                "p": "to",
+                "v": "breno.hoc3@gmail.com",
+                "vt": "str"
+            },
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "teste nodered",
+        "payload": "vamos ver",
+        "payloadType": "str",
+        "x": 190,
+        "y": 300,
+        "wires": [
+            [
+                "67c72f5a3755b7ed"
+            ]
+        ]
+    },
+    {
+        "id": "c84d8b9892e7d26a",
+        "type": "http in",
+        "z": "aa0e170c91379e2f",
+        "name": "teste",
+        "url": "/companies/persons/dewqedwq33-sadsdsgfdhbf-dsadwedfsad-dsadsadas/rooms/new",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 190,
+        "y": 820,
+        "wires": [
+            [
+                "592792d996c1f40e"
+            ]
+        ]
+    },
+    {
+        "id": "592792d996c1f40e",
+        "type": "template",
+        "z": "aa0e170c91379e2f",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "json",
+        "syntax": "mustache",
+        "template": "[\n    {\n        \"companyId\": 1,\n        \"name\": \"Nicolas das Laranjeiras\",\n        \"officialName\": \"Nicolas das Laranjeiras\",\n        \"documentNumber\": \"87725353000137\",\n        \"phone\": \"33589623\",\n        \"site\": \"\",\n        \"facebook\": \"\",\n        \"linkedin\": \"\",\n        \"email\": \"\",\n        \"description\": \"\",\n        \"logo\": \"https://cdn.superlogica.com/clients/areadocondomino/publico/logo?filename=estagioportaria&idCondominio=11&date=08/30/2023\",\n        \"isActive\": true,\n        \"address\": [\n            {\n                \"street\": \"Rua Joaquim\",\n                \"number\": \"\",\n                \"additionalInformation\": null,\n                \"district\": \"CKP\",\n                \"city\": \"Limeira\",\n                \"state\": \"SP\",\n                \"zipCode\": null,\n                \"main\": \"Rua Joaquim\",\n                \"addressType\": \"\",\n                \"country\": \"Brasil\"\n            }\n        ],\n        \"creationDate\": \"2023-02-24T20:11:50Z\",\n        \"updateDate\": \"2023-08-30T12:27:33Z\",\n        \"deleteDate\": null,\n        \"companyPlugins\": [\n            {\n                \"pluginId\": 10,\n                \"companyId\": 4406,\n                \"params\": {\n                    \"base_url\": \"https://staging.first.superlogica.com/api/v3\",\n                    \"company_type\": {\n                        \"gender\": \"M\",\n                        \"friendly_name\": \"Nicolas das Laranjeiras\"\n                    },\n                    \"idCondominio\": 255,\n                    \"nomeCondominio\": \"Nicolas das Laranjeiras\",\n                    \"plugin_room_logo\": \"https://s3.amazonaws.com/spaces-core-files-production/c1b0b40878e51d776f0e1fe5c31073a63f26c286bddc7974edc67ae180870482/ca550b4744fe1f8f67712844c1b58203e9a6aee0072d753446030e4ee4fcad5b\",\n                    \"plugin_room_name\": \"Portaria\",\n                    \"plugin_person_logo\": \"https://s3.amazonaws.com/spaces-core-files-production/c1b0b40878e51d776f0e1fe5c31073a63f26c286bddc7974edc67ae180870482/ca550b4744fe1f8f67712844c1b58203e9a6aee0072d753446030e4ee4fcad5b\",\n                    \"plugin_person_name\": \"Porteiro\"\n                },\n                \"creationDate\": \"2023-03-23T19:10:50Z\",\n                \"updateDate\": \"2023-03-23T19:10:50Z\",\n                \"externalId\": null,\n                \"plugin\": {\n                    \"pluginId\": 10,\n                    \"name\": \"fastpass\",\n                    \"description\": \"Plugin do fastpass\",\n                    \"installable\": true,\n                    \"uninstallable\": true,\n                    \"params\": {\n                        \"friendly_name\": \"Controle de Acesso\",\n                        \"module_name\": \"fastpassV2\",\n                        \"access\": {\n                            \"client_id\": \"client_id\",\n                            \"client_secret\": \"client_secret\"\n                        },\n                        \"module_version\": \"2.0\",\n                        \"company_schema\": {\n                            \"idCondominio\": 0,\n                            \"nomeCondominio\": \"\",\n                            \"plugin_room_logo\": \"https://s3.amazonaws.com/spaces-core-files-production/c1b0b40878e51d776f0e1fe5c31073a63f26c286bddc7974edc67ae180870482/ca550b4744fe1f8f67712844c1b58203e9a6aee0072d753446030e4ee4fcad5b\",\n                            \"plugin_room_name\": \"Portaria\",\n                            \"plugin_person_logo\": \"https://s3.amazonaws.com/spaces-core-files-production/c1b0b40878e51d776f0e1fe5c31073a63f26c286bddc7974edc67ae180870482/ca550b4744fe1f8f67712844c1b58203e9a6aee0072d753446030e4ee4fcad5b\",\n                            \"plugin_person_name\": \"Porteiro\"\n                        },\n                        \"person_schema\": null\n                    },\n                    \"creationDate\": \"2021-09-13T10:00:00Z\",\n                    \"updateDate\": \"2021-09-13T10:00:05Z\",\n                    \"pluginDependency\": null\n                }\n            }\n        ],\n        \"person\": {\n            \"personId\": 28101,\n            \"personUUID\": \"b64f333f-d449-4c46-b4c6-5cd9a53ceabf\",\n            \"name\": \"area_do_condomino-4406\",\n            \"creationDate\": \"2023-02-24T20:11:50Z\",\n            \"updateDate\": \"2023-02-24T20:11:50Z\",\n            \"deleteDate\": null,\n            \"isActive\": true,\n            \"isFake\": true,\n            \"isWatchers\": false,\n            \"documentsValidation\": []\n        },\n        \"type\": {\n            \"companyTypeId\": 2,\n            \"name\": \"Condomínio\",\n            \"friendlyName\": \"Condomínio\",\n            \"gender\": \"M\",\n            \"creationDate\": \"2020-09-24T20:02:59Z\",\n            \"updateDate\": \"2020-09-24T20:02:59Z\"\n        },\n        \"rooms\": [\n            {\n                \"roomId\": 143750,\n                \"roomName\": \"Gruvi\",\n                \"legacyId\": \"e783095b-5342-40d9-ae57-e5505b527c5b@conference.spaces.superlogica.com\",\n                \"roomUUID\": \"e783095b-5342-40d9-ae57-e5505b527c5b\",\n                \"creationDate\": \"2023-09-25T15:16:16Z\",\n                \"updateDate\": \"2023-09-25T15:16:16Z\",\n                \"isActive\": true,\n                \"deleteDate\": null,\n                \"logo\": \"https://s3.amazonaws.com/spaces-core-files-production/2abb477858aa5353b2ad137ee7b12f979b08ce1edc2d285797d1b4cf64b03215/3f2372b81795656eeae8fffb2699318c32fe1401869b074ed8e39db8369c033a\",\n                \"rules\": \"\",\n                \"tags\": null,\n                \"groupId\": null,\n                \"type\": {\n                    \"typeId\": 20,\n                    \"typeName\": \"gruvi_conversation\",\n                    \"creationDate\": \"2021-04-13T18:35:56Z\",\n                    \"updateDate\": \"2021-04-13T18:35:56Z\",\n                    \"roles\": [\n                        {\n                            \"action\": \"join\",\n                            \"role\": \"nobody\"\n                        },\n                        {\n                            \"action\": \"post\",\n                            \"role\": \"room.members\"\n                        },\n                        {\n                            \"action\": \"find\",\n                            \"role\": \"room.members\"\n                        },\n                        {\n                            \"action\": \"invite\",\n                            \"role\": \"room.members\"\n                        },\n                        {\n                            \"action\": \"mute\",\n                            \"role\": \"room.members\"\n                        },\n                        {\n                            \"action\": \"create\",\n                            \"role\": \"nobody\"\n                        }\n                    ],\n                    \"description\": \"\",\n                    \"active\": true\n                },\n                \"superRoom\": null,\n                \"userPermissions\": {\n                    \"post\": true,\n                    \"find\": true,\n                    \"create\": false,\n                    \"mute\": true,\n                    \"join\": false,\n                    \"invite\": true\n                },\n                \"roomMembers\": [\n                    {\n                        \"memberId\": 424722,\n                        \"isAdmin\": false,\n                        \"isMute\": false,\n                        \"mutedTime\": null,\n                        \"sumTime\": null,\n                        \"creationDate\": \"2023-09-25T15:16:18Z\",\n                        \"updateDate\": \"2023-09-25T15:16:18Z\",\n                        \"person\": {\n                            \"personId\": 31045,\n                            \"personUUID\": \"5b31ef1b-af32-40de-9b35-eaffb905acb5\",\n                            \"name\": \"Celulardo01\",\n                            \"creationDate\": \"2023-09-25T15:11:26Z\",\n                            \"updateDate\": \"2023-09-25T15:11:26Z\",\n                            \"deleteDate\": null,\n                            \"isActive\": true,\n                            \"isFake\": false,\n                            \"isWatchers\": true,\n                            \"documentsValidation\": null\n                        },\n                        \"isCompanyAdmin\": false,\n                        \"personPluginCompanyTag\": null\n                    }\n                ],\n                \"visible\": true,\n                \"roomType\": {\n                    \"typeId\": 20,\n                    \"typeName\": \"gruvi_conversation\",\n                    \"creationDate\": \"2021-04-13T18:35:56Z\",\n                    \"updateDate\": \"2021-04-13T18:35:56Z\",\n                    \"roles\": [\n                        {\n                            \"action\": \"join\",\n                            \"role\": \"nobody\"\n                        },\n                        {\n                            \"action\": \"post\",\n                            \"role\": \"room.members\"\n                        },\n                        {\n                            \"action\": \"find\",\n                            \"role\": \"room.members\"\n                        },\n                        {\n                            \"action\": \"invite\",\n                            \"role\": \"room.members\"\n                        },\n                        {\n                            \"action\": \"mute\",\n                            \"role\": \"room.members\"\n                        },\n                        {\n                            \"action\": \"create\",\n                            \"role\": \"nobody\"\n                        }\n                    ],\n                    \"description\": \"\",\n                    \"active\": true\n                },\n                \"active\": true\n            },\n            {\n                \"roomId\": 110134,\n                \"roomName\": \"Moradores\",\n                \"legacyId\": \"2e3ad738-34ce-478b-9b11-0d69953bf0ce@conference.spaces.superlogica.com\",\n                \"roomUUID\": \"2e3ad738-34ce-478b-9b11-0d69953bf0ce\",\n                \"creationDate\": \"2023-02-24T20:11:50Z\",\n                \"updateDate\": \"2023-02-24T20:11:50Z\",\n                \"isActive\": true,\n                \"deleteDate\": null,\n                \"logo\": \"https://s3.amazonaws.com/spaces-core-files-production/3ddcac494cbe2734af99edc8545f179fd2cf412ad00e16c723d581a01abf3084/57fc349bc896dcfb0a2c1730b03128e2babe24ff236bee0c60c6fd2acf5a9f87\",\n                \"rules\": \"\",\n                \"tags\": [],\n                \"groupId\": null,\n                \"type\": {\n                    \"typeId\": 9,\n                    \"typeName\": \"Grupo de moradores\",\n                    \"creationDate\": \"2020-07-01T18:32:30Z\",\n                    \"updateDate\": \"2020-07-01T18:32:30Z\",\n                    \"roles\": [\n                        {\n                            \"action\": \"join\",\n                            \"role\": \"company.administrators\"\n                        },\n                        {\n                            \"action\": \"post\",\n                            \"role\": \"company.members\"\n                        },\n                        {\n                            \"action\": \"find\",\n                            \"role\": \"company.members\"\n                        },\n                        {\n                            \"action\": \"invite\",\n                            \"role\": \"company.administrators\"\n                        },\n                        {\n                            \"action\": \"mute\",\n                            \"role\": \"nobody\"\n                        },\n                        {\n                            \"action\": \"role\",\n                            \"role\": \"company.members\"\n                        },\n                        {\n                            \"action\": \"role\",\n                            \"role\": \"resident\"\n                        },\n                        {\n                            \"action\": \"create\",\n                            \"role\": \"nobody\"\n                        }\n                    ],\n                    \"description\": null,\n                    \"active\": true\n                },\n                \"superRoom\": {\n                    \"companyTypesSuperRoomsId\": 7,\n                    \"name\": \"Moradores\",\n                    \"defaultLogo\": \"https://s3.amazonaws.com/spaces-core-files-production/3ddcac494cbe2734af99edc8545f179fd2cf412ad00e16c723d581a01abf3084/57fc349bc896dcfb0a2c1730b03128e2babe24ff236bee0c60c6fd2acf5a9f87\",\n                    \"tags\": []\n                },\n                \"userPermissions\": {\n                    \"post\": true,\n                    \"find\": true,\n                    \"create\": false,\n                    \"mute\": false,\n                    \"join\": false,\n                    \"invite\": false\n                },\n                \"roomMembers\": [\n                    {\n                        \"memberId\": 424720,\n                        \"isAdmin\": false,\n                        \"isMute\": false,\n                        \"mutedTime\": null,\n                        \"sumTime\": null,\n                        \"creationDate\": \"2023-09-25T15:16:13Z\",\n                        \"updateDate\": \"2023-09-25T15:16:13Z\",\n                        \"person\": {\n                            \"personId\": 31045,\n                            \"personUUID\": \"5b31ef1b-af32-40de-9b35-eaffb905acb5\",\n                            \"name\": \"Celulardo01\",\n                            \"creationDate\": \"2023-09-25T15:11:26Z\",\n                            \"updateDate\": \"2023-09-25T15:11:26Z\",\n                            \"deleteDate\": null,\n                            \"isActive\": true,\n                            \"isFake\": false,\n                            \"isWatchers\": true,\n                            \"documentsValidation\": null\n                        },\n                        \"isCompanyAdmin\": false,\n                        \"personPluginCompanyTag\": null\n                    }\n                ],\n                \"visible\": true,\n                \"roomType\": {\n                    \"typeId\": 9,\n                    \"typeName\": \"Grupo de moradores\",\n                    \"creationDate\": \"2020-07-01T18:32:30Z\",\n                    \"updateDate\": \"2020-07-01T18:32:30Z\",\n                    \"roles\": [\n                        {\n                            \"action\": \"join\",\n                            \"role\": \"company.administrators\"\n                        },\n                        {\n                            \"action\": \"post\",\n                            \"role\": \"company.members\"\n                        },\n                        {\n                            \"action\": \"find\",\n                            \"role\": \"company.members\"\n                        },\n                        {\n                            \"action\": \"invite\",\n                            \"role\": \"company.administrators\"\n                        },\n                        {\n                            \"action\": \"mute\",\n                            \"role\": \"nobody\"\n                        },\n                        {\n                            \"action\": \"role\",\n                            \"role\": \"company.members\"\n                        },\n                        {\n                            \"action\": \"role\",\n                            \"role\": \"resident\"\n                        },\n                        {\n                            \"action\": \"create\",\n                            \"role\": \"nobody\"\n                        }\n                    ],\n                    \"description\": null,\n                    \"active\": true\n                },\n                \"active\": true\n            }\n        ],\n        \"groups\": [],\n        \"linkInvite\": \"https://gruvi.link/guest?r=c635222a-03f7-455b-a972-8db543b72b82\",\n        \"personsCount\": 132,\n        \"official\": true\n    },\n    {\n        \"companyId\": 4406,\n        \"name\": \"Gruvi\",\n        \"officialName\": \"\",\n        \"documentNumber\": \"\",\n        \"phone\": \"\",\n        \"site\": \"\",\n        \"facebook\": \"\",\n        \"linkedin\": \"\",\n        \"email\": \"\",\n        \"description\": \"\",\n        \"logo\": \"\",\n        \"isActive\": true,\n        \"address\": [],\n        \"creationDate\": \"2020-09-18T18:18:24Z\",\n        \"updateDate\": \"2021-12-10T14:52:30Z\",\n        \"deleteDate\": null,\n        \"companyPlugins\": [\n            {\n                \"pluginId\": 17,\n                \"companyId\": 1,\n                \"params\": {\n                    \"plugin_room_logo\": \"https://s3.amazonaws.com/gupy5/production/companies/810/career/1077/images/logo.jpg\",\n                    \"plugin_room_name\": \"Comunicados\",\n                    \"plugin_person_logo\": \"https://s3.amazonaws.com/gupy5/production/companies/810/career/1077/images/logo.jpg\",\n                    \"plugin_person_name\": \"Superlogica\"\n                },\n                \"creationDate\": \"2020-09-16T18:19:53Z\",\n                \"updateDate\": \"2023-05-19T13:50:01Z\",\n                \"externalId\": \"IDUNI00124\",\n                \"plugin\": {\n                    \"pluginId\": 17,\n                    \"name\": \"despesas-residenciais\",\n                    \"description\": \"Despesas residenciais\",\n                    \"installable\": true,\n                    \"uninstallable\": true,\n                    \"params\": {\n                        \"friendly_name\": \"Despesas Residenciais\",\n                        \"module_name\": \"despesasResidenciaisV1\",\n                        \"access\": null,\n                        \"module_version\": \"1.0\",\n                        \"company_schema\": {\n                            \"plugin_room_logo\": \"https://s3.amazonaws.com/gupy5/production/companies/810/career/1077/images/logo.jpg\",\n                            \"plugin_room_name\": \"Comunicados\",\n                            \"plugin_person_logo\": \"https://s3.amazonaws.com/gupy5/production/companies/810/career/1077/images/logo.jpg\",\n                            \"plugin_person_name\": \"Superlogica\"\n                        },\n                        \"person_schema\": null\n                    },\n                    \"creationDate\": \"2022-07-14T15:02:00Z\",\n                    \"updateDate\": \"2022-07-14T15:02:00Z\",\n                    \"pluginDependency\": null\n                }\n            }\n        ],\n        \"person\": {\n            \"personId\": 509,\n            \"personUUID\": \"e3aea250-c658-46fb-94c8-7d20b7553881\",\n            \"name\": \"Penna\",\n            \"creationDate\": \"2020-09-16T20:27:16Z\",\n            \"updateDate\": \"2022-11-01T20:29:46Z\",\n            \"deleteDate\": null,\n            \"isActive\": true,\n            \"isFake\": false,\n            \"isWatchers\": true,\n            \"documentsValidation\": [\n                {\n                    \"personsDocumentsId\": 30,\n                    \"personId\": 509,\n                    \"type\": \"mobile_number\",\n                    \"data\": \"***\",\n                    \"creationDate\": \"2022-10-05T20:02:58Z\",\n                    \"updateDate\": \"2022-10-05T20:02:58Z\"\n                },\n                {\n                    \"personsDocumentsId\": 31,\n                    \"personId\": 509,\n                    \"type\": \"email\",\n                    \"data\": \"***\",\n                    \"creationDate\": \"2022-10-05T20:02:58Z\",\n                    \"updateDate\": \"2022-10-05T20:02:58Z\"\n                },\n                {\n                    \"personsDocumentsId\": 32,\n                    \"personId\": 509,\n                    \"type\": \"email\",\n                    \"data\": \"***\",\n                    \"creationDate\": \"2022-10-05T20:02:58Z\",\n                    \"updateDate\": \"2022-10-05T20:02:58Z\"\n                },\n                {\n                    \"personsDocumentsId\": 33,\n                    \"personId\": 509,\n                    \"type\": \"email\",\n                    \"data\": \"***\",\n                    \"creationDate\": \"2022-10-05T20:02:58Z\",\n                    \"updateDate\": \"2022-10-05T20:02:58Z\"\n                },\n                {\n                    \"personsDocumentsId\": 34,\n                    \"personId\": 509,\n                    \"type\": \"email\",\n                    \"data\": \"***\",\n                    \"creationDate\": \"2022-10-05T20:02:58Z\",\n                    \"updateDate\": \"2022-10-05T20:02:58Z\"\n                },\n                {\n                    \"personsDocumentsId\": 35,\n                    \"personId\": 509,\n                    \"type\": \"email\",\n                    \"data\": \"***\",\n                    \"creationDate\": \"2022-10-05T20:02:58Z\",\n                    \"updateDate\": \"2022-10-05T20:02:58Z\"\n                },\n                {\n                    \"personsDocumentsId\": 36,\n                    \"personId\": 509,\n                    \"type\": \"email\",\n                    \"data\": \"***\",\n                    \"creationDate\": \"2022-10-05T20:02:58Z\",\n                    \"updateDate\": \"2022-10-05T20:02:58Z\"\n                },\n                {\n                    \"personsDocumentsId\": 37,\n                    \"personId\": 509,\n                    \"type\": \"email\",\n                    \"data\": \"***\",\n                    \"creationDate\": \"2022-10-05T20:02:58Z\",\n                    \"updateDate\": \"2022-10-05T20:02:58Z\"\n                },\n                {\n                    \"personsDocumentsId\": 38,\n                    \"personId\": 509,\n                    \"type\": \"cpf\",\n                    \"data\": \"***\",\n                    \"creationDate\": \"2022-10-05T20:02:58Z\",\n                    \"updateDate\": \"2022-10-05T20:02:58Z\"\n                }\n            ]\n        },\n        \"type\": {\n            \"companyTypeId\": 1,\n            \"name\": \"Empresa\",\n            \"friendlyName\": \"Empresa\",\n            \"gender\": \"F\",\n            \"creationDate\": \"2020-05-28T19:28:30Z\",\n            \"updateDate\": \"2020-05-28T19:28:30Z\"\n        },\n        \"rooms\": [],\n        \"personsCount\": 0,\n        \"official\": false\n    }\n]",
+        "output": "json",
+        "x": 400,
+        "y": 820,
+        "wires": [
+            [
+                "0d4ca7110a56a69e"
+            ]
+        ]
+    },
+    {
+        "id": "0d4ca7110a56a69e",
+        "type": "http response",
+        "z": "aa0e170c91379e2f",
+        "name": "",
+        "statusCode": "200",
+        "headers": {},
+        "x": 660,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "c07c868cfcee5e29",
+        "type": "ui_form",
+        "z": "aa0e170c91379e2f",
+        "name": "",
+        "label": "",
+        "group": "be1439f3a0ba43d1",
+        "order": 1,
+        "width": 6,
+        "height": 1,
+        "options": [
+            {
+                "label": "Nome do filme",
+                "value": "filmName",
+                "type": "text",
+                "required": true,
+                "rows": null
+            }
+        ],
+        "formValue": {
+            "filmName": ""
+        },
+        "payload": "",
+        "submit": "Pesquisar",
+        "cancel": "",
+        "topic": "topic",
+        "topicType": "msg",
+        "splitLayout": false,
+        "className": "",
+        "x": 130,
+        "y": 200,
+        "wires": [
+            [
+                "e45f666c33227137"
+            ]
+        ]
+    },
+    {
+        "id": "20505872b4e45f34",
+        "type": "http request",
+        "z": "aa0e170c91379e2f",
+        "name": "GET filmes",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "https://api.themoviedb.org/3/search/movie?query={{{payload.filme}}}&include_adult=false&language=pt-BR&page=1",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [
+            {
+                "keyType": "other",
+                "keyValue": "Authorization",
+                "valueType": "other",
+                "valueValue": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5YmE4NzQ2ZmEwZDdiMmRkMjYwMDBiY2NiNGY2Y2UzYiIsInN1YiI6IjY1MTYwOTZiOTNiZDY5MDExYjhjYjJmZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.kM8ibRJk9JVIGjcvrTtAwcpXFOklAx9jPF3Kqd6PI2A"
+            }
+        ],
+        "x": 430,
+        "y": 80,
+        "wires": [
+            [
+                "e3983e9b805713b4"
+            ]
+        ]
+    },
+    {
+        "id": "e3983e9b805713b4",
+        "type": "debug",
+        "z": "aa0e170c91379e2f",
+        "name": "debug 9",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 700,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "10362547f079db28",
+        "type": "inject",
+        "z": "aa0e170c91379e2f",
+        "name": "",
+        "props": [
+            {
+                "p": "payload.filme",
+                "v": "star",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 110,
+        "y": 80,
+        "wires": [
+            [
+                "20505872b4e45f34"
+            ]
+        ]
+    },
+    {
+        "id": "e45f666c33227137",
+        "type": "template",
+        "z": "aa0e170c91379e2f",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "json",
+        "syntax": "mustache",
+        "template": "{\n    \"page\": 1,\n    \"results\": [\n        {\n            \"adult\": false,\n            \"backdrop_path\": \"/A55WRPRK73zx1cuULDkdX4vriDO.jpg\",\n            \"genre_ids\": [\n                35,\n                28\n            ],\n            \"id\": 22599,\n            \"original_language\": \"en\",\n            \"original_title\": \"Star\",\n            \"overview\": \"The Driver now carries an arrogant rock star who is visiting a major city (not Pittsburgh as earlier believed). Played by Madonna, this title character wants to get away from her bodyguards in the Driver's BMW. He soon gets tired of her and decides to have a bit of fun.\",\n            \"popularity\": 7.492,\n            \"poster_path\": \"/zslEgrYEg6EDzOYrr8EfDoQK8j1.jpg\",\n            \"release_date\": \"2001-06-01\",\n            \"title\": \"Star\",\n            \"video\": false,\n            \"vote_average\": 6.837,\n            \"vote_count\": 245\n        },\n        {\n            \"adult\": false,\n            \"backdrop_path\": \"/m7hBkOBJomzIhbet60b6x4RTBRk.jpg\",\n            \"genre_ids\": [\n                18,\n                10402,\n                10749\n            ],\n            \"id\": 52959,\n            \"original_language\": \"en\",\n            \"original_title\": \"Star!\",\n            \"overview\": \"Drama musical baseado na vida (dentro e fora dos palcos) da atriz britânica Gertrude Lawrence.\",\n            \"popularity\": 8.406,\n            \"poster_path\": \"/xMyOm5hLWeuoWBea1DJrcJy8bU6.jpg\",\n            \"release_date\": \"1968-07-18\",\n            \"title\": \"A Estrela\",\n            \"video\": false,\n            \"vote_average\": 6.482,\n            \"vote_count\": 112\n        },\n        {\n            \"adult\": false,\n            \"backdrop_path\": \"/a1lMRUeGozBAczWaSoU1p3zLmGs.jpg\",\n            \"genre_ids\": [\n                10749,\n                18\n            ],\n            \"id\": 136244,\n            \"original_language\": \"en\",\n            \"original_title\": \"Star\",\n            \"overview\": \"When Crystal Wyatt was 16 her father passed away. From that time her life would never be the same. Crystal is banished from the family ranch, and starts a new life as a singer in a San Francisco nightclub.\",\n            \"popularity\": 8.122,\n            \"poster_path\": \"/jYmt7JBvAmRJ0FxPx2UayOQ1uOB.jpg\",\n            \"release_date\": \"1993-09-20\",\n            \"title\": \"Star\",\n            \"video\": false,\n            \"vote_average\": 6.008,\n            \"vote_count\": 118\n        },\n        {\n            \"adult\": false,\n            \"backdrop_path\": \"/osHpQQ5rcbmH41I4LQlPlprRGpk.jpg\",\n            \"genre_ids\": [\n                18,\n                10751\n            ],\n            \"id\": 125225,\n            \"original_language\": \"hi\",\n            \"original_title\": \"Star\",\n            \"overview\": \"Dev Kumar Verma comes from a middle-class family and must find employment to support his dad and mom. Dev, however, has set his mind upon becoming a music sensation like Elvis Presley. He loses his job because of this, and refuses to work until and unless he gets a job to his liking, much to the dismay of his parents and his brother, Shiv Kumar. Dev does get employment at Charlie's Disco, where he meets with Maya and falls in love with her.  When Charlie's Disco's competitor, Rana, finds out about Dev, he wants to hire Dev, but Dev decides to continue to work with Charlie's Disco, as a result Dev and Charlie get a beating by Rana's men, and Dev is unable to sing. After recuperating, Dev is devastated to find out that Maya and Shiv Kumar are in love with each other. What impact will this have on Dev and his brother on one hand, and what of his career in music?\",\n            \"popularity\": 3.78,\n            \"poster_path\": \"/pU7oXmVdNPrzj2XOGIQ6ciMnH42.jpg\",\n            \"release_date\": \"1982-10-22\",\n            \"title\": \"Star\",\n            \"video\": false,\n            \"vote_average\": 5.721,\n            \"vote_count\": 52\n        },\n        {\n            \"adult\": false,\n            \"backdrop_path\": \"/zDImYTJiECn1b79segxKr382DSe.jpg\",\n            \"genre_ids\": [\n                18\n            ],\n            \"id\": 449430,\n            \"original_language\": \"fr\",\n            \"original_title\": \"Star\",\n            \"overview\": \"Star is a young graffiti writer, the best in his city, Paris. His reputation attracts him as much into art galleries than in the police precincts. Accused of vandalism, he faces jail. Despite the threat, he decides to go to Rome with his crew in search of the meaning of his art.\",\n            \"popularity\": 3.081,\n            \"poster_path\": \"/zeGcw5pPVT4DhHrSLUDxE58QJQn.jpg\",\n            \"release_date\": \"2017-04-03\",\n            \"title\": \"Star\",\n            \"video\": false,\n            \"vote_average\": 5.891,\n            \"vote_count\": 32\n        },\n        {\n            \"adult\": false,\n            \"backdrop_path\": null,\n            \"genre_ids\": [\n                18\n            ],\n            \"id\": 812434,\n            \"original_language\": \"it\",\n            \"original_title\": \"Star\",\n            \"overview\": \"Giacomo is a low-level actor and voice actor with a great passion for acting. After another disappointing audition he has one last chance to get the part assigned\",\n            \"popularity\": 2.072,\n            \"poster_path\": \"/4oObDGDhycViadrRCC2XJwwXAcR.jpg\",\n            \"release_date\": \"2019-12-19\",\n            \"title\": \"Star\",\n            \"video\": false,\n            \"vote_average\": 6.281,\n            \"vote_count\": 32\n        },\n        {\n            \"adult\": false,\n            \"backdrop_path\": null,\n            \"genre_ids\": [\n                99,\n                10402\n            ],\n            \"id\": 719316,\n            \"original_language\": \"en\",\n            \"original_title\": \"Star\",\n            \"overview\": \"Documentary short film and music video for MIKAL's song \\\"Star\\\", comprised of footage of the actual recording process of the song itself.\",\n            \"popularity\": 2.567,\n            \"poster_path\": \"/5o0GyNlILqVxfteo7l31wB5qD2X.jpg\",\n            \"release_date\": \"2017-01-23\",\n            \"title\": \"Star\",\n            \"video\": false,\n            \"vote_average\": 6.267,\n            \"vote_count\": 31\n        },\n        {\n            \"adult\": false,\n            \"backdrop_path\": null,\n            \"genre_ids\": [\n                18\n            ],\n            \"id\": 1050338,\n            \"original_language\": \"fr\",\n            \"original_title\": \"Star\",\n            \"overview\": \"Star follows the path of Tito and Jay, two brothers living in the Montreal neighborhood of Park Extension. Accompanying these young people in their daily life marked by complicity and intimidation, Star tackles themes dear to teenagers: identity and friendship.\",\n            \"popularity\": 2.011,\n            \"poster_path\": null,\n            \"release_date\": \"\",\n            \"title\": \"Star\",\n            \"video\": false,\n            \"vote_average\": 6.3,\n            \"vote_count\": 29\n        },\n        {\n            \"adult\": false,\n            \"backdrop_path\": null,\n            \"genre_ids\": [],\n            \"id\": 611791,\n            \"original_language\": \"fr\",\n            \"original_title\": \"Star\",\n            \"overview\": \"Star follows the path of Tito and Jay, two brothers living in the Montreal neighborhood of Park Extension. Accompanying these young people in their daily life marked by complicity and intimidation, Star tackles themes dear to teenagers: identity and friendship.\",\n            \"popularity\": 1.817,\n            \"poster_path\": \"/hVGnSMBc42TGwvV5QTHpH0PgyJp.jpg\",\n            \"release_date\": \"2015-09-30\",\n            \"title\": \"Star\",\n            \"video\": false,\n            \"vote_average\": 5.788,\n            \"vote_count\": 33\n        },\n        {\n            \"adult\": false,\n            \"backdrop_path\": \"/5Iw7zQTHVRBOYpA0V6z0yypOPZh.jpg\",\n            \"genre_ids\": [\n                12,\n                28,\n                878\n            ],\n            \"id\": 181808,\n            \"original_language\": \"en\",\n            \"original_title\": \"Star Wars: The Last Jedi\",\n            \"overview\": \"A tranquila e solitária vida de Luke Skywalker sofre uma reviravolta quando ele conhece Rey, uma jovem que mostra fortes sinais da Força. O desejo dela de aprender o estilo dos Jedi força Luke a tomar uma decisão que mudará sua vida para sempre. Enquanto isso, Kylo Ren e o General Hux lideram a Primeira Ordem para um ataque total contra Leia e a Resistência pela supremacia da galáxia.\",\n            \"popularity\": 90.639,\n            \"poster_path\": \"/5dGufuaIG5vNcxPm8QPij5MSPeQ.jpg\",\n            \"release_date\": \"2017-12-13\",\n            \"title\": \"Star Wars: Episódio VIII - Os Últimos Jedi\",\n            \"video\": false,\n            \"vote_average\": 6.825,\n            \"vote_count\": 14311\n        },\n        {\n            \"adult\": false,\n            \"backdrop_path\": \"/jOzrELAzFxtMx2I4uDGHOotdfsS.jpg\",\n            \"genre_ids\": [\n                12,\n                28,\n                878\n            ],\n            \"id\": 181812,\n            \"original_language\": \"en\",\n            \"original_title\": \"Star Wars: The Rise of Skywalker\",\n            \"overview\": \"Com o retorno do Imperador Palpatine, todos voltam a temer seu poder e, com isso, a Resistência toma a frente da batalha que ditará os rumos da galáxia. Treinando para ser uma completa Jedi, Rey (Daisy Ridley) ainda se encontra em conflito com seu passado e futuro, mas teme pelas respostas que pode conseguir a partir de sua complexa ligação com Kylo Ren (Adam Driver), que também se encontra em conflito pela Força.\",\n            \"popularity\": 76.576,\n            \"poster_path\": \"/uLlrDUtFG2tKtDcJN6kBznlqqsp.jpg\",\n            \"release_date\": \"2019-12-18\",\n            \"title\": \"Star Wars: Episódio IX - A Ascensão Skywalker\",\n            \"video\": false,\n            \"vote_average\": 6.365,\n            \"vote_count\": 9047\n        },\n        {\n            \"adult\": false,\n            \"backdrop_path\": \"/8BTsTfln4jlQrLXUBquXJ0ASQy9.jpg\",\n            \"genre_ids\": [\n                12,\n                28,\n                878\n            ],\n            \"id\": 140607,\n            \"original_language\": \"en\",\n            \"original_title\": \"Star Wars: The Force Awakens\",\n            \"overview\": \"A queda de Darth Vader e do Império levou ao surgimento de uma nova força sombria: a Primeira Ordem. Eles procuram o jedi Luke Skywalker, desaparecido. A resistência tenta desesperadamente encontrá-lo antes para salvar a galáxia.\",\n            \"popularity\": 81.445,\n            \"poster_path\": \"/lqMDbo4rXnakFgc4C6LzPv6pG7F.jpg\",\n            \"release_date\": \"2015-12-15\",\n            \"title\": \"Star Wars: O Despertar da Força\",\n            \"video\": false,\n            \"vote_average\": 7.293,\n            \"vote_count\": 18352\n        },\n        {\n            \"adult\": false,\n            \"backdrop_path\": \"/npDrIM6ZbuD7nUxI7ZzNBxs4IRF.jpg\",\n            \"genre_ids\": [\n                28,\n                12,\n                878\n            ],\n            \"id\": 54138,\n            \"original_language\": \"en\",\n            \"original_title\": \"Star Trek Into Darkness\",\n            \"overview\": \"Os tripulantes da Enterprise descobrem uma força terrorista dentro da sua própria organização. O capitão Kirk desafia as regras da Frota Estelar e lidera uma missão para capturar uma arma de destruição em massa.\",\n            \"popularity\": 44.625,\n            \"poster_path\": \"/hHUHMuTwYBcQRMYK9z8jHZucnD3.jpg\",\n            \"release_date\": \"2013-05-05\",\n            \"title\": \"Além da Escuridão - Star Trek\",\n            \"video\": false,\n            \"vote_average\": 7.328,\n            \"vote_count\": 8589\n        },\n        {\n            \"adult\": false,\n            \"backdrop_path\": \"/ojHCeDULAkQK25700fhRU75Tur2.jpg\",\n            \"genre_ids\": [\n                878,\n                12,\n                28\n            ],\n            \"id\": 348350,\n            \"original_language\": \"en\",\n            \"original_title\": \"Solo: A Star Wars Story\",\n            \"overview\": \"Embarque na Millennium Falcon e viaje para uma galáxia distante em uma nova aventura com o mais amado canalha da galáxia. Através de uma série de ousadas aventuras no obscuro e perigoso submundo do crime, Han Solo encontra seu poderoso futuro copiloto Chewbacca e encontra o famoso jogador Lando Calrissian, em uma jornada que definirá o curso de um dos heróis mais improváveis da saga Star Wars.\",\n            \"popularity\": 84.484,\n            \"poster_path\": \"/jAMEX0syUh6sbjBiysibzrFpbo.jpg\",\n            \"release_date\": \"2018-05-15\",\n            \"title\": \"Han Solo: Uma História Star Wars\",\n            \"video\": false,\n            \"vote_average\": 6.563,\n            \"vote_count\": 7904\n        },\n        {\n            \"adult\": false,\n            \"backdrop_path\": \"/6t8ES1d12OzWyCGxBeDYLHoaDrT.jpg\",\n            \"genre_ids\": [\n                28,\n                12,\n                878\n            ],\n            \"id\": 330459,\n            \"original_language\": \"en\",\n            \"original_title\": \"Rogue One: A Star Wars Story\",\n            \"overview\": \"Em busca de uma nova esperança para a galáxia, a Aliança Rebelde enfrenta uma arriscada missão: roubar os planos que revelam uma falha na construção da Estrela da Morte. Para isso, eles contam com a ajuda de Jyn Erso, filha do criador da arma mais poderosa do império.\",\n            \"popularity\": 54.461,\n            \"poster_path\": \"/74C2YX0NLWnozVMRS56d5CKDdEv.jpg\",\n            \"release_date\": \"2016-12-14\",\n            \"title\": \"Rogue One: Uma História Star Wars\",\n            \"video\": false,\n            \"vote_average\": 7.488,\n            \"vote_count\": 14352\n        },\n        {\n            \"adult\": false,\n            \"backdrop_path\": \"/wDe8LzwuvHYYiuwyNfxdYQq8ti4.jpg\",\n            \"genre_ids\": [\n                12,\n                28,\n                878\n            ],\n            \"id\": 1893,\n            \"original_language\": \"en\",\n            \"original_title\": \"Star Wars: Episode I - The Phantom Menace\",\n            \"overview\": \"Enquanto resgatam a Rainha Amidala, governante de um planeta pacífico invadido por forças ameaçadoras, os Cavaleiros Jedi Obi-Wan Kenobi e Qui-Gon Jinn descobrem Anakin Skywalker, uma criança prodígio de 9 anos excepcionalmente poderosa na Força.\",\n            \"popularity\": 53.134,\n            \"poster_path\": \"/gNk8UNAumXlfCdtaxDqsQe7ZGlt.jpg\",\n            \"release_date\": \"1999-05-19\",\n            \"title\": \"Star Wars: Episódio I - A Ameaça Fantasma\",\n            \"video\": false,\n            \"vote_average\": 6.534,\n            \"vote_count\": 13550\n        },\n        {\n            \"adult\": false,\n            \"backdrop_path\": \"/5vDuLrjJXFS9PTF7Q1xzobmYKR9.jpg\",\n            \"genre_ids\": [\n                12,\n                28,\n                878\n            ],\n            \"id\": 1895,\n            \"original_language\": \"en\",\n            \"original_title\": \"Star Wars: Episode III - Revenge of the Sith\",\n            \"overview\": \"As Guerras Clônicas estão em pleno andamento e Anakin Skywalker mantém um elo de lealdade com Palpatine, ao mesmo tempo em que luta para que seu casamento com Padmé Amidala não seja afetado por esta situação. Seduzido por promessas de poder, Anakin se aproxima cada vez mais de Darth Sidious até se tornar o temível Darth Vader. Juntos eles tramam um plano para aniquilar de uma vez por todas com os cavaleiros jedi.\",\n            \"popularity\": 54.516,\n            \"poster_path\": \"/nuF5yWtTJEEAd4Qa6cVkYz1XCST.jpg\",\n            \"release_date\": \"2005-05-17\",\n            \"title\": \"Star Wars: Episódio III - A Vingança dos Sith\",\n            \"video\": false,\n            \"vote_average\": 7.411,\n            \"vote_count\": 12752\n        },\n        {\n            \"adult\": false,\n            \"backdrop_path\": \"/abwxHfymXGAbbH3lo9PDEJEfvtW.jpg\",\n            \"genre_ids\": [\n                12,\n                28,\n                878\n            ],\n            \"id\": 1894,\n            \"original_language\": \"en\",\n            \"original_title\": \"Star Wars: Episode II - Attack of the Clones\",\n            \"overview\": \"Com a missão de proteger a Senadora Amidala, Anakin Skywalker descobre o seu amor por ela, do mesmo modo que vai conhecendo seu lado sombrio. Obi-Wan Kenobi descobre um exército de clones à medida que a Galáxia caminha para uma grande guerra.\",\n            \"popularity\": 50.569,\n            \"poster_path\": \"/9m1nJ2MfTG5QEmjOCg0b4YCo4W8.jpg\",\n            \"release_date\": \"2002-05-15\",\n            \"title\": \"Star Wars: Episódio II - Ataque dos Clones\",\n            \"video\": false,\n            \"vote_average\": 6.551,\n            \"vote_count\": 12288\n        },\n        {\n            \"adult\": false,\n            \"backdrop_path\": \"/m4F1KRK5jAoQHi2mKDFE2jFKEIb.jpg\",\n            \"genre_ids\": [\n                28,\n                12,\n                878\n            ],\n            \"id\": 188927,\n            \"original_language\": \"en\",\n            \"original_title\": \"Star Trek Beyond\",\n            \"overview\": \"Desta vez, Kirk, Spock e a tripulação da Enterprise encontram-se no terceiro ano da missão de exploração do espaço prevista para durar cinco anos. Eles recebem um pedido de socorro que acaba os ligando ao maléfico vilão Krall, um insurgente Anti-Frota Estelar interessado em um objeto de posse do líder da nave. A Enterprise é atacada, e eles acabam em um planeta desconhecido, onde o grupo acaba sendo dividido em duplas.\",\n            \"popularity\": 56.142,\n            \"poster_path\": \"/zC2lEQjA4X814UnvekmdkM5hXmk.jpg\",\n            \"release_date\": \"2016-07-07\",\n            \"title\": \"Star Trek: Sem Fronteiras\",\n            \"video\": false,\n            \"vote_average\": 6.781,\n            \"vote_count\": 6226\n        },\n        {\n            \"adult\": false,\n            \"backdrop_path\": \"/fMRrTziefy0c6v45IUyByGjZCRo.jpg\",\n            \"genre_ids\": [\n                18\n            ],\n            \"id\": 970284,\n            \"original_language\": \"en\",\n            \"original_title\": \"Shooting Stars\",\n            \"overview\": \"Sonhando em viver do basquete, o jovem LeBron James começa sua trajetória com o time de sua escola. Com seus amigos e colegas de time, ele alcança o posto entre os melhores jogadores do mundo.\",\n            \"popularity\": 23.106,\n            \"poster_path\": \"/rzOxUgqkQeKyhyuKZqIj87VqFUg.jpg\",\n            \"release_date\": \"2023-06-02\",\n            \"title\": \"Shooting Stars: A Vida de Lebron James\",\n            \"video\": false,\n            \"vote_average\": 8.2,\n            \"vote_count\": 84\n        }\n    ],\n    \"total_pages\": 225,\n    \"total_results\": 4486\n}",
+        "output": "json",
+        "x": 380,
+        "y": 200,
+        "wires": [
+            [
+                "34d013ba59765ca4"
+            ]
+        ]
+    },
+    {
+        "id": "f348150218f7036d",
+        "type": "debug",
+        "z": "aa0e170c91379e2f",
+        "name": "debug 10",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 800,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "f6c4b9a8fdc8f806",
+        "type": "inject",
+        "z": "aa0e170c91379e2f",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 180,
+        "y": 260,
+        "wires": [
+            [
+                "e45f666c33227137"
+            ]
+        ]
+    },
+    {
+        "id": "34d013ba59765ca4",
+        "type": "function",
+        "z": "aa0e170c91379e2f",
+        "name": "itera os resultados",
+        "func": "\nmsg.payload = msg.payload.results[0];\n\nreturn msg;\n\n\nif(msg.payload?.results?.length) {\n    for (var i = 0; i < msg.payload.results.length; i++) {\n        var newMsg = {};\n        newMsg.payload = {\n            name: msg.payload.results[i].id,\n            age: msg.payload.results[i].popularity\n        }\n        node.send(newMsg);\n    }\n}\n\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 610,
+        "y": 200,
+        "wires": [
+            [
+                "f348150218f7036d",
+                "51f0a59a455eee50",
+                "43a5ef879cc18313",
+                "ee508222c9347f97"
+            ]
+        ]
+    },
+    {
+        "id": "51f0a59a455eee50",
+        "type": "ui_text",
+        "z": "aa0e170c91379e2f",
+        "group": "9b81770e912bf6fa",
+        "order": 1,
+        "width": 6,
+        "height": 1,
+        "name": "",
+        "label": "text",
+        "format": "{{msg.payload.popularity}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 810,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "ee508222c9347f97",
+        "type": "ui_text",
+        "z": "aa0e170c91379e2f",
+        "group": "639665f5f0a31743",
+        "order": 1,
+        "width": 6,
+        "height": 6,
+        "name": "",
+        "label": "text",
+        "format": "{{msg.payload.vote_count}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 810,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "43a5ef879cc18313",
+        "type": "ui_text",
+        "z": "aa0e170c91379e2f",
+        "group": "9b81770e912bf6fa",
+        "order": 2,
+        "width": 6,
+        "height": 1,
+        "name": "",
+        "label": "text",
+        "format": "{{msg.payload.overview}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 810,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "04aa548983effda0",
+        "type": "ui_template",
+        "z": "c4bb2b1dcfa16364",
+        "group": "a6d03c119ba764d7",
+        "name": "",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "format": "<style>\n    a {\n        cursor: pointer;\n    }\n</style>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 100,
+        "y": 40,
+        "wires": [
+            []
+        ]
     }
 ]
