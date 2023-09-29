@@ -927,7 +927,7 @@
                 "keyType": "other",
                 "keyValue": "Authorization",
                 "valueType": "other",
-                "valueValue": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5YmE4NzQ2ZmEwZDdiMmRkMjYwMDBiY2NiNGY2Y2UzYiIsInN1YiI6IjY1MTYwOTZiOTNiZDY5MDExYjhjYjJmZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.kM8ibRJk9JVIGjcvrTtAwcpXFOklAx9jPF3Kqd6PI2A"
+                "valueValue": ""
             }
         ],
         "x": 430,
