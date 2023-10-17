@@ -112,7 +112,7 @@
             "hideToolbar": "false",
             "allowSwipe": "false",
             "lockMenu": "false",
-            "allowTempTheme": "true",
+            "allowTempTheme": "false",
             "dateFormat": "DD/MM/YYYY",
             "sizes": {
                 "sx": 48,
@@ -131,7 +131,7 @@
         "type": "ui_tab",
         "name": "Home",
         "icon": "dashboard",
-        "order": 1,
+        "order": 2,
         "disabled": false,
         "hidden": false
     },
@@ -162,7 +162,7 @@
         "type": "ui_tab",
         "name": "login",
         "icon": "login",
-        "order": 2,
+        "order": 1,
         "disabled": false,
         "hidden": false
     },
@@ -172,7 +172,7 @@
         "name": "Criar login",
         "tab": "fad7740d4433ba8a",
         "order": 1,
-        "disp": true,
+        "disp": false,
         "width": "6",
         "collapse": false,
         "className": ""
@@ -183,7 +183,7 @@
         "name": "login",
         "tab": "a1189548f1bad27e",
         "order": 2,
-        "disp": true,
+        "disp": false,
         "width": "6",
         "collapse": false,
         "className": ""
@@ -215,7 +215,7 @@
         "tab": "8a77e8fa5a34a8c0",
         "order": 3,
         "disp": true,
-        "width": 12,
+        "width": 50,
         "collapse": false,
         "className": ""
     },
@@ -242,20 +242,10 @@
         "className": ""
     },
     {
-        "id": "b60458e56dbabd36",
-        "type": "debug",
-        "z": "8c761bcddb6e0b85",
-        "name": "debug 7",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 760,
-        "y": 200,
-        "wires": []
+        "id": "cf21394ef4fb9045",
+        "type": "JsonWebToken_config",
+        "name": "token_autenticação",
+        "secret": "2d96cd0c-630f-11ee-8c99-0242ac120002"
     },
     {
         "id": "1aa635ca051d2e8f",
@@ -269,15 +259,8 @@
         "height": 0,
         "options": [
             {
-                "label": "Nome",
-                "value": "username",
-                "type": "text",
-                "required": true,
-                "rows": null
-            },
-            {
                 "label": "e-mail",
-                "value": "email",
+                "value": "user",
                 "type": "text",
                 "required": true,
                 "rows": null
@@ -291,8 +274,7 @@
             }
         ],
         "formValue": {
-            "username": "",
-            "email": "",
+            "user": "",
             "password": ""
         },
         "payload": "",
@@ -302,8 +284,8 @@
         "topicType": "msg",
         "splitLayout": "",
         "className": "",
-        "x": 330,
-        "y": 120,
+        "x": 110,
+        "y": 80,
         "wires": [
             [
                 "539e6237d2a1eacd"
@@ -315,7 +297,7 @@
         "type": "function",
         "z": "8c761bcddb6e0b85",
         "name": "gera hash",
-        "func": "const bcrypt = global.get('bcrypt');\nconst uuidv4 = global.get('uuid');\n\nconst formatted = moment(new Date()).format(\"YYYY-MM-DD HH:mm:ss\");\n\nasync function gerarHashSenha(senha) {\n  return await bcrypt.hash(senha, 10)\n    .then(hash => hash)\n    .catch(err => {\n      throw err;\n    });\n}\n\nlet senhaEncriptografada = null;\n\nconsole.log(msg.payload.password);\n\nif(msg.payload.password) {\n  senhaEncriptografada = await gerarHashSenha(msg.payload.password)\n    .then(hash => hash)\n    .catch(err => console.log(err));\n}\n\n\nmsg.payload = {\n    id: uuidv4.v4(),\n    nome: msg.payload.username,\n    email: msg.payload.email,\n    password: senhaEncriptografada,\n    data_criacao: formatted,\n    data_atualizacao: formatted\n}\n\nreturn msg;",
+        "func": "const bcrypt = global.get('bcrypt');\n\nasync function gerarHashSenha(senha) {\n  return await bcrypt.hash(senha, 10)\n    .then(hash => hash)\n    .catch(err => {\n      throw err;\n    });\n}\n\nlet senhaEncriptografada = null;\n\nif(msg.payload.password) {\n  senhaEncriptografada = await gerarHashSenha(msg.payload.password)\n    .then(hash => hash)\n    .catch(err => console.log(err));\n}\n\nmsg.payload = {\n    user: msg.payload.user,\n    password: senhaEncriptografada,\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -327,8 +309,8 @@
                 "module": "moment"
             }
         ],
-        "x": 520,
-        "y": 180,
+        "x": 260,
+        "y": 140,
         "wires": [
             [
                 "b9db7e3b541cb6fb"
@@ -343,10 +325,13 @@
         "name": "",
         "props": [
             {
-                "p": "payload"
+                "p": "payload.user",
+                "v": "breno.hoc3+3@gmail.com",
+                "vt": "str"
             },
             {
-                "p": "topic",
+                "p": "payload.password",
+                "v": "123456",
                 "vt": "str"
             }
         ],
@@ -355,13 +340,11 @@
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 300,
-        "y": 180,
+        "x": 110,
+        "y": 200,
         "wires": [
             [
-                "539e6237d2a1eacd"
+                "683c13c89c971e85"
             ]
         ]
     },
@@ -371,21 +354,28 @@
         "z": "8c761bcddb6e0b85",
         "name": "Salvar Dados Usuário",
         "method": "POST",
-        "ret": "obj",
+        "ret": "txt",
         "paytoqs": "ignore",
-        "url": "https://sheet.best/api/sheets/d26d408e-e6c9-4680-9088-f3208045b59f",
+        "url": "${API_SERVER_AUTH}",
         "tls": "",
         "persist": false,
         "proxy": "",
         "insecureHTTPParser": false,
         "authType": "",
         "senderr": false,
-        "headers": [],
-        "x": 700,
-        "y": 120,
+        "headers": [
+            {
+                "keyType": "other",
+                "keyValue": "apikey",
+                "valueType": "other",
+                "valueValue": "${API_SERVER_AUTH_TOKEN}"
+            }
+        ],
+        "x": 460,
+        "y": 80,
         "wires": [
             [
-                "b60458e56dbabd36"
+                "9f713da3cb631cf9"
             ]
         ]
     },
@@ -394,7 +384,7 @@
         "type": "ui_form",
         "z": "8c761bcddb6e0b85",
         "name": "",
-        "label": "Logar",
+        "label": "Login",
         "group": "a6d03c119ba764d7",
         "order": 2,
         "width": 0,
@@ -427,10 +417,10 @@
         "splitLayout": "",
         "className": "",
         "x": 70,
-        "y": 640,
+        "y": 880,
         "wires": [
             [
-                "3b61f912a0d768c3"
+                "8b2ea290429fdb46"
             ]
         ]
     },
@@ -449,8 +439,8 @@
         "resendOnRefresh": true,
         "templateScope": "local",
         "className": "",
-        "x": 260,
-        "y": 440,
+        "x": 140,
+        "y": 480,
         "wires": [
             [
                 "2c6cab8a13ce9c94"
@@ -463,18 +453,25 @@
         "z": "8c761bcddb6e0b85",
         "name": "",
         "method": "GET",
-        "ret": "obj",
-        "paytoqs": "ignore",
-        "url": "https://sheet.best/api/sheets/d26d408e-e6c9-4680-9088-f3208045b59f/email/{{{payload.email}}}?_limit=1",
+        "ret": "txt",
+        "paytoqs": "body",
+        "url": "{{{payload.url}}}",
         "tls": "",
         "persist": false,
         "proxy": "",
         "insecureHTTPParser": false,
         "authType": "",
         "senderr": false,
-        "headers": [],
-        "x": 380,
-        "y": 640,
+        "headers": [
+            {
+                "keyType": "other",
+                "keyValue": "apikey",
+                "valueType": "other",
+                "valueValue": "${API_SERVER_AUTH_TOKEN}"
+            }
+        ],
+        "x": 600,
+        "y": 960,
         "wires": [
             [
                 "b397302016ddb6f1"
@@ -486,19 +483,18 @@
         "type": "function",
         "z": "8c761bcddb6e0b85",
         "name": "Compare hash",
-        "func": "const bcrypt = global.get('bcrypt');\nconst uuidv4 = global.get('uuid');\n\nconst senha = flow.get('password');\nconst senhaHash = msg.payload[0]?.password;\n\nif(!senhaHash) {\n  msg.payload = false;\n\n  return msg;\n}\n\nasync function comparaSenhaComHash(senha, senhaHash) {\n  return await bcrypt.compare(senha, senhaHash)\n    .then(result => result)\n    .catch(err => {\n      throw err;\n    });\n}\n\nconst senhaComparada = await comparaSenhaComHash(senha, senhaHash)\n  .then(hash => hash)\n  .catch(err => console.log(err));\n\nmsg.payload = senhaComparada;\n\nreturn msg;",
+        "func": "const bcrypt = global.get('bcrypt');\n\nconst senha = flow.get('password');\n\nmsg.payload = JSON.parse(msg.payload);\n\nconst senhaHash = msg.payload[0]?.password;\n\nif(!senhaHash) {\n  msg.payload.auth = false;\n\n  return msg;\n}\n\nasync function comparaSenhaComHash(senha, senhaHash) {\n  return await bcrypt.compare(senha, senhaHash)\n    .then(result => result)\n    .catch(err => {\n      throw err;\n    });\n}\n\nconst senhaComparada = await comparaSenhaComHash(senha, senhaHash)\n  .then(hash => hash)\n  .catch(err => console.log(err));\n\nmsg.payload = {\n  auth: senhaComparada,\n  id: msg.payload[0]?.id_auth,\n  email: msg.payload[0]?.user\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 540,
-        "y": 700,
+        "x": 740,
+        "y": 880,
         "wires": [
             [
-                "1379875dafca6313",
-                "e4b79448d352a41f"
+                "1379875dafca6313"
             ]
         ],
         "info": "## Compara senha do usuário com a cadastrada"
@@ -522,8 +518,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 200,
-        "y": 700,
+        "x": 440,
+        "y": 880,
         "wires": [
             [
                 "d6b8783744e1667e"
@@ -534,9 +530,9 @@
         "id": "550a2a50d314e659",
         "type": "comment",
         "z": "8c761bcddb6e0b85",
-        "name": "",
-        "info": "Fluxo para cadastrar usuário",
-        "x": 490,
+        "name": "Página de criação de login",
+        "info": "",
+        "x": 530,
         "y": 40,
         "wires": []
     },
@@ -546,10 +542,12 @@
         "z": "8c761bcddb6e0b85",
         "name": "",
         "events": "all",
-        "x": 740,
-        "y": 480,
+        "x": 620,
+        "y": 520,
         "wires": [
-            []
+            [
+                "5f341e662685b1d0"
+            ]
         ]
     },
     {
@@ -571,8 +569,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 530,
-        "y": 440,
+        "x": 410,
+        "y": 480,
         "wires": [
             [
                 "b72b13fd29e6c9a3"
@@ -594,8 +592,8 @@
         "resendOnRefresh": true,
         "templateScope": "local",
         "className": "teste123",
-        "x": 240,
-        "y": 520,
+        "x": 120,
+        "y": 560,
         "wires": [
             [
                 "a98292bc7dd4bef1"
@@ -621,8 +619,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 510,
-        "y": 520,
+        "x": 390,
+        "y": 560,
         "wires": [
             [
                 "b72b13fd29e6c9a3"
@@ -633,9 +631,9 @@
         "id": "fc7069d8b435ca6c",
         "type": "comment",
         "z": "8c761bcddb6e0b85",
-        "name": "",
+        "name": "Transições entre telas",
         "info": "Transições entre as telas",
-        "x": 490,
+        "x": 520,
         "y": 380,
         "wires": []
     },
@@ -644,7 +642,7 @@
         "type": "switch",
         "z": "8c761bcddb6e0b85",
         "name": "",
-        "property": "payload",
+        "property": "payload.auth",
         "propertyType": "msg",
         "rules": [
             {
@@ -657,11 +655,12 @@
         "checkall": "false",
         "repair": false,
         "outputs": 2,
-        "x": 690,
-        "y": 640,
+        "x": 950,
+        "y": 880,
         "wires": [
             [
-                "7f285f1c2d6ead66"
+                "7f285f1c2d6ead66",
+                "5957c1b77a7435d8"
             ],
             [
                 "43c388c9d0a49229"
@@ -672,7 +671,7 @@
         "id": "7f285f1c2d6ead66",
         "type": "change",
         "z": "8c761bcddb6e0b85",
-        "name": "Carregar pag Criar Login",
+        "name": "Carregar pag Home",
         "rules": [
             {
                 "t": "set",
@@ -687,8 +686,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 890,
-        "y": 580,
+        "x": 1140,
+        "y": 800,
         "wires": [
             [
                 "eab0bb594305e2bc"
@@ -696,29 +695,13 @@
         ]
     },
     {
-        "id": "e4b79448d352a41f",
-        "type": "debug",
-        "z": "8c761bcddb6e0b85",
-        "name": "debug 8",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 720,
-        "y": 780,
-        "wires": []
-    },
-    {
         "id": "eab0bb594305e2bc",
         "type": "ui_ui_control",
         "z": "8c761bcddb6e0b85",
         "name": "",
         "events": "all",
-        "x": 1120,
-        "y": 580,
+        "x": 1360,
+        "y": 740,
         "wires": [
             []
         ]
@@ -738,8 +721,8 @@
         "className": "",
         "topic": "",
         "name": "",
-        "x": 1130,
-        "y": 700,
+        "x": 1370,
+        "y": 960,
         "wires": [
             []
         ]
@@ -763,8 +746,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 910,
-        "y": 700,
+        "x": 1130,
+        "y": 960,
         "wires": [
             [
                 "561cf3d3044e200b"
@@ -824,50 +807,244 @@
         ]
     },
     {
-        "id": "c84d8b9892e7d26a",
-        "type": "http in",
-        "z": "aa0e170c91379e2f",
-        "name": "teste",
-        "url": "/companies/persons/dewqedwq33-sadsdsgfdhbf-dsadwedfsad-dsadsadas/rooms/new",
-        "method": "get",
-        "upload": false,
-        "swaggerDoc": "",
-        "x": 190,
-        "y": 820,
+        "id": "df1d6324a71cfdce",
+        "type": "change",
+        "z": "8c761bcddb6e0b85",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "token",
+                "pt": "global",
+                "to": "token",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1390,
+        "y": 880,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5f341e662685b1d0",
+        "type": "switch",
+        "z": "8c761bcddb6e0b85",
+        "name": "",
+        "property": "token",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "empty"
+            },
+            {
+                "t": "nempty"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "x": 830,
+        "y": 520,
         "wires": [
             [
-                "592792d996c1f40e"
+                "e7312a2f5c02af11"
+            ],
+            [
+                "af85a7af918962c9"
             ]
         ]
     },
     {
-        "id": "592792d996c1f40e",
-        "type": "template",
-        "z": "aa0e170c91379e2f",
+        "id": "e7312a2f5c02af11",
+        "type": "change",
+        "z": "8c761bcddb6e0b85",
         "name": "",
-        "field": "payload",
-        "fieldType": "msg",
-        "format": "json",
-        "syntax": "mustache",
-        "template": "[\n    {\n        \"companyId\": 1,\n        \"name\": \"Nicolas das Laranjeiras\",\n        \"officialName\": \"Nicolas das Laranjeiras\",\n        \"documentNumber\": \"87725353000137\",\n        \"phone\": \"33589623\",\n        \"site\": \"\",\n        \"facebook\": \"\",\n        \"linkedin\": \"\",\n        \"email\": \"\",\n        \"description\": \"\",\n        \"logo\": \"https://cdn.superlogica.com/clients/areadocondomino/publico/logo?filename=estagioportaria&idCondominio=11&date=08/30/2023\",\n        \"isActive\": true,\n        \"address\": [\n            {\n                \"street\": \"Rua Joaquim\",\n                \"number\": \"\",\n                \"additionalInformation\": null,\n                \"district\": \"CKP\",\n                \"city\": \"Limeira\",\n                \"state\": \"SP\",\n                \"zipCode\": null,\n                \"main\": \"Rua Joaquim\",\n                \"addressType\": \"\",\n                \"country\": \"Brasil\"\n            }\n        ],\n        \"creationDate\": \"2023-02-24T20:11:50Z\",\n        \"updateDate\": \"2023-08-30T12:27:33Z\",\n        \"deleteDate\": null,\n        \"companyPlugins\": [\n            {\n                \"pluginId\": 10,\n                \"companyId\": 4406,\n                \"params\": {\n                    \"base_url\": \"https://staging.first.superlogica.com/api/v3\",\n                    \"company_type\": {\n                        \"gender\": \"M\",\n                        \"friendly_name\": \"Nicolas das Laranjeiras\"\n                    },\n                    \"idCondominio\": 255,\n                    \"nomeCondominio\": \"Nicolas das Laranjeiras\",\n                    \"plugin_room_logo\": \"https://s3.amazonaws.com/spaces-core-files-production/c1b0b40878e51d776f0e1fe5c31073a63f26c286bddc7974edc67ae180870482/ca550b4744fe1f8f67712844c1b58203e9a6aee0072d753446030e4ee4fcad5b\",\n                    \"plugin_room_name\": \"Portaria\",\n                    \"plugin_person_logo\": \"https://s3.amazonaws.com/spaces-core-files-production/c1b0b40878e51d776f0e1fe5c31073a63f26c286bddc7974edc67ae180870482/ca550b4744fe1f8f67712844c1b58203e9a6aee0072d753446030e4ee4fcad5b\",\n                    \"plugin_person_name\": \"Porteiro\"\n                },\n                \"creationDate\": \"2023-03-23T19:10:50Z\",\n                \"updateDate\": \"2023-03-23T19:10:50Z\",\n                \"externalId\": null,\n                \"plugin\": {\n                    \"pluginId\": 10,\n                    \"name\": \"fastpass\",\n                    \"description\": \"Plugin do fastpass\",\n                    \"installable\": true,\n                    \"uninstallable\": true,\n                    \"params\": {\n                        \"friendly_name\": \"Controle de Acesso\",\n                        \"module_name\": \"fastpassV2\",\n                        \"access\": {\n                            \"client_id\": \"client_id\",\n                            \"client_secret\": \"client_secret\"\n                        },\n                        \"module_version\": \"2.0\",\n                        \"company_schema\": {\n                            \"idCondominio\": 0,\n                            \"nomeCondominio\": \"\",\n                            \"plugin_room_logo\": \"https://s3.amazonaws.com/spaces-core-files-production/c1b0b40878e51d776f0e1fe5c31073a63f26c286bddc7974edc67ae180870482/ca550b4744fe1f8f67712844c1b58203e9a6aee0072d753446030e4ee4fcad5b\",\n                            \"plugin_room_name\": \"Portaria\",\n                            \"plugin_person_logo\": \"https://s3.amazonaws.com/spaces-core-files-production/c1b0b40878e51d776f0e1fe5c31073a63f26c286bddc7974edc67ae180870482/ca550b4744fe1f8f67712844c1b58203e9a6aee0072d753446030e4ee4fcad5b\",\n                            \"plugin_person_name\": \"Porteiro\"\n                        },\n                        \"person_schema\": null\n                    },\n                    \"creationDate\": \"2021-09-13T10:00:00Z\",\n                    \"updateDate\": \"2021-09-13T10:00:05Z\",\n                    \"pluginDependency\": null\n                }\n            }\n        ],\n        \"person\": {\n            \"personId\": 28101,\n            \"personUUID\": \"b64f333f-d449-4c46-b4c6-5cd9a53ceabf\",\n            \"name\": \"area_do_condomino-4406\",\n            \"creationDate\": \"2023-02-24T20:11:50Z\",\n            \"updateDate\": \"2023-02-24T20:11:50Z\",\n            \"deleteDate\": null,\n            \"isActive\": true,\n            \"isFake\": true,\n            \"isWatchers\": false,\n            \"documentsValidation\": []\n        },\n        \"type\": {\n            \"companyTypeId\": 2,\n            \"name\": \"Condomínio\",\n            \"friendlyName\": \"Condomínio\",\n            \"gender\": \"M\",\n            \"creationDate\": \"2020-09-24T20:02:59Z\",\n            \"updateDate\": \"2020-09-24T20:02:59Z\"\n        },\n        \"rooms\": [\n            {\n                \"roomId\": 143750,\n                \"roomName\": \"Gruvi\",\n                \"legacyId\": \"e783095b-5342-40d9-ae57-e5505b527c5b@conference.spaces.superlogica.com\",\n                \"roomUUID\": \"e783095b-5342-40d9-ae57-e5505b527c5b\",\n                \"creationDate\": \"2023-09-25T15:16:16Z\",\n                \"updateDate\": \"2023-09-25T15:16:16Z\",\n                \"isActive\": true,\n                \"deleteDate\": null,\n                \"logo\": \"https://s3.amazonaws.com/spaces-core-files-production/2abb477858aa5353b2ad137ee7b12f979b08ce1edc2d285797d1b4cf64b03215/3f2372b81795656eeae8fffb2699318c32fe1401869b074ed8e39db8369c033a\",\n                \"rules\": \"\",\n                \"tags\": null,\n                \"groupId\": null,\n                \"type\": {\n                    \"typeId\": 20,\n                    \"typeName\": \"gruvi_conversation\",\n                    \"creationDate\": \"2021-04-13T18:35:56Z\",\n                    \"updateDate\": \"2021-04-13T18:35:56Z\",\n                    \"roles\": [\n                        {\n                            \"action\": \"join\",\n                            \"role\": \"nobody\"\n                        },\n                        {\n                            \"action\": \"post\",\n                            \"role\": \"room.members\"\n                        },\n                        {\n                            \"action\": \"find\",\n                            \"role\": \"room.members\"\n                        },\n                        {\n                            \"action\": \"invite\",\n                            \"role\": \"room.members\"\n                        },\n                        {\n                            \"action\": \"mute\",\n                            \"role\": \"room.members\"\n                        },\n                        {\n                            \"action\": \"create\",\n                            \"role\": \"nobody\"\n                        }\n                    ],\n                    \"description\": \"\",\n                    \"active\": true\n                },\n                \"superRoom\": null,\n                \"userPermissions\": {\n                    \"post\": true,\n                    \"find\": true,\n                    \"create\": false,\n                    \"mute\": true,\n                    \"join\": false,\n                    \"invite\": true\n                },\n                \"roomMembers\": [\n                    {\n                        \"memberId\": 424722,\n                        \"isAdmin\": false,\n                        \"isMute\": false,\n                        \"mutedTime\": null,\n                        \"sumTime\": null,\n                        \"creationDate\": \"2023-09-25T15:16:18Z\",\n                        \"updateDate\": \"2023-09-25T15:16:18Z\",\n                        \"person\": {\n                            \"personId\": 31045,\n                            \"personUUID\": \"5b31ef1b-af32-40de-9b35-eaffb905acb5\",\n                            \"name\": \"Celulardo01\",\n                            \"creationDate\": \"2023-09-25T15:11:26Z\",\n                            \"updateDate\": \"2023-09-25T15:11:26Z\",\n                            \"deleteDate\": null,\n                            \"isActive\": true,\n                            \"isFake\": false,\n                            \"isWatchers\": true,\n                            \"documentsValidation\": null\n                        },\n                        \"isCompanyAdmin\": false,\n                        \"personPluginCompanyTag\": null\n                    }\n                ],\n                \"visible\": true,\n                \"roomType\": {\n                    \"typeId\": 20,\n                    \"typeName\": \"gruvi_conversation\",\n                    \"creationDate\": \"2021-04-13T18:35:56Z\",\n                    \"updateDate\": \"2021-04-13T18:35:56Z\",\n                    \"roles\": [\n                        {\n                            \"action\": \"join\",\n                            \"role\": \"nobody\"\n                        },\n                        {\n                            \"action\": \"post\",\n                            \"role\": \"room.members\"\n                        },\n                        {\n                            \"action\": \"find\",\n                            \"role\": \"room.members\"\n                        },\n                        {\n                            \"action\": \"invite\",\n                            \"role\": \"room.members\"\n                        },\n                        {\n                            \"action\": \"mute\",\n                            \"role\": \"room.members\"\n                        },\n                        {\n                            \"action\": \"create\",\n                            \"role\": \"nobody\"\n                        }\n                    ],\n                    \"description\": \"\",\n                    \"active\": true\n                },\n                \"active\": true\n            },\n            {\n                \"roomId\": 110134,\n                \"roomName\": \"Moradores\",\n                \"legacyId\": \"2e3ad738-34ce-478b-9b11-0d69953bf0ce@conference.spaces.superlogica.com\",\n                \"roomUUID\": \"2e3ad738-34ce-478b-9b11-0d69953bf0ce\",\n                \"creationDate\": \"2023-02-24T20:11:50Z\",\n                \"updateDate\": \"2023-02-24T20:11:50Z\",\n                \"isActive\": true,\n                \"deleteDate\": null,\n                \"logo\": \"https://s3.amazonaws.com/spaces-core-files-production/3ddcac494cbe2734af99edc8545f179fd2cf412ad00e16c723d581a01abf3084/57fc349bc896dcfb0a2c1730b03128e2babe24ff236bee0c60c6fd2acf5a9f87\",\n                \"rules\": \"\",\n                \"tags\": [],\n                \"groupId\": null,\n                \"type\": {\n                    \"typeId\": 9,\n                    \"typeName\": \"Grupo de moradores\",\n                    \"creationDate\": \"2020-07-01T18:32:30Z\",\n                    \"updateDate\": \"2020-07-01T18:32:30Z\",\n                    \"roles\": [\n                        {\n                            \"action\": \"join\",\n                            \"role\": \"company.administrators\"\n                        },\n                        {\n                            \"action\": \"post\",\n                            \"role\": \"company.members\"\n                        },\n                        {\n                            \"action\": \"find\",\n                            \"role\": \"company.members\"\n                        },\n                        {\n                            \"action\": \"invite\",\n                            \"role\": \"company.administrators\"\n                        },\n                        {\n                            \"action\": \"mute\",\n                            \"role\": \"nobody\"\n                        },\n                        {\n                            \"action\": \"role\",\n                            \"role\": \"company.members\"\n                        },\n                        {\n                            \"action\": \"role\",\n                            \"role\": \"resident\"\n                        },\n                        {\n                            \"action\": \"create\",\n                            \"role\": \"nobody\"\n                        }\n                    ],\n                    \"description\": null,\n                    \"active\": true\n                },\n                \"superRoom\": {\n                    \"companyTypesSuperRoomsId\": 7,\n                    \"name\": \"Moradores\",\n                    \"defaultLogo\": \"https://s3.amazonaws.com/spaces-core-files-production/3ddcac494cbe2734af99edc8545f179fd2cf412ad00e16c723d581a01abf3084/57fc349bc896dcfb0a2c1730b03128e2babe24ff236bee0c60c6fd2acf5a9f87\",\n                    \"tags\": []\n                },\n                \"userPermissions\": {\n                    \"post\": true,\n                    \"find\": true,\n                    \"create\": false,\n                    \"mute\": false,\n                    \"join\": false,\n                    \"invite\": false\n                },\n                \"roomMembers\": [\n                    {\n                        \"memberId\": 424720,\n                        \"isAdmin\": false,\n                        \"isMute\": false,\n                        \"mutedTime\": null,\n                        \"sumTime\": null,\n                        \"creationDate\": \"2023-09-25T15:16:13Z\",\n                        \"updateDate\": \"2023-09-25T15:16:13Z\",\n                        \"person\": {\n                            \"personId\": 31045,\n                            \"personUUID\": \"5b31ef1b-af32-40de-9b35-eaffb905acb5\",\n                            \"name\": \"Celulardo01\",\n                            \"creationDate\": \"2023-09-25T15:11:26Z\",\n                            \"updateDate\": \"2023-09-25T15:11:26Z\",\n                            \"deleteDate\": null,\n                            \"isActive\": true,\n                            \"isFake\": false,\n                            \"isWatchers\": true,\n                            \"documentsValidation\": null\n                        },\n                        \"isCompanyAdmin\": false,\n                        \"personPluginCompanyTag\": null\n                    }\n                ],\n                \"visible\": true,\n                \"roomType\": {\n                    \"typeId\": 9,\n                    \"typeName\": \"Grupo de moradores\",\n                    \"creationDate\": \"2020-07-01T18:32:30Z\",\n                    \"updateDate\": \"2020-07-01T18:32:30Z\",\n                    \"roles\": [\n                        {\n                            \"action\": \"join\",\n                            \"role\": \"company.administrators\"\n                        },\n                        {\n                            \"action\": \"post\",\n                            \"role\": \"company.members\"\n                        },\n                        {\n                            \"action\": \"find\",\n                            \"role\": \"company.members\"\n                        },\n                        {\n                            \"action\": \"invite\",\n                            \"role\": \"company.administrators\"\n                        },\n                        {\n                            \"action\": \"mute\",\n                            \"role\": \"nobody\"\n                        },\n                        {\n                            \"action\": \"role\",\n                            \"role\": \"company.members\"\n                        },\n                        {\n                            \"action\": \"role\",\n                            \"role\": \"resident\"\n                        },\n                        {\n                            \"action\": \"create\",\n                            \"role\": \"nobody\"\n                        }\n                    ],\n                    \"description\": null,\n                    \"active\": true\n                },\n                \"active\": true\n            }\n        ],\n        \"groups\": [],\n        \"linkInvite\": \"https://gruvi.link/guest?r=c635222a-03f7-455b-a972-8db543b72b82\",\n        \"personsCount\": 132,\n        \"official\": true\n    },\n    {\n        \"companyId\": 4406,\n        \"name\": \"Gruvi\",\n        \"officialName\": \"\",\n        \"documentNumber\": \"\",\n        \"phone\": \"\",\n        \"site\": \"\",\n        \"facebook\": \"\",\n        \"linkedin\": \"\",\n        \"email\": \"\",\n        \"description\": \"\",\n        \"logo\": \"\",\n        \"isActive\": true,\n        \"address\": [],\n        \"creationDate\": \"2020-09-18T18:18:24Z\",\n        \"updateDate\": \"2021-12-10T14:52:30Z\",\n        \"deleteDate\": null,\n        \"companyPlugins\": [\n            {\n                \"pluginId\": 17,\n                \"companyId\": 1,\n                \"params\": {\n                    \"plugin_room_logo\": \"https://s3.amazonaws.com/gupy5/production/companies/810/career/1077/images/logo.jpg\",\n                    \"plugin_room_name\": \"Comunicados\",\n                    \"plugin_person_logo\": \"https://s3.amazonaws.com/gupy5/production/companies/810/career/1077/images/logo.jpg\",\n                    \"plugin_person_name\": \"Superlogica\"\n                },\n                \"creationDate\": \"2020-09-16T18:19:53Z\",\n                \"updateDate\": \"2023-05-19T13:50:01Z\",\n                \"externalId\": \"IDUNI00124\",\n                \"plugin\": {\n                    \"pluginId\": 17,\n                    \"name\": \"despesas-residenciais\",\n                    \"description\": \"Despesas residenciais\",\n                    \"installable\": true,\n                    \"uninstallable\": true,\n                    \"params\": {\n                        \"friendly_name\": \"Despesas Residenciais\",\n                        \"module_name\": \"despesasResidenciaisV1\",\n                        \"access\": null,\n                        \"module_version\": \"1.0\",\n                        \"company_schema\": {\n                            \"plugin_room_logo\": \"https://s3.amazonaws.com/gupy5/production/companies/810/career/1077/images/logo.jpg\",\n                            \"plugin_room_name\": \"Comunicados\",\n                            \"plugin_person_logo\": \"https://s3.amazonaws.com/gupy5/production/companies/810/career/1077/images/logo.jpg\",\n                            \"plugin_person_name\": \"Superlogica\"\n                        },\n                        \"person_schema\": null\n                    },\n                    \"creationDate\": \"2022-07-14T15:02:00Z\",\n                    \"updateDate\": \"2022-07-14T15:02:00Z\",\n                    \"pluginDependency\": null\n                }\n            }\n        ],\n        \"person\": {\n            \"personId\": 509,\n            \"personUUID\": \"e3aea250-c658-46fb-94c8-7d20b7553881\",\n            \"name\": \"Penna\",\n            \"creationDate\": \"2020-09-16T20:27:16Z\",\n            \"updateDate\": \"2022-11-01T20:29:46Z\",\n            \"deleteDate\": null,\n            \"isActive\": true,\n            \"isFake\": false,\n            \"isWatchers\": true,\n            \"documentsValidation\": [\n                {\n                    \"personsDocumentsId\": 30,\n                    \"personId\": 509,\n                    \"type\": \"mobile_number\",\n                    \"data\": \"***\",\n                    \"creationDate\": \"2022-10-05T20:02:58Z\",\n                    \"updateDate\": \"2022-10-05T20:02:58Z\"\n                },\n                {\n                    \"personsDocumentsId\": 31,\n                    \"personId\": 509,\n                    \"type\": \"email\",\n                    \"data\": \"***\",\n                    \"creationDate\": \"2022-10-05T20:02:58Z\",\n                    \"updateDate\": \"2022-10-05T20:02:58Z\"\n                },\n                {\n                    \"personsDocumentsId\": 32,\n                    \"personId\": 509,\n                    \"type\": \"email\",\n                    \"data\": \"***\",\n                    \"creationDate\": \"2022-10-05T20:02:58Z\",\n                    \"updateDate\": \"2022-10-05T20:02:58Z\"\n                },\n                {\n                    \"personsDocumentsId\": 33,\n                    \"personId\": 509,\n                    \"type\": \"email\",\n                    \"data\": \"***\",\n                    \"creationDate\": \"2022-10-05T20:02:58Z\",\n                    \"updateDate\": \"2022-10-05T20:02:58Z\"\n                },\n                {\n                    \"personsDocumentsId\": 34,\n                    \"personId\": 509,\n                    \"type\": \"email\",\n                    \"data\": \"***\",\n                    \"creationDate\": \"2022-10-05T20:02:58Z\",\n                    \"updateDate\": \"2022-10-05T20:02:58Z\"\n                },\n                {\n                    \"personsDocumentsId\": 35,\n                    \"personId\": 509,\n                    \"type\": \"email\",\n                    \"data\": \"***\",\n                    \"creationDate\": \"2022-10-05T20:02:58Z\",\n                    \"updateDate\": \"2022-10-05T20:02:58Z\"\n                },\n                {\n                    \"personsDocumentsId\": 36,\n                    \"personId\": 509,\n                    \"type\": \"email\",\n                    \"data\": \"***\",\n                    \"creationDate\": \"2022-10-05T20:02:58Z\",\n                    \"updateDate\": \"2022-10-05T20:02:58Z\"\n                },\n                {\n                    \"personsDocumentsId\": 37,\n                    \"personId\": 509,\n                    \"type\": \"email\",\n                    \"data\": \"***\",\n                    \"creationDate\": \"2022-10-05T20:02:58Z\",\n                    \"updateDate\": \"2022-10-05T20:02:58Z\"\n                },\n                {\n                    \"personsDocumentsId\": 38,\n                    \"personId\": 509,\n                    \"type\": \"cpf\",\n                    \"data\": \"***\",\n                    \"creationDate\": \"2022-10-05T20:02:58Z\",\n                    \"updateDate\": \"2022-10-05T20:02:58Z\"\n                }\n            ]\n        },\n        \"type\": {\n            \"companyTypeId\": 1,\n            \"name\": \"Empresa\",\n            \"friendlyName\": \"Empresa\",\n            \"gender\": \"F\",\n            \"creationDate\": \"2020-05-28T19:28:30Z\",\n            \"updateDate\": \"2020-05-28T19:28:30Z\"\n        },\n        \"rooms\": [],\n        \"personsCount\": 0,\n        \"official\": false\n    }\n]",
-        "output": "json",
-        "x": 400,
-        "y": 820,
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "login",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1050,
+        "y": 480,
         "wires": [
             [
-                "0d4ca7110a56a69e"
+                "1d59c54c5cbccfb5"
             ]
         ]
     },
     {
-        "id": "0d4ca7110a56a69e",
-        "type": "http response",
-        "z": "aa0e170c91379e2f",
+        "id": "af85a7af918962c9",
+        "type": "change",
+        "z": "8c761bcddb6e0b85",
         "name": "",
-        "statusCode": "200",
-        "headers": {},
-        "x": 660,
-        "y": 820,
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "token",
+                "tot": "global"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1050,
+        "y": 560,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1d59c54c5cbccfb5",
+        "type": "ui_ui_control",
+        "z": "8c761bcddb6e0b85",
+        "name": "",
+        "events": "all",
+        "x": 1260,
+        "y": 480,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d270f04e12a24c43",
+        "type": "comment",
+        "z": "8c761bcddb6e0b85",
+        "name": "Página de login",
+        "info": "",
+        "x": 520,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "683c13c89c971e85",
+        "type": "function",
+        "z": "8c761bcddb6e0b85",
+        "name": "function 1",
+        "func": "msg = {\"_msgid\":\"afac75bfd9a60f55\",\"payload\":\"\",\"statusCode\":201,\"headers\":{\"date\":\"Mon, 09 Oct 2023 23:15:38 GMT\",\"transfer-encoding\":\"chunked\",\"connection\":\"close\",\"content-range\":\"*/*\",\"cf-ray\":\"813a53a3c9451d4e-GIG\",\"cf-cache-status\":\"DYNAMIC\",\"access-control-allow-origin\":\"*\",\"strict-transport-security\":\"max-age=2592000; includeSubDomains\",\"via\":\"kong/2.8.1\",\"sb-gateway-version\":\"1\",\"x-kong-proxy-latency\":\"1\",\"x-kong-upstream-latency\":\"20\",\"server\":\"cloudflare\",\"alt-svc\":\"h3=\\\":443\\\"; ma=86400\",\"x-node-red-request-node\":\"68fcf2d6\"},\"responseUrl\":\"https://qazlfsxxnbvcupqtqqxf.supabase.co/rest/v1/ctj_autorizacao\",\"redirectList\":[],\"retry\":0}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 480,
+        "y": 200,
+        "wires": [
+            [
+                "9f713da3cb631cf9"
+            ]
+        ]
+    },
+    {
+        "id": "18fa717564305b21",
+        "type": "ui_ui_control",
+        "z": "8c761bcddb6e0b85",
+        "name": "",
+        "events": "all",
+        "x": 860,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9f713da3cb631cf9",
+        "type": "change",
+        "z": "8c761bcddb6e0b85",
+        "name": "Carregar pag Login",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "login",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 670,
+        "y": 140,
+        "wires": [
+            [
+                "18fa717564305b21"
+            ]
+        ]
+    },
+    {
+        "id": "8b2ea290429fdb46",
+        "type": "function",
+        "z": "8c761bcddb6e0b85",
+        "name": "define url cadastro login",
+        "func": "const API_SERVER_AUTH = env.get(\"API_SERVER_AUTH\")\n\nconst email = encodeURIComponent(msg.payload.email);\n\nmsg.payload.url = `${API_SERVER_AUTH}?user=eq.${email}&select=*`;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 230,
+        "y": 940,
+        "wires": [
+            [
+                "3b61f912a0d768c3"
+            ]
+        ]
+    },
+    {
+        "id": "a2273a4509bef20c",
+        "type": "comment",
+        "z": "8c761bcddb6e0b85",
+        "name": "",
+        "info": "",
+        "x": 650,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "5957c1b77a7435d8",
+        "type": "JsonWebToken",
+        "z": "8c761bcddb6e0b85",
+        "name": "jwt",
+        "tokenconfig": "cf21394ef4fb9045",
+        "x": 1170,
+        "y": 880,
+        "wires": [
+            [
+                "df1d6324a71cfdce"
+            ]
+        ]
+    },
+    {
+        "id": "4840eedf5837a3bc",
+        "type": "comment",
+        "z": "8c761bcddb6e0b85",
+        "name": "Fluxo para verificar se o usuário está logado",
+        "info": "",
+        "x": 630,
+        "y": 1100,
         "wires": []
     },
     {
@@ -878,19 +1055,19 @@
         "label": "",
         "group": "be1439f3a0ba43d1",
         "order": 1,
-        "width": 6,
-        "height": 1,
+        "width": 0,
+        "height": 0,
         "options": [
             {
                 "label": "Nome do filme",
-                "value": "filmName",
+                "value": "movieName",
                 "type": "text",
                 "required": true,
                 "rows": null
             }
         ],
         "formValue": {
-            "filmName": ""
+            "movieName": ""
         },
         "payload": "",
         "submit": "Pesquisar",
@@ -899,11 +1076,11 @@
         "topicType": "msg",
         "splitLayout": false,
         "className": "",
-        "x": 130,
-        "y": 200,
+        "x": 70,
+        "y": 140,
         "wires": [
             [
-                "e45f666c33227137"
+                "a4eb3f59a2b5cb7f"
             ]
         ]
     },
@@ -915,7 +1092,7 @@
         "method": "GET",
         "ret": "obj",
         "paytoqs": "ignore",
-        "url": "https://api.themoviedb.org/3/search/movie?query={{{payload.filme}}}&include_adult=false&language=pt-BR&page=1",
+        "url": "{{{payload.url}}}",
         "tls": "",
         "persist": false,
         "proxy": "",
@@ -926,93 +1103,17 @@
             {
                 "keyType": "other",
                 "keyValue": "Authorization",
-                "valueType": "other",
-                "valueValue": ""
+                "valueType": "msg",
+                "valueValue": "payload.token"
             }
         ],
         "x": 430,
-        "y": 80,
-        "wires": [
-            [
-                "e3983e9b805713b4"
-            ]
-        ]
-    },
-    {
-        "id": "e3983e9b805713b4",
-        "type": "debug",
-        "z": "aa0e170c91379e2f",
-        "name": "debug 9",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 700,
-        "y": 80,
-        "wires": []
-    },
-    {
-        "id": "10362547f079db28",
-        "type": "inject",
-        "z": "aa0e170c91379e2f",
-        "name": "",
-        "props": [
-            {
-                "p": "payload.filme",
-                "v": "star",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "x": 110,
-        "y": 80,
-        "wires": [
-            [
-                "20505872b4e45f34"
-            ]
-        ]
-    },
-    {
-        "id": "e45f666c33227137",
-        "type": "template",
-        "z": "aa0e170c91379e2f",
-        "name": "",
-        "field": "payload",
-        "fieldType": "msg",
-        "format": "json",
-        "syntax": "mustache",
-        "template": "{\n    \"page\": 1,\n    \"results\": [\n        {\n            \"adult\": false,\n            \"backdrop_path\": \"/A55WRPRK73zx1cuULDkdX4vriDO.jpg\",\n            \"genre_ids\": [\n                35,\n                28\n            ],\n            \"id\": 22599,\n            \"original_language\": \"en\",\n            \"original_title\": \"Star\",\n            \"overview\": \"The Driver now carries an arrogant rock star who is visiting a major city (not Pittsburgh as earlier believed). Played by Madonna, this title character wants to get away from her bodyguards in the Driver's BMW. He soon gets tired of her and decides to have a bit of fun.\",\n            \"popularity\": 7.492,\n            \"poster_path\": \"/zslEgrYEg6EDzOYrr8EfDoQK8j1.jpg\",\n            \"release_date\": \"2001-06-01\",\n            \"title\": \"Star\",\n            \"video\": false,\n            \"vote_average\": 6.837,\n            \"vote_count\": 245\n        },\n        {\n            \"adult\": false,\n            \"backdrop_path\": \"/m7hBkOBJomzIhbet60b6x4RTBRk.jpg\",\n            \"genre_ids\": [\n                18,\n                10402,\n                10749\n            ],\n            \"id\": 52959,\n            \"original_language\": \"en\",\n            \"original_title\": \"Star!\",\n            \"overview\": \"Drama musical baseado na vida (dentro e fora dos palcos) da atriz britânica Gertrude Lawrence.\",\n            \"popularity\": 8.406,\n            \"poster_path\": \"/xMyOm5hLWeuoWBea1DJrcJy8bU6.jpg\",\n            \"release_date\": \"1968-07-18\",\n            \"title\": \"A Estrela\",\n            \"video\": false,\n            \"vote_average\": 6.482,\n            \"vote_count\": 112\n        },\n        {\n            \"adult\": false,\n            \"backdrop_path\": \"/a1lMRUeGozBAczWaSoU1p3zLmGs.jpg\",\n            \"genre_ids\": [\n                10749,\n                18\n            ],\n            \"id\": 136244,\n            \"original_language\": \"en\",\n            \"original_title\": \"Star\",\n            \"overview\": \"When Crystal Wyatt was 16 her father passed away. From that time her life would never be the same. Crystal is banished from the family ranch, and starts a new life as a singer in a San Francisco nightclub.\",\n            \"popularity\": 8.122,\n            \"poster_path\": \"/jYmt7JBvAmRJ0FxPx2UayOQ1uOB.jpg\",\n            \"release_date\": \"1993-09-20\",\n            \"title\": \"Star\",\n            \"video\": false,\n            \"vote_average\": 6.008,\n            \"vote_count\": 118\n        },\n        {\n            \"adult\": false,\n            \"backdrop_path\": \"/osHpQQ5rcbmH41I4LQlPlprRGpk.jpg\",\n            \"genre_ids\": [\n                18,\n                10751\n            ],\n            \"id\": 125225,\n            \"original_language\": \"hi\",\n            \"original_title\": \"Star\",\n            \"overview\": \"Dev Kumar Verma comes from a middle-class family and must find employment to support his dad and mom. Dev, however, has set his mind upon becoming a music sensation like Elvis Presley. He loses his job because of this, and refuses to work until and unless he gets a job to his liking, much to the dismay of his parents and his brother, Shiv Kumar. Dev does get employment at Charlie's Disco, where he meets with Maya and falls in love with her.  When Charlie's Disco's competitor, Rana, finds out about Dev, he wants to hire Dev, but Dev decides to continue to work with Charlie's Disco, as a result Dev and Charlie get a beating by Rana's men, and Dev is unable to sing. After recuperating, Dev is devastated to find out that Maya and Shiv Kumar are in love with each other. What impact will this have on Dev and his brother on one hand, and what of his career in music?\",\n            \"popularity\": 3.78,\n            \"poster_path\": \"/pU7oXmVdNPrzj2XOGIQ6ciMnH42.jpg\",\n            \"release_date\": \"1982-10-22\",\n            \"title\": \"Star\",\n            \"video\": false,\n            \"vote_average\": 5.721,\n            \"vote_count\": 52\n        },\n        {\n            \"adult\": false,\n            \"backdrop_path\": \"/zDImYTJiECn1b79segxKr382DSe.jpg\",\n            \"genre_ids\": [\n                18\n            ],\n            \"id\": 449430,\n            \"original_language\": \"fr\",\n            \"original_title\": \"Star\",\n            \"overview\": \"Star is a young graffiti writer, the best in his city, Paris. His reputation attracts him as much into art galleries than in the police precincts. Accused of vandalism, he faces jail. Despite the threat, he decides to go to Rome with his crew in search of the meaning of his art.\",\n            \"popularity\": 3.081,\n            \"poster_path\": \"/zeGcw5pPVT4DhHrSLUDxE58QJQn.jpg\",\n            \"release_date\": \"2017-04-03\",\n            \"title\": \"Star\",\n            \"video\": false,\n            \"vote_average\": 5.891,\n            \"vote_count\": 32\n        },\n        {\n            \"adult\": false,\n            \"backdrop_path\": null,\n            \"genre_ids\": [\n                18\n            ],\n            \"id\": 812434,\n            \"original_language\": \"it\",\n            \"original_title\": \"Star\",\n            \"overview\": \"Giacomo is a low-level actor and voice actor with a great passion for acting. After another disappointing audition he has one last chance to get the part assigned\",\n            \"popularity\": 2.072,\n            \"poster_path\": \"/4oObDGDhycViadrRCC2XJwwXAcR.jpg\",\n            \"release_date\": \"2019-12-19\",\n            \"title\": \"Star\",\n            \"video\": false,\n            \"vote_average\": 6.281,\n            \"vote_count\": 32\n        },\n        {\n            \"adult\": false,\n            \"backdrop_path\": null,\n            \"genre_ids\": [\n                99,\n                10402\n            ],\n            \"id\": 719316,\n            \"original_language\": \"en\",\n            \"original_title\": \"Star\",\n            \"overview\": \"Documentary short film and music video for MIKAL's song \\\"Star\\\", comprised of footage of the actual recording process of the song itself.\",\n            \"popularity\": 2.567,\n            \"poster_path\": \"/5o0GyNlILqVxfteo7l31wB5qD2X.jpg\",\n            \"release_date\": \"2017-01-23\",\n            \"title\": \"Star\",\n            \"video\": false,\n            \"vote_average\": 6.267,\n            \"vote_count\": 31\n        },\n        {\n            \"adult\": false,\n            \"backdrop_path\": null,\n            \"genre_ids\": [\n                18\n            ],\n            \"id\": 1050338,\n            \"original_language\": \"fr\",\n            \"original_title\": \"Star\",\n            \"overview\": \"Star follows the path of Tito and Jay, two brothers living in the Montreal neighborhood of Park Extension. Accompanying these young people in their daily life marked by complicity and intimidation, Star tackles themes dear to teenagers: identity and friendship.\",\n            \"popularity\": 2.011,\n            \"poster_path\": null,\n            \"release_date\": \"\",\n            \"title\": \"Star\",\n            \"video\": false,\n            \"vote_average\": 6.3,\n            \"vote_count\": 29\n        },\n        {\n            \"adult\": false,\n            \"backdrop_path\": null,\n            \"genre_ids\": [],\n            \"id\": 611791,\n            \"original_language\": \"fr\",\n            \"original_title\": \"Star\",\n            \"overview\": \"Star follows the path of Tito and Jay, two brothers living in the Montreal neighborhood of Park Extension. Accompanying these young people in their daily life marked by complicity and intimidation, Star tackles themes dear to teenagers: identity and friendship.\",\n            \"popularity\": 1.817,\n            \"poster_path\": \"/hVGnSMBc42TGwvV5QTHpH0PgyJp.jpg\",\n            \"release_date\": \"2015-09-30\",\n            \"title\": \"Star\",\n            \"video\": false,\n            \"vote_average\": 5.788,\n            \"vote_count\": 33\n        },\n        {\n            \"adult\": false,\n            \"backdrop_path\": \"/5Iw7zQTHVRBOYpA0V6z0yypOPZh.jpg\",\n            \"genre_ids\": [\n                12,\n                28,\n                878\n            ],\n            \"id\": 181808,\n            \"original_language\": \"en\",\n            \"original_title\": \"Star Wars: The Last Jedi\",\n            \"overview\": \"A tranquila e solitária vida de Luke Skywalker sofre uma reviravolta quando ele conhece Rey, uma jovem que mostra fortes sinais da Força. O desejo dela de aprender o estilo dos Jedi força Luke a tomar uma decisão que mudará sua vida para sempre. Enquanto isso, Kylo Ren e o General Hux lideram a Primeira Ordem para um ataque total contra Leia e a Resistência pela supremacia da galáxia.\",\n            \"popularity\": 90.639,\n            \"poster_path\": \"/5dGufuaIG5vNcxPm8QPij5MSPeQ.jpg\",\n            \"release_date\": \"2017-12-13\",\n            \"title\": \"Star Wars: Episódio VIII - Os Últimos Jedi\",\n            \"video\": false,\n            \"vote_average\": 6.825,\n            \"vote_count\": 14311\n        },\n        {\n            \"adult\": false,\n            \"backdrop_path\": \"/jOzrELAzFxtMx2I4uDGHOotdfsS.jpg\",\n            \"genre_ids\": [\n                12,\n                28,\n                878\n            ],\n            \"id\": 181812,\n            \"original_language\": \"en\",\n            \"original_title\": \"Star Wars: The Rise of Skywalker\",\n            \"overview\": \"Com o retorno do Imperador Palpatine, todos voltam a temer seu poder e, com isso, a Resistência toma a frente da batalha que ditará os rumos da galáxia. Treinando para ser uma completa Jedi, Rey (Daisy Ridley) ainda se encontra em conflito com seu passado e futuro, mas teme pelas respostas que pode conseguir a partir de sua complexa ligação com Kylo Ren (Adam Driver), que também se encontra em conflito pela Força.\",\n            \"popularity\": 76.576,\n            \"poster_path\": \"/uLlrDUtFG2tKtDcJN6kBznlqqsp.jpg\",\n            \"release_date\": \"2019-12-18\",\n            \"title\": \"Star Wars: Episódio IX - A Ascensão Skywalker\",\n            \"video\": false,\n            \"vote_average\": 6.365,\n            \"vote_count\": 9047\n        },\n        {\n            \"adult\": false,\n            \"backdrop_path\": \"/8BTsTfln4jlQrLXUBquXJ0ASQy9.jpg\",\n            \"genre_ids\": [\n                12,\n                28,\n                878\n            ],\n            \"id\": 140607,\n            \"original_language\": \"en\",\n            \"original_title\": \"Star Wars: The Force Awakens\",\n            \"overview\": \"A queda de Darth Vader e do Império levou ao surgimento de uma nova força sombria: a Primeira Ordem. Eles procuram o jedi Luke Skywalker, desaparecido. A resistência tenta desesperadamente encontrá-lo antes para salvar a galáxia.\",\n            \"popularity\": 81.445,\n            \"poster_path\": \"/lqMDbo4rXnakFgc4C6LzPv6pG7F.jpg\",\n            \"release_date\": \"2015-12-15\",\n            \"title\": \"Star Wars: O Despertar da Força\",\n            \"video\": false,\n            \"vote_average\": 7.293,\n            \"vote_count\": 18352\n        },\n        {\n            \"adult\": false,\n            \"backdrop_path\": \"/npDrIM6ZbuD7nUxI7ZzNBxs4IRF.jpg\",\n            \"genre_ids\": [\n                28,\n                12,\n                878\n            ],\n            \"id\": 54138,\n            \"original_language\": \"en\",\n            \"original_title\": \"Star Trek Into Darkness\",\n            \"overview\": \"Os tripulantes da Enterprise descobrem uma força terrorista dentro da sua própria organização. O capitão Kirk desafia as regras da Frota Estelar e lidera uma missão para capturar uma arma de destruição em massa.\",\n            \"popularity\": 44.625,\n            \"poster_path\": \"/hHUHMuTwYBcQRMYK9z8jHZucnD3.jpg\",\n            \"release_date\": \"2013-05-05\",\n            \"title\": \"Além da Escuridão - Star Trek\",\n            \"video\": false,\n            \"vote_average\": 7.328,\n            \"vote_count\": 8589\n        },\n        {\n            \"adult\": false,\n            \"backdrop_path\": \"/ojHCeDULAkQK25700fhRU75Tur2.jpg\",\n            \"genre_ids\": [\n                878,\n                12,\n                28\n            ],\n            \"id\": 348350,\n            \"original_language\": \"en\",\n            \"original_title\": \"Solo: A Star Wars Story\",\n            \"overview\": \"Embarque na Millennium Falcon e viaje para uma galáxia distante em uma nova aventura com o mais amado canalha da galáxia. Através de uma série de ousadas aventuras no obscuro e perigoso submundo do crime, Han Solo encontra seu poderoso futuro copiloto Chewbacca e encontra o famoso jogador Lando Calrissian, em uma jornada que definirá o curso de um dos heróis mais improváveis da saga Star Wars.\",\n            \"popularity\": 84.484,\n            \"poster_path\": \"/jAMEX0syUh6sbjBiysibzrFpbo.jpg\",\n            \"release_date\": \"2018-05-15\",\n            \"title\": \"Han Solo: Uma História Star Wars\",\n            \"video\": false,\n            \"vote_average\": 6.563,\n            \"vote_count\": 7904\n        },\n        {\n            \"adult\": false,\n            \"backdrop_path\": \"/6t8ES1d12OzWyCGxBeDYLHoaDrT.jpg\",\n            \"genre_ids\": [\n                28,\n                12,\n                878\n            ],\n            \"id\": 330459,\n            \"original_language\": \"en\",\n            \"original_title\": \"Rogue One: A Star Wars Story\",\n            \"overview\": \"Em busca de uma nova esperança para a galáxia, a Aliança Rebelde enfrenta uma arriscada missão: roubar os planos que revelam uma falha na construção da Estrela da Morte. Para isso, eles contam com a ajuda de Jyn Erso, filha do criador da arma mais poderosa do império.\",\n            \"popularity\": 54.461,\n            \"poster_path\": \"/74C2YX0NLWnozVMRS56d5CKDdEv.jpg\",\n            \"release_date\": \"2016-12-14\",\n            \"title\": \"Rogue One: Uma História Star Wars\",\n            \"video\": false,\n            \"vote_average\": 7.488,\n            \"vote_count\": 14352\n        },\n        {\n            \"adult\": false,\n            \"backdrop_path\": \"/wDe8LzwuvHYYiuwyNfxdYQq8ti4.jpg\",\n            \"genre_ids\": [\n                12,\n                28,\n                878\n            ],\n            \"id\": 1893,\n            \"original_language\": \"en\",\n            \"original_title\": \"Star Wars: Episode I - The Phantom Menace\",\n            \"overview\": \"Enquanto resgatam a Rainha Amidala, governante de um planeta pacífico invadido por forças ameaçadoras, os Cavaleiros Jedi Obi-Wan Kenobi e Qui-Gon Jinn descobrem Anakin Skywalker, uma criança prodígio de 9 anos excepcionalmente poderosa na Força.\",\n            \"popularity\": 53.134,\n            \"poster_path\": \"/gNk8UNAumXlfCdtaxDqsQe7ZGlt.jpg\",\n            \"release_date\": \"1999-05-19\",\n            \"title\": \"Star Wars: Episódio I - A Ameaça Fantasma\",\n            \"video\": false,\n            \"vote_average\": 6.534,\n            \"vote_count\": 13550\n        },\n        {\n            \"adult\": false,\n            \"backdrop_path\": \"/5vDuLrjJXFS9PTF7Q1xzobmYKR9.jpg\",\n            \"genre_ids\": [\n                12,\n                28,\n                878\n            ],\n            \"id\": 1895,\n            \"original_language\": \"en\",\n            \"original_title\": \"Star Wars: Episode III - Revenge of the Sith\",\n            \"overview\": \"As Guerras Clônicas estão em pleno andamento e Anakin Skywalker mantém um elo de lealdade com Palpatine, ao mesmo tempo em que luta para que seu casamento com Padmé Amidala não seja afetado por esta situação. Seduzido por promessas de poder, Anakin se aproxima cada vez mais de Darth Sidious até se tornar o temível Darth Vader. Juntos eles tramam um plano para aniquilar de uma vez por todas com os cavaleiros jedi.\",\n            \"popularity\": 54.516,\n            \"poster_path\": \"/nuF5yWtTJEEAd4Qa6cVkYz1XCST.jpg\",\n            \"release_date\": \"2005-05-17\",\n            \"title\": \"Star Wars: Episódio III - A Vingança dos Sith\",\n            \"video\": false,\n            \"vote_average\": 7.411,\n            \"vote_count\": 12752\n        },\n        {\n            \"adult\": false,\n            \"backdrop_path\": \"/abwxHfymXGAbbH3lo9PDEJEfvtW.jpg\",\n            \"genre_ids\": [\n                12,\n                28,\n                878\n            ],\n            \"id\": 1894,\n            \"original_language\": \"en\",\n            \"original_title\": \"Star Wars: Episode II - Attack of the Clones\",\n            \"overview\": \"Com a missão de proteger a Senadora Amidala, Anakin Skywalker descobre o seu amor por ela, do mesmo modo que vai conhecendo seu lado sombrio. Obi-Wan Kenobi descobre um exército de clones à medida que a Galáxia caminha para uma grande guerra.\",\n            \"popularity\": 50.569,\n            \"poster_path\": \"/9m1nJ2MfTG5QEmjOCg0b4YCo4W8.jpg\",\n            \"release_date\": \"2002-05-15\",\n            \"title\": \"Star Wars: Episódio II - Ataque dos Clones\",\n            \"video\": false,\n            \"vote_average\": 6.551,\n            \"vote_count\": 12288\n        },\n        {\n            \"adult\": false,\n            \"backdrop_path\": \"/m4F1KRK5jAoQHi2mKDFE2jFKEIb.jpg\",\n            \"genre_ids\": [\n                28,\n                12,\n                878\n            ],\n            \"id\": 188927,\n            \"original_language\": \"en\",\n            \"original_title\": \"Star Trek Beyond\",\n            \"overview\": \"Desta vez, Kirk, Spock e a tripulação da Enterprise encontram-se no terceiro ano da missão de exploração do espaço prevista para durar cinco anos. Eles recebem um pedido de socorro que acaba os ligando ao maléfico vilão Krall, um insurgente Anti-Frota Estelar interessado em um objeto de posse do líder da nave. A Enterprise é atacada, e eles acabam em um planeta desconhecido, onde o grupo acaba sendo dividido em duplas.\",\n            \"popularity\": 56.142,\n            \"poster_path\": \"/zC2lEQjA4X814UnvekmdkM5hXmk.jpg\",\n            \"release_date\": \"2016-07-07\",\n            \"title\": \"Star Trek: Sem Fronteiras\",\n            \"video\": false,\n            \"vote_average\": 6.781,\n            \"vote_count\": 6226\n        },\n        {\n            \"adult\": false,\n            \"backdrop_path\": \"/fMRrTziefy0c6v45IUyByGjZCRo.jpg\",\n            \"genre_ids\": [\n                18\n            ],\n            \"id\": 970284,\n            \"original_language\": \"en\",\n            \"original_title\": \"Shooting Stars\",\n            \"overview\": \"Sonhando em viver do basquete, o jovem LeBron James começa sua trajetória com o time de sua escola. Com seus amigos e colegas de time, ele alcança o posto entre os melhores jogadores do mundo.\",\n            \"popularity\": 23.106,\n            \"poster_path\": \"/rzOxUgqkQeKyhyuKZqIj87VqFUg.jpg\",\n            \"release_date\": \"2023-06-02\",\n            \"title\": \"Shooting Stars: A Vida de Lebron James\",\n            \"video\": false,\n            \"vote_average\": 8.2,\n            \"vote_count\": 84\n        }\n    ],\n    \"total_pages\": 225,\n    \"total_results\": 4486\n}",
-        "output": "json",
-        "x": 380,
-        "y": 200,
+        "y": 140,
         "wires": [
             [
                 "34d013ba59765ca4"
             ]
         ]
-    },
-    {
-        "id": "f348150218f7036d",
-        "type": "debug",
-        "z": "aa0e170c91379e2f",
-        "name": "debug 10",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 800,
-        "y": 200,
-        "wires": []
     },
     {
         "id": "f6c4b9a8fdc8f806",
@@ -1035,8 +1136,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 180,
-        "y": 260,
+        "x": 140,
+        "y": 240,
         "wires": [
             [
                 "e45f666c33227137"
@@ -1048,21 +1149,20 @@
         "type": "function",
         "z": "aa0e170c91379e2f",
         "name": "itera os resultados",
-        "func": "\nmsg.payload = msg.payload.results[0];\n\nreturn msg;\n\n\nif(msg.payload?.results?.length) {\n    for (var i = 0; i < msg.payload.results.length; i++) {\n        var newMsg = {};\n        newMsg.payload = {\n            name: msg.payload.results[i].id,\n            age: msg.payload.results[i].popularity\n        }\n        node.send(newMsg);\n    }\n}\n\nreturn null;",
+        "func": "msg.payload = msg.payload.results[0];\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 610,
-        "y": 200,
+        "x": 650,
+        "y": 180,
         "wires": [
             [
-                "f348150218f7036d",
                 "51f0a59a455eee50",
-                "43a5ef879cc18313",
-                "ee508222c9347f97"
+                "28aff7a9fc2f64d4",
+                "824ccd2f271148e9"
             ]
         ]
     },
@@ -1072,62 +1172,572 @@
         "z": "aa0e170c91379e2f",
         "group": "9b81770e912bf6fa",
         "order": 1,
-        "width": 6,
-        "height": 1,
+        "width": 0,
+        "height": 0,
         "name": "",
-        "label": "text",
-        "format": "{{msg.payload.popularity}}",
+        "label": "Título",
+        "format": "{{msg.payload.title}}",
         "layout": "row-spread",
         "className": "",
         "style": false,
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 810,
-        "y": 260,
+        "x": 850,
+        "y": 60,
         "wires": []
     },
     {
-        "id": "ee508222c9347f97",
-        "type": "ui_text",
+        "id": "28aff7a9fc2f64d4",
+        "type": "ui_template",
         "z": "aa0e170c91379e2f",
         "group": "639665f5f0a31743",
-        "order": 1,
-        "width": 6,
-        "height": 6,
         "name": "",
-        "label": "text",
-        "format": "{{msg.payload.vote_count}}",
-        "layout": "row-spread",
+        "order": 1,
+        "width": "6",
+        "height": "6",
+        "format": "<div ng-bind-html=\"msg.payload.overview\"></div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
         "className": "",
-        "style": false,
-        "font": "",
-        "fontSize": 16,
-        "color": "#000000",
-        "x": 810,
-        "y": 400,
+        "x": 880,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e45f666c33227137",
+        "type": "template",
+        "z": "aa0e170c91379e2f",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "json",
+        "syntax": "mustache",
+        "template": "{\n    \"page\": 1,\n    \"results\": [\n        {\n            \"adult\": false,\n            \"backdrop_path\": \"/A55WRPRK73zx1cuULDkdX4vriDO.jpg\",\n            \"genre_ids\": [\n                35,\n                28\n            ],\n            \"id\": 22599,\n            \"original_language\": \"en\",\n            \"original_title\": \"Staer\",\n            \"overview\": \"The Driver now carries an arrogant rock star who is visiting a major city (not Pittsburgh as earlier believed). Played by Madonna, this title character wants to get away from her bodyguards in the Driver's BMW. He soon gets tired of her and decides to have a bit of fun.\",\n            \"popularity\": 7.492,\n            \"poster_path\": \"/zslEgrYEg6EDzOYrr8EfDoQK8j1.jpg\",\n            \"release_date\": \"2001-06-01\",\n            \"title\": \"Star\",\n            \"video\": false,\n            \"vote_average\": 6.837,\n            \"vote_count\": 245\n        },\n        {\n            \"adult\": false,\n            \"backdrop_path\": \"/m7hBkOBJomzIhbet60b6x4RTBRk.jpg\",\n            \"genre_ids\": [\n                18,\n                10402,\n                10749\n            ],\n            \"id\": 52959,\n            \"original_language\": \"en\",\n            \"original_title\": \"Star!\",\n            \"overview\": \"Drama musical baseado na vida (dentro e fora dos palcos) da atriz britânica Gertrude Lawrence.\",\n            \"popularity\": 8.406,\n            \"poster_path\": \"/xMyOm5hLWeuoWBea1DJrcJy8bU6.jpg\",\n            \"release_date\": \"1968-07-18\",\n            \"title\": \"A Estrela\",\n            \"video\": false,\n            \"vote_average\": 6.482,\n            \"vote_count\": 112\n        },\n        {\n            \"adult\": false,\n            \"backdrop_path\": \"/a1lMRUeGozBAczWaSoU1p3zLmGs.jpg\",\n            \"genre_ids\": [\n                10749,\n                18\n            ],\n            \"id\": 136244,\n            \"original_language\": \"en\",\n            \"original_title\": \"Star\",\n            \"overview\": \"When Crystal Wyatt was 16 her father passed away. From that time her life would never be the same. Crystal is banished from the family ranch, and starts a new life as a singer in a San Francisco nightclub.\",\n            \"popularity\": 8.122,\n            \"poster_path\": \"/jYmt7JBvAmRJ0FxPx2UayOQ1uOB.jpg\",\n            \"release_date\": \"1993-09-20\",\n            \"title\": \"Star\",\n            \"video\": false,\n            \"vote_average\": 6.008,\n            \"vote_count\": 118\n        },\n        {\n            \"adult\": false,\n            \"backdrop_path\": \"/osHpQQ5rcbmH41I4LQlPlprRGpk.jpg\",\n            \"genre_ids\": [\n                18,\n                10751\n            ],\n            \"id\": 125225,\n            \"original_language\": \"hi\",\n            \"original_title\": \"Star\",\n            \"overview\": \"Dev Kumar Verma comes from a middle-class family and must find employment to support his dad and mom. Dev, however, has set his mind upon becoming a music sensation like Elvis Presley. He loses his job because of this, and refuses to work until and unless he gets a job to his liking, much to the dismay of his parents and his brother, Shiv Kumar. Dev does get employment at Charlie's Disco, where he meets with Maya and falls in love with her.  When Charlie's Disco's competitor, Rana, finds out about Dev, he wants to hire Dev, but Dev decides to continue to work with Charlie's Disco, as a result Dev and Charlie get a beating by Rana's men, and Dev is unable to sing. After recuperating, Dev is devastated to find out that Maya and Shiv Kumar are in love with each other. What impact will this have on Dev and his brother on one hand, and what of his career in music?\",\n            \"popularity\": 3.78,\n            \"poster_path\": \"/pU7oXmVdNPrzj2XOGIQ6ciMnH42.jpg\",\n            \"release_date\": \"1982-10-22\",\n            \"title\": \"Star\",\n            \"video\": false,\n            \"vote_average\": 5.721,\n            \"vote_count\": 52\n        },\n        {\n            \"adult\": false,\n            \"backdrop_path\": \"/zDImYTJiECn1b79segxKr382DSe.jpg\",\n            \"genre_ids\": [\n                18\n            ],\n            \"id\": 449430,\n            \"original_language\": \"fr\",\n            \"original_title\": \"Star\",\n            \"overview\": \"Star is a young graffiti writer, the best in his city, Paris. His reputation attracts him as much into art galleries than in the police precincts. Accused of vandalism, he faces jail. Despite the threat, he decides to go to Rome with his crew in search of the meaning of his art.\",\n            \"popularity\": 3.081,\n            \"poster_path\": \"/zeGcw5pPVT4DhHrSLUDxE58QJQn.jpg\",\n            \"release_date\": \"2017-04-03\",\n            \"title\": \"Star\",\n            \"video\": false,\n            \"vote_average\": 5.891,\n            \"vote_count\": 32\n        },\n        {\n            \"adult\": false,\n            \"backdrop_path\": null,\n            \"genre_ids\": [\n                18\n            ],\n            \"id\": 812434,\n            \"original_language\": \"it\",\n            \"original_title\": \"Star\",\n            \"overview\": \"Giacomo is a low-level actor and voice actor with a great passion for acting. After another disappointing audition he has one last chance to get the part assigned\",\n            \"popularity\": 2.072,\n            \"poster_path\": \"/4oObDGDhycViadrRCC2XJwwXAcR.jpg\",\n            \"release_date\": \"2019-12-19\",\n            \"title\": \"Star\",\n            \"video\": false,\n            \"vote_average\": 6.281,\n            \"vote_count\": 32\n        },\n        {\n            \"adult\": false,\n            \"backdrop_path\": null,\n            \"genre_ids\": [\n                99,\n                10402\n            ],\n            \"id\": 719316,\n            \"original_language\": \"en\",\n            \"original_title\": \"Star\",\n            \"overview\": \"Documentary short film and music video for MIKAL's song \\\"Star\\\", comprised of footage of the actual recording process of the song itself.\",\n            \"popularity\": 2.567,\n            \"poster_path\": \"/5o0GyNlILqVxfteo7l31wB5qD2X.jpg\",\n            \"release_date\": \"2017-01-23\",\n            \"title\": \"Star\",\n            \"video\": false,\n            \"vote_average\": 6.267,\n            \"vote_count\": 31\n        },\n        {\n            \"adult\": false,\n            \"backdrop_path\": null,\n            \"genre_ids\": [\n                18\n            ],\n            \"id\": 1050338,\n            \"original_language\": \"fr\",\n            \"original_title\": \"Star\",\n            \"overview\": \"Star follows the path of Tito and Jay, two brothers living in the Montreal neighborhood of Park Extension. Accompanying these young people in their daily life marked by complicity and intimidation, Star tackles themes dear to teenagers: identity and friendship.\",\n            \"popularity\": 2.011,\n            \"poster_path\": null,\n            \"release_date\": \"\",\n            \"title\": \"Star\",\n            \"video\": false,\n            \"vote_average\": 6.3,\n            \"vote_count\": 29\n        },\n        {\n            \"adult\": false,\n            \"backdrop_path\": null,\n            \"genre_ids\": [],\n            \"id\": 611791,\n            \"original_language\": \"fr\",\n            \"original_title\": \"Star\",\n            \"overview\": \"Star follows the path of Tito and Jay, two brothers living in the Montreal neighborhood of Park Extension. Accompanying these young people in their daily life marked by complicity and intimidation, Star tackles themes dear to teenagers: identity and friendship.\",\n            \"popularity\": 1.817,\n            \"poster_path\": \"/hVGnSMBc42TGwvV5QTHpH0PgyJp.jpg\",\n            \"release_date\": \"2015-09-30\",\n            \"title\": \"Star\",\n            \"video\": false,\n            \"vote_average\": 5.788,\n            \"vote_count\": 33\n        },\n        {\n            \"adult\": false,\n            \"backdrop_path\": \"/5Iw7zQTHVRBOYpA0V6z0yypOPZh.jpg\",\n            \"genre_ids\": [\n                12,\n                28,\n                878\n            ],\n            \"id\": 181808,\n            \"original_language\": \"en\",\n            \"original_title\": \"Star Wars: The Last Jedi\",\n            \"overview\": \"A tranquila e solitária vida de Luke Skywalker sofre uma reviravolta quando ele conhece Rey, uma jovem que mostra fortes sinais da Força. O desejo dela de aprender o estilo dos Jedi força Luke a tomar uma decisão que mudará sua vida para sempre. Enquanto isso, Kylo Ren e o General Hux lideram a Primeira Ordem para um ataque total contra Leia e a Resistência pela supremacia da galáxia.\",\n            \"popularity\": 90.639,\n            \"poster_path\": \"/5dGufuaIG5vNcxPm8QPij5MSPeQ.jpg\",\n            \"release_date\": \"2017-12-13\",\n            \"title\": \"Star Wars: Episódio VIII - Os Últimos Jedi\",\n            \"video\": false,\n            \"vote_average\": 6.825,\n            \"vote_count\": 14311\n        },\n        {\n            \"adult\": false,\n            \"backdrop_path\": \"/jOzrELAzFxtMx2I4uDGHOotdfsS.jpg\",\n            \"genre_ids\": [\n                12,\n                28,\n                878\n            ],\n            \"id\": 181812,\n            \"original_language\": \"en\",\n            \"original_title\": \"Star Wars: The Rise of Skywalker\",\n            \"overview\": \"Com o retorno do Imperador Palpatine, todos voltam a temer seu poder e, com isso, a Resistência toma a frente da batalha que ditará os rumos da galáxia. Treinando para ser uma completa Jedi, Rey (Daisy Ridley) ainda se encontra em conflito com seu passado e futuro, mas teme pelas respostas que pode conseguir a partir de sua complexa ligação com Kylo Ren (Adam Driver), que também se encontra em conflito pela Força.\",\n            \"popularity\": 76.576,\n            \"poster_path\": \"/uLlrDUtFG2tKtDcJN6kBznlqqsp.jpg\",\n            \"release_date\": \"2019-12-18\",\n            \"title\": \"Star Wars: Episódio IX - A Ascensão Skywalker\",\n            \"video\": false,\n            \"vote_average\": 6.365,\n            \"vote_count\": 9047\n        },\n        {\n            \"adult\": false,\n            \"backdrop_path\": \"/8BTsTfln4jlQrLXUBquXJ0ASQy9.jpg\",\n            \"genre_ids\": [\n                12,\n                28,\n                878\n            ],\n            \"id\": 140607,\n            \"original_language\": \"en\",\n            \"original_title\": \"Star Wars: The Force Awakens\",\n            \"overview\": \"A queda de Darth Vader e do Império levou ao surgimento de uma nova força sombria: a Primeira Ordem. Eles procuram o jedi Luke Skywalker, desaparecido. A resistência tenta desesperadamente encontrá-lo antes para salvar a galáxia.\",\n            \"popularity\": 81.445,\n            \"poster_path\": \"/lqMDbo4rXnakFgc4C6LzPv6pG7F.jpg\",\n            \"release_date\": \"2015-12-15\",\n            \"title\": \"Star Wars: O Despertar da Força\",\n            \"video\": false,\n            \"vote_average\": 7.293,\n            \"vote_count\": 18352\n        },\n        {\n            \"adult\": false,\n            \"backdrop_path\": \"/npDrIM6ZbuD7nUxI7ZzNBxs4IRF.jpg\",\n            \"genre_ids\": [\n                28,\n                12,\n                878\n            ],\n            \"id\": 54138,\n            \"original_language\": \"en\",\n            \"original_title\": \"Star Trek Into Darkness\",\n            \"overview\": \"Os tripulantes da Enterprise descobrem uma força terrorista dentro da sua própria organização. O capitão Kirk desafia as regras da Frota Estelar e lidera uma missão para capturar uma arma de destruição em massa.\",\n            \"popularity\": 44.625,\n            \"poster_path\": \"/hHUHMuTwYBcQRMYK9z8jHZucnD3.jpg\",\n            \"release_date\": \"2013-05-05\",\n            \"title\": \"Além da Escuridão - Star Trek\",\n            \"video\": false,\n            \"vote_average\": 7.328,\n            \"vote_count\": 8589\n        },\n        {\n            \"adult\": false,\n            \"backdrop_path\": \"/ojHCeDULAkQK25700fhRU75Tur2.jpg\",\n            \"genre_ids\": [\n                878,\n                12,\n                28\n            ],\n            \"id\": 348350,\n            \"original_language\": \"en\",\n            \"original_title\": \"Solo: A Star Wars Story\",\n            \"overview\": \"Embarque na Millennium Falcon e viaje para uma galáxia distante em uma nova aventura com o mais amado canalha da galáxia. Através de uma série de ousadas aventuras no obscuro e perigoso submundo do crime, Han Solo encontra seu poderoso futuro copiloto Chewbacca e encontra o famoso jogador Lando Calrissian, em uma jornada que definirá o curso de um dos heróis mais improváveis da saga Star Wars.\",\n            \"popularity\": 84.484,\n            \"poster_path\": \"/jAMEX0syUh6sbjBiysibzrFpbo.jpg\",\n            \"release_date\": \"2018-05-15\",\n            \"title\": \"Han Solo: Uma História Star Wars\",\n            \"video\": false,\n            \"vote_average\": 6.563,\n            \"vote_count\": 7904\n        },\n        {\n            \"adult\": false,\n            \"backdrop_path\": \"/6t8ES1d12OzWyCGxBeDYLHoaDrT.jpg\",\n            \"genre_ids\": [\n                28,\n                12,\n                878\n            ],\n            \"id\": 330459,\n            \"original_language\": \"en\",\n            \"original_title\": \"Rogue One: A Star Wars Story\",\n            \"overview\": \"Em busca de uma nova esperança para a galáxia, a Aliança Rebelde enfrenta uma arriscada missão: roubar os planos que revelam uma falha na construção da Estrela da Morte. Para isso, eles contam com a ajuda de Jyn Erso, filha do criador da arma mais poderosa do império.\",\n            \"popularity\": 54.461,\n            \"poster_path\": \"/74C2YX0NLWnozVMRS56d5CKDdEv.jpg\",\n            \"release_date\": \"2016-12-14\",\n            \"title\": \"Rogue One: Uma História Star Wars\",\n            \"video\": false,\n            \"vote_average\": 7.488,\n            \"vote_count\": 14352\n        },\n        {\n            \"adult\": false,\n            \"backdrop_path\": \"/wDe8LzwuvHYYiuwyNfxdYQq8ti4.jpg\",\n            \"genre_ids\": [\n                12,\n                28,\n                878\n            ],\n            \"id\": 1893,\n            \"original_language\": \"en\",\n            \"original_title\": \"Star Wars: Episode I - The Phantom Menace\",\n            \"overview\": \"Enquanto resgatam a Rainha Amidala, governante de um planeta pacífico invadido por forças ameaçadoras, os Cavaleiros Jedi Obi-Wan Kenobi e Qui-Gon Jinn descobrem Anakin Skywalker, uma criança prodígio de 9 anos excepcionalmente poderosa na Força.\",\n            \"popularity\": 53.134,\n            \"poster_path\": \"/gNk8UNAumXlfCdtaxDqsQe7ZGlt.jpg\",\n            \"release_date\": \"1999-05-19\",\n            \"title\": \"Star Wars: Episódio I - A Ameaça Fantasma\",\n            \"video\": false,\n            \"vote_average\": 6.534,\n            \"vote_count\": 13550\n        },\n        {\n            \"adult\": false,\n            \"backdrop_path\": \"/5vDuLrjJXFS9PTF7Q1xzobmYKR9.jpg\",\n            \"genre_ids\": [\n                12,\n                28,\n                878\n            ],\n            \"id\": 1895,\n            \"original_language\": \"en\",\n            \"original_title\": \"Star Wars: Episode III - Revenge of the Sith\",\n            \"overview\": \"As Guerras Clônicas estão em pleno andamento e Anakin Skywalker mantém um elo de lealdade com Palpatine, ao mesmo tempo em que luta para que seu casamento com Padmé Amidala não seja afetado por esta situação. Seduzido por promessas de poder, Anakin se aproxima cada vez mais de Darth Sidious até se tornar o temível Darth Vader. Juntos eles tramam um plano para aniquilar de uma vez por todas com os cavaleiros jedi.\",\n            \"popularity\": 54.516,\n            \"poster_path\": \"/nuF5yWtTJEEAd4Qa6cVkYz1XCST.jpg\",\n            \"release_date\": \"2005-05-17\",\n            \"title\": \"Star Wars: Episódio III - A Vingança dos Sith\",\n            \"video\": false,\n            \"vote_average\": 7.411,\n            \"vote_count\": 12752\n        },\n        {\n            \"adult\": false,\n            \"backdrop_path\": \"/abwxHfymXGAbbH3lo9PDEJEfvtW.jpg\",\n            \"genre_ids\": [\n                12,\n                28,\n                878\n            ],\n            \"id\": 1894,\n            \"original_language\": \"en\",\n            \"original_title\": \"Star Wars: Episode II - Attack of the Clones\",\n            \"overview\": \"Com a missão de proteger a Senadora Amidala, Anakin Skywalker descobre o seu amor por ela, do mesmo modo que vai conhecendo seu lado sombrio. Obi-Wan Kenobi descobre um exército de clones à medida que a Galáxia caminha para uma grande guerra.\",\n            \"popularity\": 50.569,\n            \"poster_path\": \"/9m1nJ2MfTG5QEmjOCg0b4YCo4W8.jpg\",\n            \"release_date\": \"2002-05-15\",\n            \"title\": \"Star Wars: Episódio II - Ataque dos Clones\",\n            \"video\": false,\n            \"vote_average\": 6.551,\n            \"vote_count\": 12288\n        },\n        {\n            \"adult\": false,\n            \"backdrop_path\": \"/m4F1KRK5jAoQHi2mKDFE2jFKEIb.jpg\",\n            \"genre_ids\": [\n                28,\n                12,\n                878\n            ],\n            \"id\": 188927,\n            \"original_language\": \"en\",\n            \"original_title\": \"Star Trek Beyond\",\n            \"overview\": \"Desta vez, Kirk, Spock e a tripulação da Enterprise encontram-se no terceiro ano da missão de exploração do espaço prevista para durar cinco anos. Eles recebem um pedido de socorro que acaba os ligando ao maléfico vilão Krall, um insurgente Anti-Frota Estelar interessado em um objeto de posse do líder da nave. A Enterprise é atacada, e eles acabam em um planeta desconhecido, onde o grupo acaba sendo dividido em duplas.\",\n            \"popularity\": 56.142,\n            \"poster_path\": \"/zC2lEQjA4X814UnvekmdkM5hXmk.jpg\",\n            \"release_date\": \"2016-07-07\",\n            \"title\": \"Star Trek: Sem Fronteiras\",\n            \"video\": false,\n            \"vote_average\": 6.781,\n            \"vote_count\": 6226\n        },\n        {\n            \"adult\": false,\n            \"backdrop_path\": \"/fMRrTziefy0c6v45IUyByGjZCRo.jpg\",\n            \"genre_ids\": [\n                18\n            ],\n            \"id\": 970284,\n            \"original_language\": \"en\",\n            \"original_title\": \"Shooting Stars\",\n            \"overview\": \"Sonhando em viver do basquete, o jovem LeBron James começa sua trajetória com o time de sua escola. Com seus amigos e colegas de time, ele alcança o posto entre os melhores jogadores do mundo.\",\n            \"popularity\": 23.106,\n            \"poster_path\": \"/rzOxUgqkQeKyhyuKZqIj87VqFUg.jpg\",\n            \"release_date\": \"2023-06-02\",\n            \"title\": \"Shooting Stars: A Vida de Lebron James\",\n            \"video\": false,\n            \"vote_average\": 8.2,\n            \"vote_count\": 84\n        }\n    ],\n    \"total_pages\": 225,\n    \"total_results\": 4486\n}",
+        "output": "json",
+        "x": 440,
+        "y": 220,
+        "wires": [
+            [
+                "34d013ba59765ca4"
+            ]
+        ]
+    },
+    {
+        "id": "380f8812037194a2",
+        "type": "ui_button",
+        "z": "aa0e170c91379e2f",
+        "name": "",
+        "group": "9b81770e912bf6fa",
+        "order": 1,
+        "width": "6",
+        "height": "1",
+        "passthru": false,
+        "label": "Salvar em Meus Filmes",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "payload",
+        "payloadType": "flow",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 170,
+        "y": 480,
+        "wires": [
+            [
+                "4fe249d2ec9aba2b"
+            ]
+        ]
+    },
+    {
+        "id": "8670c986165804cd",
+        "type": "comment",
+        "z": "aa0e170c91379e2f",
+        "name": "Busca de filmes",
+        "info": "",
+        "x": 440,
+        "y": 40,
         "wires": []
     },
     {
-        "id": "43a5ef879cc18313",
-        "type": "ui_text",
+        "id": "5a5e8e7e5d247047",
+        "type": "comment",
         "z": "aa0e170c91379e2f",
-        "group": "9b81770e912bf6fa",
-        "order": 2,
-        "width": 6,
-        "height": 1,
-        "name": "",
-        "label": "text",
-        "format": "{{msg.payload.overview}}",
-        "layout": "row-spread",
-        "className": "",
-        "style": false,
-        "font": "",
-        "fontSize": 16,
-        "color": "#000000",
-        "x": 810,
-        "y": 320,
+        "name": "Salvar filmes",
+        "info": "",
+        "x": 510,
+        "y": 380,
         "wires": []
+    },
+    {
+        "id": "bd5966ce1e41bbae",
+        "type": "JsonWebToken",
+        "z": "aa0e170c91379e2f",
+        "name": "teste",
+        "tokenconfig": "cf21394ef4fb9045",
+        "x": 470,
+        "y": 1080,
+        "wires": [
+            [
+                "f7f6549ab43d3535",
+                "3f24ae1bc7493486"
+            ]
+        ]
+    },
+    {
+        "id": "3b89ea7a6a5fafd0",
+        "type": "inject",
+        "z": "aa0e170c91379e2f",
+        "name": "",
+        "props": [
+            {
+                "p": "payload.auth",
+                "v": "true",
+                "vt": "str"
+            },
+            {
+                "p": "payload.email",
+                "v": "breno.hoc3@gmail.com",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 210,
+        "y": 1080,
+        "wires": [
+            [
+                "bd5966ce1e41bbae"
+            ]
+        ]
+    },
+    {
+        "id": "f7f6549ab43d3535",
+        "type": "debug",
+        "z": "aa0e170c91379e2f",
+        "name": "debug 11",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "token",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 700,
+        "y": 1080,
+        "wires": []
+    },
+    {
+        "id": "beac8ff93a4ade7e",
+        "type": "debug",
+        "z": "aa0e170c91379e2f",
+        "name": "debug 12",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "token",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 680,
+        "y": 1180,
+        "wires": []
+    },
+    {
+        "id": "46016de3ca52733b",
+        "type": "JsonWebToken",
+        "z": "aa0e170c91379e2f",
+        "name": "teste",
+        "tokenconfig": "cf21394ef4fb9045",
+        "x": 450,
+        "y": 1180,
+        "wires": [
+            [
+                "beac8ff93a4ade7e"
+            ]
+        ]
+    },
+    {
+        "id": "944e5121f1e548ca",
+        "type": "inject",
+        "z": "aa0e170c91379e2f",
+        "name": "",
+        "props": [
+            {
+                "p": "token",
+                "v": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjp0cnVlLCJlbWFpbCI6IiQyYiQxMCRHQk92M0VpQjNmZmZiTklTeTFvaHhld0IvdGguc0J2VDJqeGI0aGRLZjVWYU9XTlRqbmQxbSIsImlhdCI6MTY5Njg5OTI3Nn0.5ScQne3ouhJI9UGtyK1P-N9Cbl6kuiLOtdKGeM7nEmM",
+                "vt": "str"
+            },
+            {
+                "p": "payload.exp",
+                "v": "",
+                "vt": "date"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 190,
+        "y": 1180,
+        "wires": [
+            [
+                "46016de3ca52733b"
+            ]
+        ]
+    },
+    {
+        "id": "3f24ae1bc7493486",
+        "type": "change",
+        "z": "aa0e170c91379e2f",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "token",
+                "pt": "global",
+                "to": "token",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 670,
+        "y": 1000,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c84d8b9892e7d26a",
+        "type": "http in",
+        "z": "aa0e170c91379e2f",
+        "name": "teste",
+        "url": "/companies/persons/dewqedwq33-sadsdsgfdhbf-dsadwedfsad-dsadsadas/rooms/new",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 170,
+        "y": 1380,
+        "wires": [
+            [
+                "592792d996c1f40e"
+            ]
+        ]
+    },
+    {
+        "id": "592792d996c1f40e",
+        "type": "template",
+        "z": "aa0e170c91379e2f",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "json",
+        "syntax": "mustache",
+        "template": "",
+        "output": "json",
+        "x": 380,
+        "y": 1380,
+        "wires": [
+            [
+                "0d4ca7110a56a69e"
+            ]
+        ]
+    },
+    {
+        "id": "0d4ca7110a56a69e",
+        "type": "http response",
+        "z": "aa0e170c91379e2f",
+        "name": "",
+        "statusCode": "200",
+        "headers": {},
+        "x": 640,
+        "y": 1380,
+        "wires": []
+    },
+    {
+        "id": "a4eb3f59a2b5cb7f",
+        "type": "function",
+        "z": "aa0e170c91379e2f",
+        "name": "define url buscar filme",
+        "func": "const API_MOVIE_BASEURL = env.get('API_MOVIE_BASEURL');\nconst API_MOVIE_TOKEN = env.get('API_MOVIE_TOKEN');\n\nconst movieName = encodeURIComponent(msg.payload.movieName);\n\nmsg.payload.url = `${API_MOVIE_BASEURL}?query=${movieName}}}&include_adult=false&language=pt-BR&page=1`;\n\nmsg.payload.token = `Bearer ${API_MOVIE_TOKEN}`;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 240,
+        "y": 80,
+        "wires": [
+            [
+                "20505872b4e45f34"
+            ]
+        ]
+    },
+    {
+        "id": "824ccd2f271148e9",
+        "type": "change",
+        "z": "aa0e170c91379e2f",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 890,
+        "y": 300,
+        "wires": [
+            [
+                "380f8812037194a2"
+            ]
+        ]
+    },
+    {
+        "id": "e79d60429faa265f",
+        "type": "http request",
+        "z": "aa0e170c91379e2f",
+        "name": "",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://sheet.best/api/sheets/d26d408e-e6c9-4680-9088-f3208045b59f",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 560,
+        "y": 740,
+        "wires": [
+            [
+                "e2daa6eef4116ac9"
+            ]
+        ]
+    },
+    {
+        "id": "e410aaea38bbd813",
+        "type": "function",
+        "z": "aa0e170c91379e2f",
+        "name": "Payload inserir filme",
+        "func": "\nconst now = new Date();\n\nconst year = now.getFullYear();\nconst month = String(now.getMonth() + 1).padStart(2, '0');\nconst day = String(now.getDate()).padStart(2, '0');\nconst hour = String(now.getHours()).padStart(2, '0');\nconst minute = String(now.getMinutes()).padStart(2, '0');\nconst second = String(now.getSeconds()).padStart(2, '0');\n\nconst formattedDateTime = `${year}-${month}-${day} ${hour}:${minute}:${second}`;\n\nmsg.payload = {\n    api_id: msg.payload.id,\n    nome: msg.payload.title,\n    data_criacao: formattedDateTime,\n    data_atualizacao: formattedDateTime\n}\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 840,
+        "wires": [
+            [
+                "e79d60429faa265f"
+            ]
+        ]
+    },
+    {
+        "id": "e2daa6eef4116ac9",
+        "type": "switch",
+        "z": "aa0e170c91379e2f",
+        "name": "",
+        "property": "statusCode",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "200",
+                "vt": "num"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "x": 790,
+        "y": 740,
+        "wires": [
+            [
+                "5712d843bc58084d"
+            ],
+            [
+                "a4e58d82f59c2a80"
+            ]
+        ]
+    },
+    {
+        "id": "4251b54d511ce29b",
+        "type": "http request",
+        "z": "aa0e170c91379e2f",
+        "name": "",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://sheet.best/api/sheets/d26d408e-e6c9-4680-9088-f3208045b59f/tabs/usuarios_filmes",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 1720,
+        "y": 820,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a4e58d82f59c2a80",
+        "type": "debug",
+        "z": "aa0e170c91379e2f",
+        "name": "debug 13",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1060,
+        "y": 880,
+        "wires": []
+    },
+    {
+        "id": "4e9ab0227ea4e448",
+        "type": "function",
+        "z": "aa0e170c91379e2f",
+        "name": "Payload vincular usuario a filme",
+        "func": "\nconst uuid = global.get('uuid');\n\nconst filmeData = flow.get('payload');\n\nconst now = new Date();\n\nconst year = now.getFullYear();\nconst month = String(now.getMonth() + 1).padStart(2, '0');\nconst day = String(now.getDate()).padStart(2, '0');\nconst hour = String(now.getHours()).padStart(2, '0');\nconst minute = String(now.getMinutes()).padStart(2, '0');\nconst second = String(now.getSeconds()).padStart(2, '0');\n\nconst formattedDateTime = `${year}-${month}-${day} ${hour}:${minute}:${second}`;\n\nmsg.payload = {\n    id: uuid.v4(),\n    usuario_id: msg.token?.id,\n    api_id: filmeData.id,\n    data_criacao: formattedDateTime,\n    data_atualizacao: formattedDateTime\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1470,
+        "y": 740,
+        "wires": [
+            [
+                "4251b54d511ce29b"
+            ]
+        ]
+    },
+    {
+        "id": "39ca274aec7246c5",
+        "type": "JsonWebToken",
+        "z": "aa0e170c91379e2f",
+        "name": "teste",
+        "tokenconfig": "cf21394ef4fb9045",
+        "x": 1210,
+        "y": 820,
+        "wires": [
+            [
+                "4e9ab0227ea4e448"
+            ]
+        ]
+    },
+    {
+        "id": "5712d843bc58084d",
+        "type": "change",
+        "z": "aa0e170c91379e2f",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "token",
+                "pt": "msg",
+                "to": "token",
+                "tot": "global"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1010,
+        "y": 720,
+        "wires": [
+            [
+                "39ca274aec7246c5"
+            ]
+        ]
+    },
+    {
+        "id": "b9ebd0efa64515db",
+        "type": "http request",
+        "z": "aa0e170c91379e2f",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://sheet.best/api/sheets/d26d408e-e6c9-4680-9088-f3208045b59f",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 740,
+        "y": 480,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4fe249d2ec9aba2b",
+        "type": "change",
+        "z": "aa0e170c91379e2f",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 450,
+        "y": 480,
+        "wires": [
+            []
+        ]
     },
     {
         "id": "04aa548983effda0",
