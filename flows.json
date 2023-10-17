@@ -16,6 +16,22 @@
         "env": []
     },
     {
+        "id": "6b29906ef4dc7d50",
+        "type": "tab",
+        "label": "Controle de acesso",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "fad77afd5310f66e",
+        "type": "tab",
+        "label": "Testes",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "c4bb2b1dcfa16364",
         "type": "tab",
         "label": "css",
@@ -131,7 +147,7 @@
         "type": "ui_tab",
         "name": "Home",
         "icon": "dashboard",
-        "order": 1,
+        "order": 3,
         "disabled": false,
         "hidden": false
     },
@@ -158,22 +174,13 @@
         "className": ""
     },
     {
-        "id": "a1189548f1bad27e",
-        "type": "ui_tab",
-        "name": "login",
-        "icon": "login",
-        "order": 2,
-        "disabled": false,
-        "hidden": false
-    },
-    {
         "id": "b77ad3d3025c33ce",
         "type": "ui_group",
         "name": "Criar login",
         "tab": "fad7740d4433ba8a",
         "order": 1,
-        "disp": true,
-        "width": "6",
+        "disp": false,
+        "width": "10",
         "collapse": false,
         "className": ""
     },
@@ -183,28 +190,8 @@
         "name": "login",
         "tab": "a1189548f1bad27e",
         "order": 2,
-        "disp": true,
-        "width": "6",
-        "collapse": false,
-        "className": ""
-    },
-    {
-        "id": "fad7740d4433ba8a",
-        "type": "ui_tab",
-        "name": "Criar login",
-        "icon": "dashboard",
-        "order": 3,
-        "disabled": false,
-        "hidden": false
-    },
-    {
-        "id": "9d61c4da23fb66b7",
-        "type": "ui_group",
-        "name": "Transição",
-        "tab": "a1189548f1bad27e",
-        "order": 2,
-        "disp": true,
-        "width": "6",
+        "disp": false,
+        "width": "10",
         "collapse": false,
         "className": ""
     },
@@ -242,20 +229,22 @@
         "className": ""
     },
     {
-        "id": "b60458e56dbabd36",
-        "type": "debug",
-        "z": "8c761bcddb6e0b85",
-        "name": "debug 7",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 760,
-        "y": 200,
-        "wires": []
+        "id": "a1189548f1bad27e",
+        "type": "ui_tab",
+        "name": "login",
+        "icon": "login",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "fad7740d4433ba8a",
+        "type": "ui_tab",
+        "name": "Criar login",
+        "icon": "dashboard",
+        "order": 2,
+        "disabled": false,
+        "hidden": false
     },
     {
         "id": "1aa635ca051d2e8f",
@@ -265,8 +254,8 @@
         "label": "Criar login",
         "group": "b77ad3d3025c33ce",
         "order": 1,
-        "width": 0,
-        "height": 0,
+        "width": 10,
+        "height": 3,
         "options": [
             {
                 "label": "Nome",
@@ -297,16 +286,16 @@
         },
         "payload": "",
         "submit": "Criar usuário",
-        "cancel": "Cancelar",
+        "cancel": "",
         "topic": "topic",
         "topicType": "msg",
-        "splitLayout": "",
+        "splitLayout": false,
         "className": "",
-        "x": 330,
-        "y": 120,
+        "x": 90,
+        "y": 240,
         "wires": [
             [
-                "539e6237d2a1eacd"
+                "833003b0e1152e7d"
             ]
         ]
     },
@@ -327,43 +316,15 @@
                 "module": "moment"
             }
         ],
-        "x": 520,
-        "y": 180,
+        "x": 880,
+        "y": 140,
         "wires": [
             [
+                "90c457ab36450022",
                 "b9db7e3b541cb6fb"
             ]
         ],
         "info": "## Gera hash antes de persistir os do usuário"
-    },
-    {
-        "id": "49ca71d5d633e0db",
-        "type": "inject",
-        "z": "8c761bcddb6e0b85",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 300,
-        "y": 180,
-        "wires": [
-            [
-                "539e6237d2a1eacd"
-            ]
-        ]
     },
     {
         "id": "b9db7e3b541cb6fb",
@@ -381,11 +342,11 @@
         "authType": "",
         "senderr": false,
         "headers": [],
-        "x": 700,
-        "y": 120,
+        "x": 1140,
+        "y": 100,
         "wires": [
             [
-                "b60458e56dbabd36"
+                "7f5e02c54fa77bc4"
             ]
         ]
     },
@@ -394,7 +355,7 @@
         "type": "ui_form",
         "z": "8c761bcddb6e0b85",
         "name": "",
-        "label": "Logar",
+        "label": "Login",
         "group": "a6d03c119ba764d7",
         "order": 2,
         "width": 0,
@@ -426,8 +387,8 @@
         "topicType": "msg",
         "splitLayout": "",
         "className": "",
-        "x": 70,
-        "y": 640,
+        "x": 90,
+        "y": 740,
         "wires": [
             [
                 "3b61f912a0d768c3"
@@ -440,17 +401,17 @@
         "z": "8c761bcddb6e0b85",
         "group": "b77ad3d3025c33ce",
         "name": "Já possui cadastro?",
-        "order": 3,
+        "order": 2,
         "width": 0,
         "height": 0,
-        "format": "<div>\n    <a ng-click=\"send({payload: {login: true}})\">\n        Já possui cadastro?\n    </a>\n</div>",
+        "format": "<div>\n    <button class=\"w md-raised nr-dashboard-form-button md-button md-ink-ripple\"\n    ng-click=\"send({payload: {login: true}})\">\n        Já possui cadastro?\n    </button>\n</div>",
         "storeOutMessages": true,
         "fwdInMessages": true,
         "resendOnRefresh": true,
         "templateScope": "local",
-        "className": "",
-        "x": 260,
-        "y": 440,
+        "className": "ml",
+        "x": 320,
+        "y": 540,
         "wires": [
             [
                 "2c6cab8a13ce9c94"
@@ -473,8 +434,8 @@
         "authType": "",
         "senderr": false,
         "headers": [],
-        "x": 380,
-        "y": 640,
+        "x": 440,
+        "y": 740,
         "wires": [
             [
                 "b397302016ddb6f1"
@@ -493,12 +454,11 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 540,
-        "y": 700,
+        "x": 600,
+        "y": 800,
         "wires": [
             [
-                "1379875dafca6313",
-                "e4b79448d352a41f"
+                "1379875dafca6313"
             ]
         ],
         "info": "## Compara senha do usuário com a cadastrada"
@@ -522,8 +482,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 200,
-        "y": 700,
+        "x": 260,
+        "y": 800,
         "wires": [
             [
                 "d6b8783744e1667e"
@@ -534,10 +494,10 @@
         "id": "550a2a50d314e659",
         "type": "comment",
         "z": "8c761bcddb6e0b85",
-        "name": "",
-        "info": "Fluxo para cadastrar usuário",
-        "x": 490,
-        "y": 40,
+        "name": "Fluxo para cadastrar usuário",
+        "info": "",
+        "x": 280,
+        "y": 160,
         "wires": []
     },
     {
@@ -546,8 +506,8 @@
         "z": "8c761bcddb6e0b85",
         "name": "",
         "events": "all",
-        "x": 740,
-        "y": 480,
+        "x": 840,
+        "y": 560,
         "wires": [
             []
         ]
@@ -571,8 +531,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 530,
-        "y": 440,
+        "x": 550,
+        "y": 540,
         "wires": [
             [
                 "b72b13fd29e6c9a3"
@@ -588,14 +548,14 @@
         "order": 3,
         "width": 0,
         "height": 0,
-        "format": "<div>\n    <a ng-click=\"send({payload: {criarLogin: true}})\">\n        Criar cadastro\n    </a>\n</div>",
+        "format": "<div>\n    <button class=\"w md-raised nr-dashboard-form-button md-button md-ink-ripple\"\n    ng-click=\"send({payload: {criarLogin: true}})\">\n        Criar cadastro\n    </button>\n</div>",
         "storeOutMessages": true,
         "fwdInMessages": true,
         "resendOnRefresh": true,
         "templateScope": "local",
-        "className": "teste123",
-        "x": 240,
-        "y": 520,
+        "className": "",
+        "x": 300,
+        "y": 600,
         "wires": [
             [
                 "a98292bc7dd4bef1"
@@ -621,8 +581,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 510,
-        "y": 520,
+        "x": 570,
+        "y": 600,
         "wires": [
             [
                 "b72b13fd29e6c9a3"
@@ -633,10 +593,10 @@
         "id": "fc7069d8b435ca6c",
         "type": "comment",
         "z": "8c761bcddb6e0b85",
-        "name": "",
-        "info": "Transições entre as telas",
+        "name": "Transições entre as telas",
+        "info": "",
         "x": 490,
-        "y": 380,
+        "y": 480,
         "wires": []
     },
     {
@@ -657,70 +617,15 @@
         "checkall": "false",
         "repair": false,
         "outputs": 2,
-        "x": 690,
-        "y": 640,
+        "x": 750,
+        "y": 740,
         "wires": [
             [
-                "7f285f1c2d6ead66"
+                "0db21babb80e5291"
             ],
             [
                 "43c388c9d0a49229"
             ]
-        ]
-    },
-    {
-        "id": "7f285f1c2d6ead66",
-        "type": "change",
-        "z": "8c761bcddb6e0b85",
-        "name": "Carregar pag Criar Login",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "Home",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 890,
-        "y": 580,
-        "wires": [
-            [
-                "eab0bb594305e2bc"
-            ]
-        ]
-    },
-    {
-        "id": "e4b79448d352a41f",
-        "type": "debug",
-        "z": "8c761bcddb6e0b85",
-        "name": "debug 8",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 720,
-        "y": 780,
-        "wires": []
-    },
-    {
-        "id": "eab0bb594305e2bc",
-        "type": "ui_ui_control",
-        "z": "8c761bcddb6e0b85",
-        "name": "",
-        "events": "all",
-        "x": 1120,
-        "y": 580,
-        "wires": [
-            []
         ]
     },
     {
@@ -738,8 +643,8 @@
         "className": "",
         "topic": "",
         "name": "",
-        "x": 1130,
-        "y": 700,
+        "x": 1170,
+        "y": 800,
         "wires": [
             []
         ]
@@ -763,8 +668,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 910,
-        "y": 700,
+        "x": 930,
+        "y": 800,
         "wires": [
             [
                 "561cf3d3044e200b"
@@ -775,53 +680,436 @@
         "id": "67c72f5a3755b7ed",
         "type": "e-mail",
         "z": "8c761bcddb6e0b85",
-        "server": "${EMAIL_SERVER}",
-        "port": "${EMAIL_PORT}",
+        "server": "smtp-mail.outlook.com",
+        "port": "587",
         "authtype": "BASIC",
         "saslformat": true,
         "token": "oauth2Response.access_token",
         "secure": false,
-        "tls": false,
+        "tls": true,
         "name": "",
         "dname": "envio de email",
-        "x": 500,
-        "y": 300,
+        "x": 1360,
+        "y": 160,
         "wires": [],
         "info": "As configurações precisam estar nas variáveis de amviente"
     },
     {
-        "id": "5c085ccb6c284bf7",
-        "type": "inject",
+        "id": "90c457ab36450022",
+        "type": "function",
         "z": "8c761bcddb6e0b85",
-        "name": "",
-        "props": [
-            {
-                "p": "to",
-                "v": "breno.hoc3@gmail.com",
-                "vt": "str"
-            },
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "teste nodered",
-        "payload": "vamos ver",
-        "payloadType": "str",
-        "x": 190,
-        "y": 300,
+        "name": "Conteudo E-mail",
+        "func": "\nmsg.to = msg.payload.email\nmsg.from =\"GrupoPFiap@outlook.com\"\nmsg.topic =\"Usuario criado com Sucesso\"\nmsg.payload=`Caro ${msg.payload.nome},\\n Seu usuario foi criado com sucesso no projeto do Grupo P \\n Obrigado por Participar`\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "// Login: GrupoPFiap@outlook.com\n// Senha: GrupoP1234\n",
+        "finalize": "",
+        "libs": [],
+        "x": 1130,
+        "y": 160,
         "wires": [
             [
                 "67c72f5a3755b7ed"
             ]
         ]
+    },
+    {
+        "id": "833003b0e1152e7d",
+        "type": "function",
+        "z": "8c761bcddb6e0b85",
+        "name": "Valida E-mail",
+        "func": "\nfunction verificaEmail(email) {\n  var re = /^[\\w+.]+@\\w+\\.\\w{2,}(?:\\.\\w{2})?$/;\n\n  if(re.test(email)){\n\n msg.payload.validacao = \"válido\";\n\n  }else{\n\n    msg.payload.validacao = \"inválido\";\n    \n  }\n}\n\nverificaEmail(msg.payload.email);\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "\n//O nome do usuário (antes do arroba), pode ser qualquer caractere alfanumérico, incluindo o underscore, sinal de \"+\" e o ponto\n//Após o arroba, o domínio pode conter somente caracteres alfanuméricos e o underscore;\n//Para a extensão, o domínio deve vir seguido de um ponto, e no mínimo 2 caracteres alfanuméricos;\n//O final do domínio é opcional, mas se existir, deve começar com um ponto, seguido de no máximo 2 caracteres alfanuméricos",
+        "finalize": "",
+        "libs": [],
+        "x": 270,
+        "y": 240,
+        "wires": [
+            [
+                "a8c7bebe493709b1"
+            ]
+        ]
+    },
+    {
+        "id": "a8c7bebe493709b1",
+        "type": "switch",
+        "z": "8c761bcddb6e0b85",
+        "name": "",
+        "property": "payload.validacao",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "válido",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "inválido",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 450,
+        "y": 240,
+        "wires": [
+            [
+                "960b7c666e52bbc2"
+            ],
+            [
+                "8545f9b6b36fd8c4"
+            ]
+        ]
+    },
+    {
+        "id": "76dd06223ce83e5f",
+        "type": "ui_toast",
+        "z": "8c761bcddb6e0b85",
+        "position": "dialog",
+        "displayTime": "3",
+        "highlight": "",
+        "sendall": true,
+        "outputs": 1,
+        "ok": "OK",
+        "cancel": "",
+        "raw": true,
+        "className": "",
+        "topic": "E-mail Inválido",
+        "name": "Alerta Email inválido",
+        "x": 860,
+        "y": 340,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8545f9b6b36fd8c4",
+        "type": "change",
+        "z": "8c761bcddb6e0b85",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Verifique as informações e digite novamente ",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 600,
+        "y": 340,
+        "wires": [
+            [
+                "76dd06223ce83e5f"
+            ]
+        ]
+    },
+    {
+        "id": "960b7c666e52bbc2",
+        "type": "function",
+        "z": "8c761bcddb6e0b85",
+        "name": "Valida Senha",
+        "func": "\nfunction verificaSenha(senha){\n    if (senha.length < 4){\n        \n    msg.payload.validaSenha = \"inválida\"\n    }\n    else{\n    msg.payload.validaSenha = \"válida\"\n    }\n}\n\n\nverificaSenha(msg.payload.password);\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 590,
+        "y": 120,
+        "wires": [
+            [
+                "40e16f0d61631f17"
+            ]
+        ]
+    },
+    {
+        "id": "40e16f0d61631f17",
+        "type": "switch",
+        "z": "8c761bcddb6e0b85",
+        "name": "",
+        "property": "payload.validaSenha",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "válida",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "inválida",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 730,
+        "y": 180,
+        "wires": [
+            [
+                "539e6237d2a1eacd"
+            ],
+            [
+                "91d2a8713b395560"
+            ]
+        ]
+    },
+    {
+        "id": "91d2a8713b395560",
+        "type": "change",
+        "z": "8c761bcddb6e0b85",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "A senha deve conter no minimo 4 Caracteres",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 900,
+        "y": 220,
+        "wires": [
+            [
+                "6587e4ccf58dbab1"
+            ]
+        ]
+    },
+    {
+        "id": "6587e4ccf58dbab1",
+        "type": "ui_toast",
+        "z": "8c761bcddb6e0b85",
+        "position": "dialog",
+        "displayTime": "3",
+        "highlight": "",
+        "sendall": true,
+        "outputs": 1,
+        "ok": "OK",
+        "cancel": "",
+        "raw": true,
+        "className": "",
+        "topic": "Senha Inválida",
+        "name": "Alerta Senha inválida",
+        "x": 1140,
+        "y": 220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7fa0e8dd7fae981b",
+        "type": "ui_ui_control",
+        "z": "8c761bcddb6e0b85",
+        "name": "",
+        "events": "all",
+        "x": 1920,
+        "y": 100,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7f5e02c54fa77bc4",
+        "type": "change",
+        "z": "8c761bcddb6e0b85",
+        "name": "Login Criado",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Home",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1430,
+        "y": 100,
+        "wires": [
+            [
+                "f902ebbcc40f7cc8",
+                "7fa0e8dd7fae981b",
+                "bd4dcca223a317a6"
+            ]
+        ]
+    },
+    {
+        "id": "f902ebbcc40f7cc8",
+        "type": "ui_toast",
+        "z": "8c761bcddb6e0b85",
+        "position": "top right",
+        "displayTime": "3",
+        "highlight": "",
+        "sendall": true,
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "raw": true,
+        "className": "",
+        "topic": "Usuario criado com sucesso",
+        "name": "Usuario criado",
+        "x": 1740,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "bd4dcca223a317a6",
+        "type": "template",
+        "z": "8c761bcddb6e0b85",
+        "name": "Mostar Home",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "json",
+        "syntax": "mustache",
+        "template": "{\"tabs\":\n    {\n    \"show\":[\"Home\"],\n    \"hide\": [\"Login\",\"Criar login\"]\n    }\n}",
+        "output": "json",
+        "x": 1720,
+        "y": 40,
+        "wires": [
+            [
+                "7fa0e8dd7fae981b"
+            ]
+        ]
+    },
+    {
+        "id": "8580d7b05242a462",
+        "type": "template",
+        "z": "8c761bcddb6e0b85",
+        "name": "Mostar Home",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "json",
+        "syntax": "mustache",
+        "template": "{\"tabs\":\n    {\n    \"show\":[\"Home\"],\n    \"hide\": [\"Login\",\"Criar login\"]\n    }\n}",
+        "output": "json",
+        "x": 1580,
+        "y": 580,
+        "wires": [
+            [
+                "824b4a6a90f9b9a4"
+            ]
+        ]
+    },
+    {
+        "id": "4631878effb815d3",
+        "type": "change",
+        "z": "8c761bcddb6e0b85",
+        "name": "Carregar pag Home",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Home",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1380,
+        "y": 660,
+        "wires": [
+            [
+                "824b4a6a90f9b9a4",
+                "8580d7b05242a462"
+            ]
+        ]
+    },
+    {
+        "id": "8e64dfef4d4ea84b",
+        "type": "ui_toast",
+        "z": "8c761bcddb6e0b85",
+        "position": "top right",
+        "displayTime": "3",
+        "highlight": "",
+        "sendall": false,
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "raw": false,
+        "className": "",
+        "topic": "",
+        "name": "",
+        "x": 1350,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "0db21babb80e5291",
+        "type": "change",
+        "z": "8c761bcddb6e0b85",
+        "name": "Acesso concluido",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Acesso Liberado",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1130,
+        "y": 680,
+        "wires": [
+            [
+                "8e64dfef4d4ea84b",
+                "4631878effb815d3"
+            ]
+        ]
+    },
+    {
+        "id": "824b4a6a90f9b9a4",
+        "type": "ui_ui_control",
+        "z": "8c761bcddb6e0b85",
+        "name": "",
+        "events": "all",
+        "x": 1760,
+        "y": 660,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "324524181a15e119",
+        "type": "comment",
+        "z": "8c761bcddb6e0b85",
+        "name": "Fluxo para autenticar usuário",
+        "info": "",
+        "x": 440,
+        "y": 880,
+        "wires": []
     },
     {
         "id": "c84d8b9892e7d26a",
@@ -1035,7 +1323,7 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 180,
+        "x": 160,
         "y": 260,
         "wires": [
             [
@@ -1094,7 +1382,7 @@
         "group": "639665f5f0a31743",
         "order": 1,
         "width": 6,
-        "height": 6,
+        "height": 5,
         "name": "",
         "label": "text",
         "format": "{{msg.payload.vote_count}}",
@@ -1130,19 +1418,392 @@
         "wires": []
     },
     {
+        "id": "efcb5eb165066761",
+        "type": "change",
+        "z": "6b29906ef4dc7d50",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "login",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 380,
+        "y": 220,
+        "wires": [
+            [
+                "29ee9d0f4766811d"
+            ]
+        ]
+    },
+    {
+        "id": "29ee9d0f4766811d",
+        "type": "ui_ui_control",
+        "z": "6b29906ef4dc7d50",
+        "name": "",
+        "events": "all",
+        "x": 560,
+        "y": 280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "04a6c249884cfcd8",
+        "type": "ui_ui_control",
+        "z": "6b29906ef4dc7d50",
+        "name": "",
+        "events": "all",
+        "x": 80,
+        "y": 280,
+        "wires": [
+            [
+                "93ea49e3906aef6f"
+            ]
+        ]
+    },
+    {
+        "id": "93ea49e3906aef6f",
+        "type": "switch",
+        "z": "6b29906ef4dc7d50",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "connect",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 1,
+        "x": 230,
+        "y": 280,
+        "wires": [
+            [
+                "efcb5eb165066761",
+                "f888769703c41b08"
+            ]
+        ]
+    },
+    {
+        "id": "40738e64a2781ecb",
+        "type": "comment",
+        "z": "6b29906ef4dc7d50",
+        "name": "Somente Mostrar a tela de Login",
+        "info": "",
+        "x": 230,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "f888769703c41b08",
+        "type": "template",
+        "z": "6b29906ef4dc7d50",
+        "name": "Esconder Telas",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "json",
+        "syntax": "mustache",
+        "template": "{\"tabs\":\n    {\n    \"hide\":[ \"Home\",\"Criar login\"]\n    }\n}",
+        "output": "json",
+        "x": 380,
+        "y": 360,
+        "wires": [
+            [
+                "29ee9d0f4766811d"
+            ]
+        ]
+    },
+    {
+        "id": "2bde15c2729289c0",
+        "type": "ui_ui_control",
+        "z": "fad77afd5310f66e",
+        "name": "",
+        "events": "all",
+        "x": 940,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "cf7ba68758539afc",
+        "type": "change",
+        "z": "fad77afd5310f66e",
+        "name": "Login Criado",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Home",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 550,
+        "y": 160,
+        "wires": [
+            [
+                "1d4d2707941282f8",
+                "2bde15c2729289c0",
+                "be2fd71149ef7a0c"
+            ]
+        ]
+    },
+    {
+        "id": "7c1be42f7279f7ef",
+        "type": "inject",
+        "z": "fad77afd5310f66e",
+        "name": "Enviar dados cadastro",
+        "props": [
+            {
+                "p": "payload.id",
+                "v": "asdasdasdasasdasd",
+                "vt": "str"
+            },
+            {
+                "p": "payload.nome",
+                "v": "Rick Goncalves",
+                "vt": "str"
+            },
+            {
+                "p": "payload.email",
+                "v": "rickcveras@hotmail.com",
+                "vt": "str"
+            },
+            {
+                "p": "payload.password",
+                "v": "123456789",
+                "vt": "str"
+            },
+            {
+                "p": "data_criacao",
+                "v": "2023-09-27 22:51:36",
+                "vt": "str"
+            },
+            {
+                "p": "data_atualizacao",
+                "v": "2023-09-27 22:51:36",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 280,
+        "y": 160,
+        "wires": [
+            [
+                "cf7ba68758539afc"
+            ]
+        ]
+    },
+    {
+        "id": "1d4d2707941282f8",
+        "type": "ui_toast",
+        "z": "fad77afd5310f66e",
+        "position": "top right",
+        "displayTime": "3",
+        "highlight": "",
+        "sendall": true,
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "raw": true,
+        "className": "",
+        "topic": "Usuario criado com sucesso",
+        "name": "",
+        "x": 770,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "be2fd71149ef7a0c",
+        "type": "template",
+        "z": "fad77afd5310f66e",
+        "name": "Mostar Home",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "json",
+        "syntax": "mustache",
+        "template": "{\"tabs\":\n    {\n    \"show\":[\"Home\"],\n    \"hide\": [\"Login\",\"Criar login\"]\n    }\n}",
+        "output": "json",
+        "x": 760,
+        "y": 100,
+        "wires": [
+            [
+                "2bde15c2729289c0"
+            ]
+        ]
+    },
+    {
+        "id": "9857912a2d1b156f",
+        "type": "template",
+        "z": "fad77afd5310f66e",
+        "name": "Mostar Home",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "json",
+        "syntax": "mustache",
+        "template": "{\"tabs\":\n    {\n    \"show\":[\"Home\"],\n    \"hide\": [\"Login\",\"Criar login\"]\n    }\n}",
+        "output": "json",
+        "x": 800,
+        "y": 380,
+        "wires": [
+            [
+                "63530727f7cb6185"
+            ]
+        ]
+    },
+    {
+        "id": "0103271103558949",
+        "type": "inject",
+        "z": "fad77afd5310f66e",
+        "name": "Enviar dados login",
+        "props": [
+            {
+                "p": "payload.email",
+                "v": "rickcveras@hotmail.com",
+                "vt": "str"
+            },
+            {
+                "p": "password",
+                "v": "123456",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 150,
+        "y": 320,
+        "wires": [
+            [
+                "fb57bac2907a5a11"
+            ]
+        ]
+    },
+    {
+        "id": "afb7db9337eb4b13",
+        "type": "change",
+        "z": "fad77afd5310f66e",
+        "name": "Carregar pag Home",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Home",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 560,
+        "y": 320,
+        "wires": [
+            [
+                "9857912a2d1b156f",
+                "63530727f7cb6185"
+            ]
+        ]
+    },
+    {
+        "id": "63530727f7cb6185",
+        "type": "ui_ui_control",
+        "z": "fad77afd5310f66e",
+        "name": "",
+        "events": "all",
+        "x": 980,
+        "y": 320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "dfc4f0b82fc36765",
+        "type": "ui_toast",
+        "z": "fad77afd5310f66e",
+        "position": "top right",
+        "displayTime": "3",
+        "highlight": "",
+        "sendall": false,
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "raw": false,
+        "className": "",
+        "topic": "",
+        "name": "",
+        "x": 570,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "fb57bac2907a5a11",
+        "type": "change",
+        "z": "fad77afd5310f66e",
+        "name": "Acesso concluido",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Acesso Liberado",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 330,
+        "y": 400,
+        "wires": [
+            [
+                "dfc4f0b82fc36765",
+                "afb7db9337eb4b13"
+            ]
+        ]
+    },
+    {
         "id": "04aa548983effda0",
         "type": "ui_template",
         "z": "c4bb2b1dcfa16364",
         "group": "a6d03c119ba764d7",
         "name": "",
-        "order": 2,
+        "order": 1,
         "width": 0,
         "height": 0,
-        "format": "<style>\n    a {\n        cursor: pointer;\n    }\n</style>",
+        "format": "<style>\n    a,button {\n        cursor: pointer;\n    }\n    .w{\n    width: 100%;\n    }\n</style>",
         "storeOutMessages": true,
         "fwdInMessages": true,
         "resendOnRefresh": true,
-        "templateScope": "local",
+        "templateScope": "global",
         "className": "",
         "x": 100,
         "y": 40,
