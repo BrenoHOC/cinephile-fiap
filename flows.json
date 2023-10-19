@@ -1006,8 +1006,8 @@
         "syntax": "mustache",
         "template": "{\"tabs\":\n    {\n    \"show\":[\"Home\"],\n    \"hide\": [\"Login\",\"Criar login\"]\n    }\n}",
         "output": "json",
-        "x": 1580,
-        "y": 580,
+        "x": 1640,
+        "y": 620,
         "wires": [
             [
                 "824b4a6a90f9b9a4"
@@ -1033,8 +1033,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1380,
-        "y": 660,
+        "x": 1440,
+        "y": 700,
         "wires": [
             [
                 "824b4a6a90f9b9a4",
@@ -1057,8 +1057,8 @@
         "className": "",
         "topic": "",
         "name": "",
-        "x": 1350,
-        "y": 740,
+        "x": 1410,
+        "y": 780,
         "wires": []
     },
     {
@@ -1080,8 +1080,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1130,
-        "y": 680,
+        "x": 1190,
+        "y": 720,
         "wires": [
             [
                 "8e64dfef4d4ea84b",
@@ -1095,8 +1095,8 @@
         "z": "8c761bcddb6e0b85",
         "name": "",
         "events": "all",
-        "x": 1760,
-        "y": 660,
+        "x": 1820,
+        "y": 700,
         "wires": [
             []
         ]
