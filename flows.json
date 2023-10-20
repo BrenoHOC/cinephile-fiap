@@ -311,9 +311,7 @@
         "x": 110,
         "y": 80,
         "wires": [
-            [
-                "833003b0e1152e7d"
-            ]
+            []
         ]
     },
     {
@@ -1755,8 +1753,8 @@
         "resendOnRefresh": true,
         "templateScope": "global",
         "className": "",
-        "x": 100,
-        "y": 40,
+        "x": 120,
+        "y": 60,
         "wires": [
             []
         ]
