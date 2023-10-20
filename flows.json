@@ -496,7 +496,7 @@
         "z": "8c761bcddb6e0b85",
         "name": "Fluxo para cadastrar usuário",
         "info": "",
-        "x": 280,
+        "x": 220,
         "y": 160,
         "wires": []
     },
