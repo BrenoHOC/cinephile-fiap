@@ -24,6 +24,14 @@
         "env": []
     },
     {
+        "id": "d043d111912b1913",
+        "type": "tab",
+        "label": "Fluxo 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "ddef06d8d0048305",
         "type": "global-config",
         "name": "global-config",
@@ -960,8 +968,8 @@
         "z": "8c761bcddb6e0b85",
         "name": "",
         "events": "all",
-        "x": 860,
-        "y": 80,
+        "x": 840,
+        "y": 40,
         "wires": [
             []
         ]
@@ -1012,16 +1020,6 @@
                 "3b61f912a0d768c3"
             ]
         ]
-    },
-    {
-        "id": "a2273a4509bef20c",
-        "type": "comment",
-        "z": "8c761bcddb6e0b85",
-        "name": "",
-        "info": "",
-        "x": 650,
-        "y": 320,
-        "wires": []
     },
     {
         "id": "5957c1b77a7435d8",
