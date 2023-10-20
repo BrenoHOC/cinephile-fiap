@@ -494,7 +494,7 @@
         "id": "550a2a50d314e659",
         "type": "comment",
         "z": "8c761bcddb6e0b85",
-        "name": "Fluxo para cadastrar usuário",
+        "name": "Fluxo para cadastrar usuário.",
         "info": "",
         "x": 280,
         "y": 160,
@@ -1502,8 +1502,8 @@
         "z": "6b29906ef4dc7d50",
         "name": "Somente Mostrar a tela de Login",
         "info": "",
-        "x": 230,
-        "y": 100,
+        "x": 210,
+        "y": 120,
         "wires": []
     },
     {
@@ -1531,7 +1531,7 @@
         "z": "fad77afd5310f66e",
         "name": "",
         "events": "all",
-        "x": 940,
+        "x": 1060,
         "y": 160,
         "wires": [
             []
@@ -1556,7 +1556,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 550,
+        "x": 430,
         "y": 160,
         "wires": [
             [
@@ -1608,11 +1608,12 @@
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "x": 280,
+        "x": 160,
         "y": 160,
         "wires": [
             [
-                "cf7ba68758539afc"
+                "cf7ba68758539afc",
+                "5456c9d2bc53b0e2"
             ]
         ]
     },
@@ -1631,7 +1632,7 @@
         "className": "",
         "topic": "Usuario criado com sucesso",
         "name": "",
-        "x": 770,
+        "x": 860,
         "y": 220,
         "wires": []
     },
@@ -1646,8 +1647,8 @@
         "syntax": "mustache",
         "template": "{\"tabs\":\n    {\n    \"show\":[\"Home\"],\n    \"hide\": [\"Login\",\"Criar login\"]\n    }\n}",
         "output": "json",
-        "x": 760,
-        "y": 100,
+        "x": 860,
+        "y": 80,
         "wires": [
             [
                 "2bde15c2729289c0"
@@ -1666,7 +1667,7 @@
         "template": "{\"tabs\":\n    {\n    \"show\":[\"Home\"],\n    \"hide\": [\"Login\",\"Criar login\"]\n    }\n}",
         "output": "json",
         "x": 800,
-        "y": 380,
+        "y": 480,
         "wires": [
             [
                 "63530727f7cb6185"
@@ -1696,7 +1697,7 @@
         "onceDelay": 0.1,
         "topic": "",
         "x": 150,
-        "y": 320,
+        "y": 420,
         "wires": [
             [
                 "fb57bac2907a5a11"
@@ -1723,7 +1724,7 @@
         "to": "",
         "reg": false,
         "x": 560,
-        "y": 320,
+        "y": 420,
         "wires": [
             [
                 "9857912a2d1b156f",
@@ -1738,7 +1739,7 @@
         "name": "",
         "events": "all",
         "x": 980,
-        "y": 320,
+        "y": 420,
         "wires": [
             []
         ]
@@ -1759,7 +1760,7 @@
         "topic": "",
         "name": "",
         "x": 570,
-        "y": 460,
+        "y": 560,
         "wires": []
     },
     {
@@ -1782,11 +1783,49 @@
         "to": "",
         "reg": false,
         "x": 330,
-        "y": 400,
+        "y": 500,
         "wires": [
             [
                 "dfc4f0b82fc36765",
                 "afb7db9337eb4b13"
+            ]
+        ]
+    },
+    {
+        "id": "bb09c06b5969ec54",
+        "type": "e-mail",
+        "z": "fad77afd5310f66e",
+        "server": "smtp-mail.outlook.com",
+        "port": "587",
+        "authtype": "BASIC",
+        "saslformat": true,
+        "token": "oauth2Response.access_token",
+        "secure": false,
+        "tls": true,
+        "name": "",
+        "dname": "envio de email",
+        "x": 640,
+        "y": 260,
+        "wires": [],
+        "info": "As configurações precisam estar nas variáveis de amviente"
+    },
+    {
+        "id": "5456c9d2bc53b0e2",
+        "type": "function",
+        "z": "fad77afd5310f66e",
+        "name": "Conteudo E-mail",
+        "func": "\nmsg.to = msg.payload.email\nmsg.from =\"GrupoPFiap@outlook.com\"\nmsg.topic =\"Usuario criado com Sucesso\"\nmsg.payload=`Caro ${msg.payload.nome},\\n Seu usuario foi criado com sucesso no projeto do Grupo P \\n Obrigado por Participar`\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "// Login: GrupoPFiap@outlook.com\n// Senha: GrupoP1234\n",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 260,
+        "wires": [
+            [
+                "bb09c06b5969ec54"
             ]
         ]
     },
