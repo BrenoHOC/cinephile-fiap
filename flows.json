@@ -16,33 +16,9 @@
         "env": []
     },
     {
-        "id": "6b29906ef4dc7d50",
-        "type": "tab",
-        "label": "Controle de acesso",
-        "disabled": false,
-        "info": "",
-        "env": []
-    },
-    {
-        "id": "fad77afd5310f66e",
-        "type": "tab",
-        "label": "Testes",
-        "disabled": false,
-        "info": "",
-        "env": []
-    },
-    {
         "id": "c4bb2b1dcfa16364",
         "type": "tab",
         "label": "css",
-        "disabled": false,
-        "info": "",
-        "env": []
-    },
-    {
-        "id": "d043d111912b1913",
-        "type": "tab",
-        "label": "Fluxo 1",
         "disabled": false,
         "info": "",
         "env": []
@@ -279,7 +255,7 @@
         "label": "Criar login",
         "group": "b77ad3d3025c33ce",
         "order": 1,
-        "width": 10,
+        "width": "6",
         "height": 3,
         "options": [
             {
@@ -311,7 +287,9 @@
         "x": 110,
         "y": 80,
         "wires": [
-            []
+            [
+                "539e6237d2a1eacd"
+            ]
         ]
     },
     {
@@ -790,8 +768,8 @@
         "tls": true,
         "name": "",
         "dname": "envio de email",
-        "x": 1360,
-        "y": 160,
+        "x": 800,
+        "y": 280,
         "wires": [],
         "info": "As configurações precisam estar nas variáveis de amviente"
     },
@@ -800,15 +778,15 @@
         "type": "function",
         "z": "8c761bcddb6e0b85",
         "name": "Conteudo E-mail",
-        "func": "\nmsg.to = msg.payload.email\nmsg.from =\"GrupoPFiap@outlook.com\"\nmsg.topic =\"Usuario criado com Sucesso\"\nmsg.payload=`Caro ${msg.payload.nome},\\n Seu usuario foi criado com sucesso no projeto do Grupo P \\n Obrigado por Participar`\nreturn msg;",
+        "func": "\nmsg.to = msg.payload.user\nmsg.from =\"GrupoPFiap@outlook.com\"\nmsg.topic =\"Usuario criado com Sucesso\"\nmsg.payload=`Olá,\\n Seu usuario foi criado com sucesso no projeto do Grupo P \\n Obrigado por Participar`\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "// Login: GrupoPFiap@outlook.com\n// Senha: GrupoP1234\n",
         "finalize": "",
         "libs": [],
-        "x": 1130,
-        "y": 160,
+        "x": 470,
+        "y": 280,
         "wires": [
             [
                 "67c72f5a3755b7ed"
