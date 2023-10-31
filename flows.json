@@ -1224,8 +1224,8 @@
         "payloadType": "flow",
         "topic": "topic",
         "topicType": "msg",
-        "x": 170,
-        "y": 480,
+        "x": 150,
+        "y": 520,
         "wires": [
             [
                 "4fe249d2ec9aba2b"
@@ -1246,205 +1246,10 @@
         "id": "5a5e8e7e5d247047",
         "type": "comment",
         "z": "aa0e170c91379e2f",
-        "name": "Salvar filmes",
+        "name": "Verifica se filme já está salvo",
         "info": "",
-        "x": 510,
-        "y": 380,
-        "wires": []
-    },
-    {
-        "id": "bd5966ce1e41bbae",
-        "type": "JsonWebToken",
-        "z": "aa0e170c91379e2f",
-        "name": "teste",
-        "tokenconfig": "cf21394ef4fb9045",
-        "x": 470,
-        "y": 1080,
-        "wires": [
-            [
-                "f7f6549ab43d3535",
-                "3f24ae1bc7493486"
-            ]
-        ]
-    },
-    {
-        "id": "3b89ea7a6a5fafd0",
-        "type": "inject",
-        "z": "aa0e170c91379e2f",
-        "name": "",
-        "props": [
-            {
-                "p": "payload.auth",
-                "v": "true",
-                "vt": "str"
-            },
-            {
-                "p": "payload.email",
-                "v": "breno.hoc3@gmail.com",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "x": 210,
-        "y": 1080,
-        "wires": [
-            [
-                "bd5966ce1e41bbae"
-            ]
-        ]
-    },
-    {
-        "id": "f7f6549ab43d3535",
-        "type": "debug",
-        "z": "aa0e170c91379e2f",
-        "name": "debug 11",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "token",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 700,
-        "y": 1080,
-        "wires": []
-    },
-    {
-        "id": "beac8ff93a4ade7e",
-        "type": "debug",
-        "z": "aa0e170c91379e2f",
-        "name": "debug 12",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "token",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 680,
-        "y": 1180,
-        "wires": []
-    },
-    {
-        "id": "46016de3ca52733b",
-        "type": "JsonWebToken",
-        "z": "aa0e170c91379e2f",
-        "name": "teste",
-        "tokenconfig": "cf21394ef4fb9045",
-        "x": 450,
-        "y": 1180,
-        "wires": [
-            [
-                "beac8ff93a4ade7e"
-            ]
-        ]
-    },
-    {
-        "id": "944e5121f1e548ca",
-        "type": "inject",
-        "z": "aa0e170c91379e2f",
-        "name": "",
-        "props": [
-            {
-                "p": "token",
-                "v": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoIjp0cnVlLCJlbWFpbCI6IiQyYiQxMCRHQk92M0VpQjNmZmZiTklTeTFvaHhld0IvdGguc0J2VDJqeGI0aGRLZjVWYU9XTlRqbmQxbSIsImlhdCI6MTY5Njg5OTI3Nn0.5ScQne3ouhJI9UGtyK1P-N9Cbl6kuiLOtdKGeM7nEmM",
-                "vt": "str"
-            },
-            {
-                "p": "payload.exp",
-                "v": "",
-                "vt": "date"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "x": 190,
-        "y": 1180,
-        "wires": [
-            [
-                "46016de3ca52733b"
-            ]
-        ]
-    },
-    {
-        "id": "3f24ae1bc7493486",
-        "type": "change",
-        "z": "aa0e170c91379e2f",
-        "name": "",
-        "rules": [
-            {
-                "t": "set",
-                "p": "token",
-                "pt": "global",
-                "to": "token",
-                "tot": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 670,
-        "y": 1000,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "c84d8b9892e7d26a",
-        "type": "http in",
-        "z": "aa0e170c91379e2f",
-        "name": "teste",
-        "url": "/companies/persons/dewqedwq33-sadsdsgfdhbf-dsadwedfsad-dsadsadas/rooms/new",
-        "method": "get",
-        "upload": false,
-        "swaggerDoc": "",
-        "x": 170,
-        "y": 1380,
-        "wires": [
-            [
-                "592792d996c1f40e"
-            ]
-        ]
-    },
-    {
-        "id": "592792d996c1f40e",
-        "type": "template",
-        "z": "aa0e170c91379e2f",
-        "name": "",
-        "field": "payload",
-        "fieldType": "msg",
-        "format": "json",
-        "syntax": "mustache",
-        "template": "",
-        "output": "json",
-        "x": 380,
-        "y": 1380,
-        "wires": [
-            [
-                "0d4ca7110a56a69e"
-            ]
-        ]
-    },
-    {
-        "id": "0d4ca7110a56a69e",
-        "type": "http response",
-        "z": "aa0e170c91379e2f",
-        "name": "",
-        "statusCode": "200",
-        "headers": {},
-        "x": 640,
-        "y": 1380,
+        "x": 580,
+        "y": 420,
         "wires": []
     },
     {
@@ -1502,7 +1307,7 @@
         "method": "POST",
         "ret": "txt",
         "paytoqs": "ignore",
-        "url": "https://sheet.best/api/sheets/d26d408e-e6c9-4680-9088-f3208045b59f",
+        "url": "${API_DB_MOVIE}",
         "tls": "",
         "persist": false,
         "proxy": "",
@@ -1510,8 +1315,8 @@
         "authType": "",
         "senderr": false,
         "headers": [],
-        "x": 560,
-        "y": 740,
+        "x": 680,
+        "y": 940,
         "wires": [
             [
                 "e2daa6eef4116ac9"
@@ -1523,15 +1328,15 @@
         "type": "function",
         "z": "aa0e170c91379e2f",
         "name": "Payload inserir filme",
-        "func": "\nconst now = new Date();\n\nconst year = now.getFullYear();\nconst month = String(now.getMonth() + 1).padStart(2, '0');\nconst day = String(now.getDate()).padStart(2, '0');\nconst hour = String(now.getHours()).padStart(2, '0');\nconst minute = String(now.getMinutes()).padStart(2, '0');\nconst second = String(now.getSeconds()).padStart(2, '0');\n\nconst formattedDateTime = `${year}-${month}-${day} ${hour}:${minute}:${second}`;\n\nmsg.payload = {\n    api_id: msg.payload.id,\n    nome: msg.payload.title,\n    data_criacao: formattedDateTime,\n    data_atualizacao: formattedDateTime\n}\n\nreturn msg;\n",
+        "func": "let msgPayload = flow.get('payload');\n\nconst now = new Date();\n\nconst year = now.getFullYear();\nconst month = String(now.getMonth() + 1).padStart(2, '0');\nconst day = String(now.getDate()).padStart(2, '0');\nconst hour = String(now.getHours()).padStart(2, '0');\nconst minute = String(now.getMinutes()).padStart(2, '0');\nconst second = String(now.getSeconds()).padStart(2, '0');\n\nconst formattedDateTime = `${year}-${month}-${day} ${hour}:${minute}:${second}`;\n\nmsg.payload = {\n    api_id: msgPayload.id,\n    nome: msgPayload.title,\n    data_criacao: formattedDateTime,\n    data_atualizacao: formattedDateTime\n}\n\nreturn msg;\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 380,
-        "y": 840,
+        "x": 420,
+        "y": 940,
         "wires": [
             [
                 "e79d60429faa265f"
@@ -1558,15 +1363,13 @@
         "checkall": "false",
         "repair": false,
         "outputs": 2,
-        "x": 790,
-        "y": 740,
+        "x": 910,
+        "y": 940,
         "wires": [
             [
                 "5712d843bc58084d"
             ],
-            [
-                "a4e58d82f59c2a80"
-            ]
+            []
         ]
     },
     {
@@ -1577,7 +1380,7 @@
         "method": "POST",
         "ret": "txt",
         "paytoqs": "ignore",
-        "url": "https://sheet.best/api/sheets/d26d408e-e6c9-4680-9088-f3208045b59f/tabs/usuarios_filmes",
+        "url": "https://sheet.best/api/sheets/c66e622b-ba4f-415b-8d47-ee62f8257070/tabs/usuarios_filmes",
         "tls": "",
         "persist": false,
         "proxy": "",
@@ -1585,42 +1388,25 @@
         "authType": "",
         "senderr": false,
         "headers": [],
-        "x": 1720,
+        "x": 1640,
         "y": 820,
         "wires": [
             []
         ]
     },
     {
-        "id": "a4e58d82f59c2a80",
-        "type": "debug",
-        "z": "aa0e170c91379e2f",
-        "name": "debug 13",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1060,
-        "y": 880,
-        "wires": []
-    },
-    {
         "id": "4e9ab0227ea4e448",
         "type": "function",
         "z": "aa0e170c91379e2f",
         "name": "Payload vincular usuario a filme",
-        "func": "\nconst uuid = global.get('uuid');\n\nconst filmeData = flow.get('payload');\n\nconst now = new Date();\n\nconst year = now.getFullYear();\nconst month = String(now.getMonth() + 1).padStart(2, '0');\nconst day = String(now.getDate()).padStart(2, '0');\nconst hour = String(now.getHours()).padStart(2, '0');\nconst minute = String(now.getMinutes()).padStart(2, '0');\nconst second = String(now.getSeconds()).padStart(2, '0');\n\nconst formattedDateTime = `${year}-${month}-${day} ${hour}:${minute}:${second}`;\n\nmsg.payload = {\n    id: uuid.v4(),\n    usuario_id: msg.token?.id,\n    api_id: filmeData.id,\n    data_criacao: formattedDateTime,\n    data_atualizacao: formattedDateTime\n}\n\nreturn msg;",
+        "func": "\nconsole.log('aqui no nó de vincular usuario e fulme 1');\nconsole.log(msg);\n\nconst uuid = global.get('uuid');\n\nconst filmeData = flow.get('payload');\n\nconst now = new Date();\n\nconst year = now.getFullYear();\nconst month = String(now.getMonth() + 1).padStart(2, '0');\nconst day = String(now.getDate()).padStart(2, '0');\nconst hour = String(now.getHours()).padStart(2, '0');\nconst minute = String(now.getMinutes()).padStart(2, '0');\nconst second = String(now.getSeconds()).padStart(2, '0');\n\nconst formattedDateTime = `${year}-${month}-${day} ${hour}:${minute}:${second}`;\n\nmsg.payload = {\n    id: uuid.v4(),\n    usuario_id: msg.token?.id,\n    api_id: filmeData.id,\n    data_criacao: formattedDateTime,\n    data_atualizacao: formattedDateTime\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1470,
+        "x": 1430,
         "y": 740,
         "wires": [
             [
@@ -1632,9 +1418,9 @@
         "id": "39ca274aec7246c5",
         "type": "JsonWebToken",
         "z": "aa0e170c91379e2f",
-        "name": "teste",
+        "name": "decode token",
         "tokenconfig": "cf21394ef4fb9045",
-        "x": 1210,
+        "x": 1220,
         "y": 820,
         "wires": [
             [
@@ -1654,6 +1440,11 @@
                 "pt": "msg",
                 "to": "token",
                 "tot": "global"
+            },
+            {
+                "t": "delete",
+                "p": "payload",
+                "pt": "msg"
             }
         ],
         "action": "",
@@ -1661,8 +1452,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1010,
-        "y": 720,
+        "x": 1040,
+        "y": 740,
         "wires": [
             [
                 "39ca274aec7246c5"
@@ -1677,7 +1468,7 @@
         "method": "GET",
         "ret": "txt",
         "paytoqs": "ignore",
-        "url": "https://sheet.best/api/sheets/d26d408e-e6c9-4680-9088-f3208045b59f",
+        "url": "{{{payload.url}}}",
         "tls": "",
         "persist": false,
         "proxy": "",
@@ -1685,10 +1476,12 @@
         "authType": "",
         "senderr": false,
         "headers": [],
-        "x": 740,
-        "y": 480,
+        "x": 880,
+        "y": 520,
         "wires": [
-            []
+            [
+                "7e56a9fd7f8f462d"
+            ]
         ]
     },
     {
@@ -1701,8 +1494,8 @@
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "",
-                "tot": "str"
+                "to": "payload",
+                "tot": "flow"
             }
         ],
         "action": "",
@@ -1711,10 +1504,92 @@
         "to": "",
         "reg": false,
         "x": 450,
-        "y": 480,
+        "y": 520,
         "wires": [
-            []
+            [
+                "e247c872801cf633"
+            ]
         ]
+    },
+    {
+        "id": "e247c872801cf633",
+        "type": "function",
+        "z": "aa0e170c91379e2f",
+        "name": "URL com o filme no database",
+        "func": "const url = `https://sheet.best/api/sheets/c66e622b-ba4f-415b-8d47-ee62f8257070/api_id/${msg.payload.id}`;\n\nmsg.payload.url = url;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 650,
+        "y": 600,
+        "wires": [
+            [
+                "b9ebd0efa64515db"
+            ]
+        ],
+        "info": "montar URL que verifica o filme no banco de dados"
+    },
+    {
+        "id": "7e56a9fd7f8f462d",
+        "type": "function",
+        "z": "aa0e170c91379e2f",
+        "name": "function 2",
+        "func": "msg.payload = JSON.parse(msg.payload);\n\nmsg.filme_existe = false;\n\nif(msg.payload.length > 0) {\n    msg.payload = msg.payload[0];\n    msg.filme_existe = true;\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 980,
+        "y": 640,
+        "wires": [
+            [
+                "44b2873882ca00db"
+            ]
+        ]
+    },
+    {
+        "id": "44b2873882ca00db",
+        "type": "switch",
+        "z": "aa0e170c91379e2f",
+        "name": "",
+        "property": "filme_existe",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "x": 270,
+        "y": 760,
+        "wires": [
+            [
+                "5712d843bc58084d"
+            ],
+            [
+                "e410aaea38bbd813"
+            ]
+        ]
+    },
+    {
+        "id": "280d78b1a787b1d8",
+        "type": "comment",
+        "z": "aa0e170c91379e2f",
+        "name": "Salvar filmes",
+        "info": "",
+        "x": 690,
+        "y": 720,
+        "wires": []
     },
     {
         "id": "04aa548983effda0",
