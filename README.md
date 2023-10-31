@@ -42,26 +42,26 @@ npm install bcrypt moment uuid
 ```javascript
 functionsGlobalContext: {
     uuid: require('uuid'),
-   bcrypt: require('bcrypt')
+    bcrypt: require('bcrypt')
 }
 ```
 
 7. Salve o arquivo `settings.js` após fazer as alterações.
 
-## Importação do Fluxo
-
-8. No menu Node-RED, clique em "Import" (ou use a combinação de teclas Ctrl+I) para importar o arquivo `flows.json`.
-
-9. Copie o conteúdo do arquivo flows.json deste repositório.
-
 ## Configuração das variáveis de ambiente
 
-10. Criar arquivo .env e inserir as variáveis de ambiente necessárias.
+8. Criar arquivo .env e inserir as variáveis de ambiente necessárias.
 
-11. Utilizar o comando abaixo para exportar as variáveis de ambiente:
+9. Utilizar o comando abaixo para exportar as variáveis de ambiente:
 
 ```bash
 export $(grep -v '^#' .env | xargs -L 1  -d '\r' -d '\r\n')
 ```
+
+## Importação do Fluxo
+
+10. No menu Node-RED, clique em "Import" (ou use a combinação de teclas Ctrl+I) para importar o arquivo `flows.json`.
+
+11. Copie o conteúdo do arquivo flows.json deste repositório.
 
 Agora, seu ambiente Node-RED no Windows está configurado e pronto para uso. Você pode começar a criar e gerenciar fluxos no Node-RED.
