@@ -62,6 +62,6 @@ export $(grep -v '^#' .env | xargs -L 1  -d '\r' -d '\r\n')
 
 10. No menu Node-RED, clique em "Import" (ou use a combinação de teclas Ctrl+I) para importar o arquivo `flows.json`.
 
-11. Copie o conteúdo do arquivo flows.json deste repositório.
+11. Copie o conteúdo do arquivo flows.json deste repositório (https://github.com/BrenoHOC/cinephile-fiap).
 
 Agora, seu ambiente Node-RED no Windows está configurado e pronto para uso. Você pode começar a criar e gerenciar fluxos no Node-RED.
